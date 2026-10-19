@@ -6,14 +6,20 @@ validation or device-FPS claim.
 ## Passing
 
 - Rive CLI 1.6.0 verification and compilation, no warnings/errors.
-- 24 standard-library regression tests (including per-vehicle asset selection,
+- 26 standard-library regression tests (including original mirrored vector
+  turn signals and off/dim/bright states, per-vehicle asset selection,
   unchanged shared layout/bindings, rejection of unknown vehicles, the standalone checksum
   manifest, named design-export path, Linux CI library setup and four installer
   safety checks).
-- Both Model Y Juniper and Model 3 Highland exports verify and build under
-  the 5 MB limit. Highland Park, dark Drive and light Drive previews were
+- Model Y Juniper Stealth Grey, White Multi-Coat, Diamond Black, Marine Blue,
+  Quicksilver and Ultra Red, plus Model 3 Highland Stealth Grey exports verify and build under the 5 MB
+  limit. Highland and all added Juniper paint variants' Park, dark Drive and
+  light Drive previews were
   rendered and visually checked; the runtime checks listed below predate
-  this asset-only variant and were not all rerun for Highland.
+  these asset-only variants and were not all rerun for them.
+- All seven exports rebuilt with original vector turn signals. Refreshed all
+  README captures; visually checked the bright left arrow and dim-left/bright-right
+  combination in the real renderer. Retired bitmap indicators are no longer embedded.
 - Runtime Park/Drive switching, R/N ego image, rapid return, hidden Park road
   and speed/power instruments. The comparison now excludes direction arrows,
   which intentionally differ between stopped D, R and N.

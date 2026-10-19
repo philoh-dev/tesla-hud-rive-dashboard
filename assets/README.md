@@ -11,25 +11,25 @@ PNG assets, two fonts and font license.
   the rear-elevated angle.
 - Vehicle images in `vehicle/model-3-highland-stealth-grey/`: generated Highland
   sedan artwork from user-supplied references, with the same two camera roles.
+- Vehicle images in `vehicle/model-y-juniper-white-multi-coat/`: generated white
+  paint variants of the Juniper sprites, guided by user-supplied paint references.
+- Vehicle images in `vehicle/model-y-juniper-diamond-black/`: generated Diamond
+  Black paint variants of the Juniper sprites, guided by user-supplied references.
+- Vehicle images in `vehicle/model-y-juniper-marine-blue/`: generated Marine Blue
+  paint variants of the Juniper sprites, guided by the user's paint reference.
+- Vehicle images in `vehicle/model-y-juniper-quicksilver/` and
+  `vehicle/model-y-juniper-ultra-red/`: generated Quicksilver and Ultra Red paint
+  variants, guided by the user's paint references.
 - Blind-spot vehicles: shared directly under `assets/` for every ego vehicle
   design. Adjacent grey/red cars are exact mirrored pairs.
 - Autopilot badge: project-local geometric artwork, not an enlarged manual
   bitmap. The blue badge is `#0071ff` with a white steering-wheel symbol.
 - Fonts: Montserrat Light/Bold; see the bundled `fonts/OFL.txt`.
 
-## Third-party turn signals
+## Original vector turn signals
 
-The turn-signal art was derived from Tesla's public owner's manuals. Copyright
-and trademarks remain with Tesla, Inc.; these indicators are not covered by
-the project's code license. The right arrow is a horizontal mirror of the left.
-Prepared arrows were recolored bright green (`#35d774`) while retaining alpha.
-
-Original left-arrow asset: `GUID-4B939373-7C8C-43B5-8577-087BC99AB167-online-en-US.png`.
-Original public source pages:
-
-- https://www.tesla.com/ownersmanual/modelx/en_pr/GUID-29A7E205-A689-41D1-B69C-3AE821CB70E7.html
-- https://www.tesla.com/ownersmanual/models/en_us/GUID-1C209641-AA23-47AC-B0D1-3FE3779CF222.html
-
-Bundling these files does not establish permission for redistribution in an
-MIT-licensed contest entry. Obtain permission or replace them with original
-artwork before submission. See `CREDITS.md` for further provenance.
+`generate.py` draws a conventional seven-vertex filled arrow from independently
+authored coordinates, with lightly rounded corners. The right arrow mirrors
+the left. Both retain green `#35d774` and the existing off/dim/bright bindings.
+These paths are embedded as vectors in each `.riv`; no turn-signal PNGs or
+Tesla-downloaded indicator artwork are bundled. See `CREDITS.md`.

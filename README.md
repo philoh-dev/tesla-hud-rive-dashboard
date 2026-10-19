@@ -46,6 +46,11 @@ them, run `python3 render_previews.py` with the Rive CLI and a graphics context.
 ## Supported vehicles
 
 - **Model Y Juniper Stealth Grey** — [download dashboard](dashboard/model-y-juniper-stealth-grey.riv).
+- **Model Y Juniper White Multi-Coat** — [download dashboard](dashboard/model-y-juniper-white-multi-coat.riv).
+- **Model Y Juniper Diamond Black** — [download dashboard](dashboard/model-y-juniper-diamond-black.riv).
+- **Model Y Juniper Marine Blue** — [download dashboard](dashboard/model-y-juniper-marine-blue.riv).
+- **Model Y Juniper Quicksilver** — [download dashboard](dashboard/model-y-juniper-quicksilver.riv).
+- **Model Y Juniper Ultra Red** — [download dashboard](dashboard/model-y-juniper-ultra-red.riv).
 - **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
 
 ### Model 3 Highland Stealth Grey
@@ -56,6 +61,51 @@ and front three-quarter Park artwork. Blind-spot cars remain shared.
 ![Model 3 Highland driving dashboard](docs/images/model-3-highland-stealth-grey/drive-dark.png)
 
 ![Model 3 Highland parked dashboard](docs/images/model-3-highland-stealth-grey/park-dark.png)
+
+### Model Y Juniper White Multi-Coat
+
+White Multi-Coat Park and Drive artwork, with the same layout and shared
+blind-spot vehicles as the other designs.
+
+![White Multi-Coat Juniper driving dashboard](docs/images/model-y-juniper-white-multi-coat/drive-dark.png)
+
+![White Multi-Coat Juniper parked dashboard](docs/images/model-y-juniper-white-multi-coat/park-dark.png)
+
+### Model Y Juniper Diamond Black
+
+Diamond Black Park and Drive artwork with the same shared dashboard layout,
+telemetry bindings and blind-spot vehicles.
+
+![Diamond Black Juniper driving dashboard](docs/images/model-y-juniper-diamond-black/drive-dark.png)
+
+![Diamond Black Juniper parked dashboard](docs/images/model-y-juniper-diamond-black/park-dark.png)
+
+### Model Y Juniper Marine Blue
+
+Marine Blue Park and Drive artwork with the same shared dashboard layout,
+telemetry bindings and blind-spot vehicles.
+
+![Marine Blue Juniper driving dashboard](docs/images/model-y-juniper-marine-blue/drive-dark.png)
+
+![Marine Blue Juniper parked dashboard](docs/images/model-y-juniper-marine-blue/park-dark.png)
+
+### Model Y Juniper Quicksilver
+
+Quicksilver Park and Drive artwork with the same shared dashboard layout,
+telemetry bindings and blind-spot vehicles.
+
+![Quicksilver Juniper driving dashboard](docs/images/model-y-juniper-quicksilver/drive-dark.png)
+
+![Quicksilver Juniper parked dashboard](docs/images/model-y-juniper-quicksilver/park-dark.png)
+
+### Model Y Juniper Ultra Red
+
+Ultra Red Park and Drive artwork with the same shared dashboard layout,
+telemetry bindings and blind-spot vehicles.
+
+![Ultra Red Juniper driving dashboard](docs/images/model-y-juniper-ultra-red/drive-dark.png)
+
+![Ultra Red Juniper parked dashboard](docs/images/model-y-juniper-ultra-red/park-dark.png)
 
 This list describes the vehicle artwork currently included in this repository,
 not a complete DashKit hardware-compatibility list.
@@ -68,7 +118,12 @@ their vehicle design:
 ```text
 dashboard/
 ├── model-y-juniper-stealth-grey.riv
-└── model-3-highland-stealth-grey.riv
+├── model-3-highland-stealth-grey.riv
+├── model-y-juniper-white-multi-coat.riv
+├── model-y-juniper-diamond-black.riv
+├── model-y-juniper-marine-blue.riv
+├── model-y-juniper-quicksilver.riv
+└── model-y-juniper-ultra-red.riv
 ```
 
 Open the desired file on GitHub and use **Download raw file** to save it, then
@@ -120,6 +175,7 @@ The km/h-versus-mph road-playback comparison remains unresolved; see the
 [validation report](VALIDATION.md) before relying on runtime behavior.
 
 Vehicle and icon provenance is documented in [CREDITS.md](CREDITS.md).
-Montserrat fonts include their [SIL Open Font License](fonts/OFL.txt). Some
-turn-signal artwork is derived from Tesla materials and has separate rights;
-check the credits before redistributing or submitting a contest entry.
+Montserrat fonts include their [SIL Open Font License](fonts/OFL.txt).
+Turn-signal arrows are original vector geometry, not downloaded Tesla artwork.
+Check the credits for vehicle artwork provenance before redistributing or
+submitting a contest entry.

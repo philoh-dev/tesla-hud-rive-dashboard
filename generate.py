@@ -10,7 +10,10 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_VEHICLE = 'model-y-juniper-stealth-grey'
-VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey')
+VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
+            'model-y-juniper-white-multi-coat', 'model-y-juniper-diamond-black',
+            'model-y-juniper-marine-blue', 'model-y-juniper-quicksilver',
+            'model-y-juniper-ultra-red')
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {
@@ -21,8 +24,6 @@ ASSETS = {
     "right_red": "assets/blind-spot-right-wide.png",
     "right_grey": "assets/blind-spot-right-grey-wide.png",
     "autopilot": "assets/autopilot-road-scene-wide.png",
-    "turn_left": "assets/turn-left.png",
-    "turn_right": "assets/turn-right.png",
 }
 IMAGE_IDS = {name: f"5:{index+1}" for index, name in enumerate(ASSETS)}
 
@@ -56,6 +57,15 @@ IDS = {key: f"1:{index + 10}" for index, key in enumerate(PROPERTIES)}
 
 def equal(value, number):
     return f"max(0,1-sqrt(pow(({value})-{number},2)))"
+
+
+def turn_signal_points(side):
+    """Original geometric arrow, drawn without imported/traced bitmap artwork."""
+    if side not in ('left','right'):
+        raise ValueError(f'Unsupported turn-signal side: {side}')
+    direction=1 if side=='left' else -1
+    outline=((-16,0),(1,-15),(1,-5),(16,-5),(16,5),(1,5),(1,15))
+    return [(direction*x,y) for x,y in outline]
 
 
 def direction_arrow_points(direction):
@@ -324,7 +334,11 @@ class Scene:
                 vertex.set('radius','0.5')
             direction_cues.append((label,gear,direction,moving))
         for side,x in (("left",300),("right",500)):
-            arrow = self.image(scene,side+" turn signal","turn_"+side,x,42)
+            arrow = self.node(scene,side+" turn signal",x,42)
+            vertices=self.polygon(arrow,side+" arrow geometry",
+                                  turn_signal_points(side),'FF35D774')
+            for vertex in vertices:
+                vertex.set('radius','1.2')
             self.opacity(arrow,side+"Blinker",FORMULAS[side+" Arrow"],side+" Arrow")
         road = self.el(scene,"NestedArtboard",name="Speed driven road",id=self.ident(),artboardId="4:1")
         # A nested artboard does not play its timeline merely because it has a

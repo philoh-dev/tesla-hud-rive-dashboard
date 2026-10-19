@@ -1,6 +1,16 @@
 {
   "description": "SHA-256 of bundled shared artwork, vehicle assets and fonts",
   "sha256": {
+    "assets/vehicle/model-y-juniper-quicksilver/drive.png": "8a357321520891ae0e60c47f565a7a8c4b73dfd2e7b88497085d4082144abd56",
+    "assets/vehicle/model-y-juniper-quicksilver/park.png": "b5b13e4697a9afce622bca1fba55ccdd8d6008165ad9cfda59859996cea8ff93",
+    "assets/vehicle/model-y-juniper-ultra-red/drive.png": "e374f903b083b10f880c3713552001b8747cdb6290567dec23649e67fd18ad89",
+    "assets/vehicle/model-y-juniper-ultra-red/park.png": "951353187b16ec4d9e3e7e657a5b9039c162c0fc1d69c7f4810726b80934ce2c",
+    "assets/vehicle/model-y-juniper-marine-blue/drive.png": "7858f31205bcd023d0234ef5f0bf5861f47746c6b0b5ff81ea6d7b19c644adf6",
+    "assets/vehicle/model-y-juniper-marine-blue/park.png": "03090bcc52369cc1bcb828d7db555e1781908172737df148af63156d9a1dfbac",
+    "assets/vehicle/model-y-juniper-diamond-black/drive.png": "dcb2a06281c30ccfe35e752e63ff84d7f8ac0ab9ee9ec694e542a6dee751f810",
+    "assets/vehicle/model-y-juniper-diamond-black/park.png": "8c075e3ae81837e8b5a20a9b37445db86f230a62ab4c3fe8da7beebe1d974100",
+    "assets/vehicle/model-y-juniper-white-multi-coat/drive.png": "a239b4b4b11013be3c756539101f72120b7f5bdda5d007b5609a04b96a0ef6fa",
+    "assets/vehicle/model-y-juniper-white-multi-coat/park.png": "2494572691d52fd5fba9e0d0173dda9b01658d70f28da17e465ff98287aa474f",
     "assets/vehicle/model-3-highland-stealth-grey/drive.png": "3befb9e559868804eb601f9110d594721a2454f3d3ed03edd2257103bd5ff22c",
     "assets/vehicle/model-3-highland-stealth-grey/park.png": "117dc0bdc051a787b9e4918391e6fc6a4e718d2d65a79c2e8d06a4688329fa61",
     "assets/autopilot-road-scene-wide.png": "9207c5b75d47a252ec297a3c8a6d300ec3c428d247a1dcf71788dbf452273d0d",
@@ -10,8 +20,6 @@
     "assets/blind-spot-right-wide.png": "4b2810614e143fd517c35005efd7fe6814107fe7e623a667a84b7f87f94163d5",
     "assets/vehicle/model-y-juniper-stealth-grey/park.png": "f2b8ee06879f25f4dd5c89074302d6373b0fef66a80c6bd968b87bdf823346f5",
     "assets/vehicle/model-y-juniper-stealth-grey/drive.png": "7ff3590d995dac918716b167d2f063a27f30669cb9075104e0cd139aa7c6556a",
-    "assets/turn-left.png": "9d724b636b637cce9a5d1293311efcf9f949bf6933971887f6693e80209608fd",
-    "assets/turn-right.png": "ff34ed37e756ddc03078fb696b245abe576148b191f2d8d77f841aea232bddaa",
     "fonts/Montserrat-Bold.ttf": "4e6d93bc38122c371acb8dc0dbefbf2649c235191e1be136bb5720546d719808",
     "fonts/Montserrat-Light.ttf": "853de0dd715d6681f7038cf6cd53c1695b614657cbc57c8f542fe08d5b84e006",
     "fonts/OFL.txt": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e"

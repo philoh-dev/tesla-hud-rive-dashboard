@@ -5,7 +5,7 @@ import hashlib
 import json
 import xml.etree.ElementTree as ET
 
-from generate import ASSETS, ROOT, Scene, ROAD_RATE, PROPERTIES, IDS, VEHICLES, vehicle_assets
+from generate import ASSETS, ROOT, Scene, ROAD_RATE, PROPERTIES, IDS, VEHICLES, vehicle_assets, turn_signal_points, FORMULAS
 
 
 class NewhavenDesignTest(unittest.TestCase):
@@ -45,6 +45,34 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_unknown_vehicle_is_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):
             Scene('../unknown')
+
+    def test_turn_signals_are_original_mirrored_vectors(self):
+        left=turn_signal_points('left')
+        self.assertEqual(turn_signal_points('right'),[(-x,y) for x,y in left])
+        for side,x in (('left',300),('right',500)):
+            with self.subTest(side=side):
+                arrow=self.scene.find(f".//Node[@name='{side} turn signal']")
+                self.assertEqual((arrow.get('x'),arrow.get('y')),(str(x),'42'))
+                self.assertEqual(list(arrow.iter('Image')),[])
+                path=arrow.find('Shape/PointsPath')
+                self.assertEqual(path.get('isClosed'),'true')
+                points=[(float(v.get('x')),float(v.get('y'))) for v in path]
+                self.assertEqual(points,turn_signal_points(side))
+                self.assertTrue(all(v.get('radius')=='1.2' for v in path))
+                self.assertEqual(arrow.find('Shape/Fill/SolidColor').get('colorValue'),'FF35D774')
+                self.assertEqual(arrow.find('DataBindContext').get('sourcePathIds'),
+                                 f'1:1-{IDS[side+"Blinker"]}')
+        for name in ('turn-left.png','turn-right.png'):
+            self.assertFalse((ROOT/'assets'/name).exists())
+        self.assertFalse(any(key.startswith('turn_') for key in ASSETS))
+
+    def test_vector_turn_signal_keeps_off_dim_bright_states(self):
+        for side in ('left','right'):
+            for state,opacity in ((0,0),(1,.5),(2,1)):
+                with self.subTest(side=side,state=state):
+                    result=eval(FORMULAS[side+' Arrow'],{'__builtins__':{}},
+                                dict(input=state,max=max,min=min,sqrt=math.sqrt,pow=pow))
+                    self.assertEqual(result,opacity)
 
     def test_original_aspect_and_80_20_regions(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
