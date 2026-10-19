@@ -13,6 +13,15 @@ from generate import ROOT
 
 
 class CliInstallerTest(unittest.TestCase):
+    def test_workflow_installs_linux_libraries_before_starting_cli(self):
+        workflow=(ROOT/'.github/workflows/dashboard.yml').read_text()
+        dependencies=workflow.index('name: Install Linux runtime libraries')
+        startup=workflow.index('name: Install checksum-pinned Rive CLI')
+        self.assertLess(dependencies,startup)
+        for package in ('libegl1','libgles2','libx11-6','libwayland-client0',
+                        'libwayland-egl1','libxkbcommon0','libstdc++6','zlib1g'):
+            self.assertIn(package,workflow[dependencies:startup])
+
     def test_named_design_export_is_in_dashboard_directory(self):
         self.assertEqual(OUTPUT.relative_to(ROOT).as_posix(),
                          'dashboard/model-y-juniper-stealth-grey.riv')
