@@ -46,6 +46,16 @@ them, run `python3 render_previews.py` with the Rive CLI and a graphics context.
 ## Supported vehicles
 
 - **Model Y Juniper Stealth Grey** — [download dashboard](dashboard/model-y-juniper-stealth-grey.riv).
+- **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
+
+### Model 3 Highland Stealth Grey
+
+The same dashboard and telemetry bindings, with dedicated elevated rear Drive
+and front three-quarter Park artwork. Blind-spot cars remain shared.
+
+![Model 3 Highland driving dashboard](docs/images/model-3-highland-stealth-grey/drive-dark.png)
+
+![Model 3 Highland parked dashboard](docs/images/model-3-highland-stealth-grey/park-dark.png)
 
 This list describes the vehicle artwork currently included in this repository,
 not a complete DashKit hardware-compatibility list.
@@ -57,7 +67,8 @@ their vehicle design:
 
 ```text
 dashboard/
-└── model-y-juniper-stealth-grey.riv
+├── model-y-juniper-stealth-grey.riv
+└── model-3-highland-stealth-grey.riv
 ```
 
 Open the desired file on GitHub and use **Download raw file** to save it, then
@@ -89,12 +100,14 @@ python3 build.py
 python3 -m unittest discover -s . -p 'test_*.py'
 ```
 
-The build writes `dashboard/model-y-juniper-stealth-grey.riv` and enforces a
-5 MB export-size limit. GitHub Actions performs the same checks and publishes
+The build exports every supported vehicle into `dashboard/` and enforces a
+5 MB limit per export. To build only the Highland, run
+`python3 build.py --vehicle model-3-highland-stealth-grey`.
+GitHub Actions performs the same checks and publishes
 the `.riv`, generated RML and SHA-256 checksum as build artifacts.
 
 Model-specific `park.png` and `drive.png` live in
-`assets/vehicle/model-y-juniper-stealth-grey/`. Blind-spot cars and indicator
+`assets/vehicle/<vehicle-design>/`. Blind-spot cars and indicator
 icons stay shared under `assets/` for reuse across vehicle designs.
 
 See [Development](docs/DEVELOPMENT.md) for setup, preview generation, responsive

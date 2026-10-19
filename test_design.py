@@ -5,7 +5,7 @@ import hashlib
 import json
 import xml.etree.ElementTree as ET
 
-from generate import ASSETS, ROOT, Scene, ROAD_RATE, PROPERTIES, IDS
+from generate import ASSETS, ROOT, Scene, ROAD_RATE, PROPERTIES, IDS, VEHICLES, vehicle_assets
 
 
 class NewhavenDesignTest(unittest.TestCase):
@@ -15,7 +15,7 @@ class NewhavenDesignTest(unittest.TestCase):
 
     def test_bundled_assets_match_original_source_checksums(self):
         manifest=json.loads((ROOT/'assets/manifest.json').read_text())
-        expected=set(ASSETS.values())
+        expected={path for vehicle in VEHICLES for path in vehicle_assets(vehicle).values()}
         expected.update(f'fonts/{name}' for name in ('Montserrat-Light.ttf','Montserrat-Bold.ttf','OFL.txt'))
         self.assertEqual(set(manifest['sha256']),expected)
         for path,digest in manifest['sha256'].items():
@@ -27,6 +27,24 @@ class NewhavenDesignTest(unittest.TestCase):
         for name in ('Park front three-quarter vehicle', 'Driving ego vehicle',
                      'left red vehicle', 'left grey vehicle', 'right red vehicle', 'right grey vehicle'):
             self.assertIn(name, names)
+
+    def test_each_vehicle_changes_only_ego_assets(self):
+        for vehicle in VEHICLES:
+            with self.subTest(vehicle=vehicle):
+                scene=Scene(vehicle).build()
+                assets={asset.get('name'):asset.get('file') for asset in scene.iter('ImageAsset')}
+                self.assertEqual(assets,vehicle_assets(vehicle))
+                for name,path in ASSETS.items():
+                    if name not in ('ego','park'):
+                        self.assertEqual(assets[name],path)
+                for asset in scene.iter('ImageAsset'):
+                    if asset.get('name') in ('ego','park'):
+                        asset.set('file',ASSETS[asset.get('name')])
+                self.assertEqual(ET.tostring(scene),ET.tostring(Scene().build()))
+
+    def test_unknown_vehicle_is_rejected(self):
+        with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):
+            Scene('../unknown')
 
     def test_original_aspect_and_80_20_regions(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
