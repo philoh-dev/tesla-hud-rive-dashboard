@@ -13,11 +13,18 @@ python3 build.py
 python3 -m unittest discover -s . -p 'test_*.py'
 ```
 
-The build generates `scene.rml`, verifies it, compiles the dashboard and checks
-the 5,000,000-byte limit. The distributable is
-`dashboard/model-y-juniper-stealth-grey.riv`; intermediate files stay under
+The build generates and verifies each vehicle scene, compiles all supported
+dashboards and checks the 5,000,000-byte limit per export. Distributables are
+`dashboard/<vehicle-design>.riv`; intermediate files stay under
 ignored `build/`. The export embeds fonts and images and contains no runtime
 scripts. No Rive login is required for these unsigned local builds.
+
+Use `--vehicle model-3-highland-stealth-grey` with `build.py` or
+`render_previews.py` to select one design. Without that flag, both scripts
+process every entry in `generate.VEHICLES`. Vehicle selection changes only
+the Park/Drive image paths; all bindings, layout and blind-spot assets are
+shared. Both scripts restore canonical Model Y `scene.rml` in a `finally`
+block, so build order does not change the committed default source.
 
 The internal artboard is currently named `Newhaven` (see `rive.yaml`). Its
 1800 × 1080 dimensions are authoring coordinates, not a fixed output resolution.
@@ -52,7 +59,7 @@ python3 render_previews.py
 ```
 
 This requires the Rive CLI and a graphics context. Outputs under
-`docs/images/model-y-juniper-stealth-grey/` are actual Rive renders with fixed
+`docs/images/<vehicle-design>/` are actual Rive renders with fixed
 demo telemetry, not in-car captures or conceptual mockups. Driving previews
 show 130 km/h, a 130 km/h speed limit, left turn intent and both occupied blind
 spots. Dark mode shows Autopilot active; light mode shows neutral lanes.

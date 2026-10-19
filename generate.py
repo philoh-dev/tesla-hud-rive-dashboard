@@ -9,7 +9,9 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
-VEHICLE_ASSET_DIR = 'assets/vehicle/model-y-juniper-stealth-grey'
+DEFAULT_VEHICLE = 'model-y-juniper-stealth-grey'
+VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey')
+VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {
     "ego": f"{VEHICLE_ASSET_DIR}/drive.png",
@@ -23,6 +25,15 @@ ASSETS = {
     "turn_right": "assets/turn-right.png",
 }
 IMAGE_IDS = {name: f"5:{index+1}" for index, name in enumerate(ASSETS)}
+
+
+def vehicle_assets(vehicle=DEFAULT_VEHICLE):
+    if vehicle not in VEHICLES:
+        raise ValueError(f'Unsupported vehicle: {vehicle}')
+    return dict(ASSETS, ego=f'assets/vehicle/{vehicle}/drive.png',
+                park=f'assets/vehicle/{vehicle}/park.png')
+
+
 PROPERTIES = {
     "egoSpeed": ("Number", 130), "gear": ("Number", 4),
     "leftBlinker": ("Number", 2), "rightBlinker": ("Number", 0),
@@ -89,7 +100,8 @@ for side in ("left", "right"):
 
 
 class Scene:
-    def __init__(self):
+    def __init__(self, vehicle=DEFAULT_VEHICLE):
+        self.assets = vehicle_assets(vehicle)
         self.document = ET.Element("Rive", version="1", kind="fragment")
         self.serial = 100
         self.converters = {}
@@ -244,7 +256,7 @@ class Scene:
         instance = self.el(vm, "ViewModelInstance", name="Default", id="1:2", exports=True)
         for name, (kind, value) in PROPERTIES.items():
             self.el(instance, "ViewModelInstance" + kind, propertyValue=value, viewModelPropertyId=IDS[name])
-        for name, path in ASSETS.items():
+        for name, path in self.assets.items():
             self.el(self.document, "ImageAsset", file=path,
                     name=name, id=IMAGE_IDS[name])
         self.el(self.document, "FontAsset", file="fonts/Montserrat-Light.ttf", name="Montserrat Light", id="2:900")
@@ -458,15 +470,15 @@ class Scene:
             self.el(prop,"KeyFrameDouble",value=end,frame=60,interpolationType="linear")
 
 
-def generate():
-    for path in ASSETS.values():
+def generate(vehicle=DEFAULT_VEHICLE):
+    for path in vehicle_assets(vehicle).values():
         bundled=ROOT/path
         if not bundled.is_file():
             raise FileNotFoundError(f'Missing bundled dashboard asset: {bundled}')
     for name in ('Montserrat-Light.ttf','Montserrat-Bold.ttf','OFL.txt'):
         if not (ROOT/'fonts'/name).is_file():
             raise FileNotFoundError(f'Missing bundled font/license: {name}')
-    scene=Scene()
+    scene=Scene(vehicle)
     tree=ET.ElementTree(scene.build())
     ET.indent(tree,space="  ")
     # Keep a conventional final newline so editors do not alter generated output.

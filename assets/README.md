@@ -1,14 +1,16 @@
 # Bundled dashboard assets
 
 These files are committed so this repository builds independently of T Hud's
-firmware checkout. `manifest.json` records the SHA-256 values of the nine active
-PNG assets, two fonts and font license as copied from the original project.
+firmware checkout. `manifest.json` records the SHA-256 values of the active
+PNG assets, two fonts and font license.
 `generate.py` references their actual repository-relative paths.
 
 - Vehicle images in `vehicle/model-y-juniper-stealth-grey/`: project-local
   generated graphite crossover artwork. The
   `park.png` uses an elevated front three-quarter angle; `drive.png` uses
   the rear-elevated angle.
+- Vehicle images in `vehicle/model-3-highland-stealth-grey/`: generated Highland
+  sedan artwork from user-supplied references, with the same two camera roles.
 - Blind-spot vehicles: shared directly under `assets/` for every ego vehicle
   design. Adjacent grey/red cars are exact mirrored pairs.
 - Autopilot badge: project-local geometric artwork, not an enlarged manual
