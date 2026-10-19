@@ -85,7 +85,8 @@ class NewhavenDesignTest(unittest.TestCase):
 
     def test_generated_source_is_reproducible(self):
         ET.indent(self.scene, space='  ')
-        self.assertEqual((ROOT/'scene.rml').read_text(), ET.tostring(self.scene, encoding='unicode'))
+        self.assertEqual((ROOT/'scene.rml').read_text(encoding='utf-8'),
+                         ET.tostring(self.scene, encoding='unicode') + '\n')
 
     def test_no_vehicle_transition_or_intermediate_assets_are_shipped(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
