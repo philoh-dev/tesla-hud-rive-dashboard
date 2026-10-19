@@ -46,6 +46,11 @@ class NewhavenDesignTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):
             Scene('../unknown')
 
+    def test_all_highland_paint_variants_are_registered(self):
+        for color in ('stealth-grey','pearl-white-multi-coat','marine-blue',
+                      'diamond-black','ultra-red','quicksilver'):
+            self.assertIn('model-3-highland-'+color,VEHICLES)
+
     def test_turn_signals_are_original_mirrored_vectors(self):
         left=turn_signal_points('left')
         self.assertEqual(turn_signal_points('right'),[(-x,y) for x,y in left])

@@ -31,6 +31,11 @@ the Park/Drive image paths; all bindings, layout and blind-spot assets are
 shared. Both scripts restore canonical Model Y `scene.rml` in a `finally`
 block, so build order does not change the committed default source.
 
+Highland paint variants use the same flags with IDs
+`model-3-highland-pearl-white-multi-coat`, `model-3-highland-marine-blue`,
+`model-3-highland-diamond-black`, `model-3-highland-ultra-red` and
+`model-3-highland-quicksilver`.
+
 The internal artboard is currently named `Newhaven` (see `rive.yaml`). Its
 1800 × 1080 dimensions are authoring coordinates, not a fixed output resolution.
 DashPilot's normalized 1080-unit height preserves artwork size while Layout fit

@@ -13,7 +13,10 @@ DEFAULT_VEHICLE = 'model-y-juniper-stealth-grey'
 VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
             'model-y-juniper-white-multi-coat', 'model-y-juniper-diamond-black',
             'model-y-juniper-marine-blue', 'model-y-juniper-quicksilver',
-            'model-y-juniper-ultra-red')
+            'model-y-juniper-ultra-red',
+            'model-3-highland-pearl-white-multi-coat', 'model-3-highland-marine-blue',
+            'model-3-highland-diamond-black', 'model-3-highland-ultra-red',
+            'model-3-highland-quicksilver')
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {

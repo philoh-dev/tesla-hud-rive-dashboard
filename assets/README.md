@@ -11,6 +11,10 @@ PNG assets, two fonts and font license.
   the rear-elevated angle.
 - Vehicle images in `vehicle/model-3-highland-stealth-grey/`: generated Highland
   sedan artwork from user-supplied references, with the same two camera roles.
+- Additional Highland directories `vehicle/model-3-highland-<paint>/` contain
+  Pearl White Multi-Coat, Marine Blue, Diamond Black, Ultra Red and Quicksilver
+  paint edits of those same Park/Drive views. Shared wheels, camera roles and
+  dashboard layout are retained; each directory documents its prompt specifications.
 - Vehicle images in `vehicle/model-y-juniper-white-multi-coat/`: generated white
   paint variants of the Juniper sprites, guided by user-supplied paint references.
 - Vehicle images in `vehicle/model-y-juniper-diamond-black/`: generated Diamond

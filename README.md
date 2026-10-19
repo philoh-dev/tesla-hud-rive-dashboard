@@ -52,6 +52,11 @@ them, run `python3 render_previews.py` with the Rive CLI and a graphics context.
 - **Model Y Juniper Quicksilver** — [download dashboard](dashboard/model-y-juniper-quicksilver.riv).
 - **Model Y Juniper Ultra Red** — [download dashboard](dashboard/model-y-juniper-ultra-red.riv).
 - **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
+- **Model 3 Highland Pearl White Multi-Coat** — [download dashboard](dashboard/model-3-highland-pearl-white-multi-coat.riv).
+- **Model 3 Highland Marine Blue** — [download dashboard](dashboard/model-3-highland-marine-blue.riv).
+- **Model 3 Highland Diamond Black** — [download dashboard](dashboard/model-3-highland-diamond-black.riv).
+- **Model 3 Highland Ultra Red** — [download dashboard](dashboard/model-3-highland-ultra-red.riv).
+- **Model 3 Highland Quicksilver** — [download dashboard](dashboard/model-3-highland-quicksilver.riv).
 
 ### Model 3 Highland Stealth Grey
 
@@ -61,6 +66,24 @@ and front three-quarter Park artwork. Blind-spot cars remain shared.
 ![Model 3 Highland driving dashboard](docs/images/model-3-highland-stealth-grey/drive-dark.png)
 
 ![Model 3 Highland parked dashboard](docs/images/model-3-highland-stealth-grey/park-dark.png)
+
+### Additional Model 3 Highland colors
+
+All colors share the same Highland Park/Drive angles, telemetry bindings,
+original vector turn signals and generic blind-spot cars. Each `.riv` embeds
+only its selected vehicle's artwork.
+
+| Color | Park preview | Drive preview |
+| --- | --- | --- |
+| Pearl White Multi-Coat | [Park](docs/images/model-3-highland-pearl-white-multi-coat/park-dark.png) | [Dark](docs/images/model-3-highland-pearl-white-multi-coat/drive-dark.png) / [Light](docs/images/model-3-highland-pearl-white-multi-coat/drive-light.png) |
+| Marine Blue | [Park](docs/images/model-3-highland-marine-blue/park-dark.png) | [Dark](docs/images/model-3-highland-marine-blue/drive-dark.png) / [Light](docs/images/model-3-highland-marine-blue/drive-light.png) |
+| Diamond Black | [Park](docs/images/model-3-highland-diamond-black/park-dark.png) | [Dark](docs/images/model-3-highland-diamond-black/drive-dark.png) / [Light](docs/images/model-3-highland-diamond-black/drive-light.png) |
+| Ultra Red | [Park](docs/images/model-3-highland-ultra-red/park-dark.png) | [Dark](docs/images/model-3-highland-ultra-red/drive-dark.png) / [Light](docs/images/model-3-highland-ultra-red/drive-light.png) |
+| Quicksilver | [Park](docs/images/model-3-highland-quicksilver/park-dark.png) | [Dark](docs/images/model-3-highland-quicksilver/drive-dark.png) / [Light](docs/images/model-3-highland-quicksilver/drive-light.png) |
+
+![Pearl White Multi-Coat Highland parked dashboard](docs/images/model-3-highland-pearl-white-multi-coat/park-dark.png)
+
+![Ultra Red Highland driving dashboard](docs/images/model-3-highland-ultra-red/drive-dark.png)
 
 ### Model Y Juniper White Multi-Coat
 
@@ -123,7 +146,12 @@ dashboard/
 ├── model-y-juniper-diamond-black.riv
 ├── model-y-juniper-marine-blue.riv
 ├── model-y-juniper-quicksilver.riv
-└── model-y-juniper-ultra-red.riv
+├── model-y-juniper-ultra-red.riv
+├── model-3-highland-pearl-white-multi-coat.riv
+├── model-3-highland-marine-blue.riv
+├── model-3-highland-diamond-black.riv
+├── model-3-highland-ultra-red.riv
+└── model-3-highland-quicksilver.riv
 ```
 
 Open the desired file on GitHub and use **Download raw file** to save it, then

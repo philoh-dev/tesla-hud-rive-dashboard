@@ -45,6 +45,13 @@ Juniper sprites guide camera, shape and style. Each directory records its prompt
 specifications in `README.md`. These are illustrative renders, not official
 Tesla artwork.
 
+Additional Model 3 Highland paint variants (Pearl White Multi-Coat, Marine
+Blue, Diamond Black, Ultra Red and Quicksilver) are built-in image-generator
+paint edits of the existing Highland sprites. User-supplied references guide
+paint only; the existing sprites guide camera, shape and wheels. Each
+`assets/vehicle/model-3-highland-<paint>/README.md` records its prompt
+specifications. These are illustrative renders, not official Tesla artwork.
+
 Montserrat Light/Bold were copied from the firmware's `assets/fonts/` and redistributed
 under the accompanying SIL Open Font License in `fonts/OFL.txt`.
 

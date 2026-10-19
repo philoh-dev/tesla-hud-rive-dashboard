@@ -1,6 +1,16 @@
 {
   "description": "SHA-256 of bundled shared artwork, vehicle assets and fonts",
   "sha256": {
+    "assets/vehicle/model-3-highland-pearl-white-multi-coat/drive.png": "8287b92caabf805a0596be24fadeb4c41680f0bc4de40e2f23aeb50db1efdde7",
+    "assets/vehicle/model-3-highland-pearl-white-multi-coat/park.png": "dc6fb6abbdeaf300d7fa0f133d6ba3e9905321086d145b42af5dbee4bcaafeb9",
+    "assets/vehicle/model-3-highland-marine-blue/drive.png": "44e35e6c75b17af70ca3f7f2ca9c444cd0705de7d20d9570c73b358197cad940",
+    "assets/vehicle/model-3-highland-marine-blue/park.png": "b37c8edb94a04a868dc58ac7e1012c10cd4598d344c94af4e2440261f3289226",
+    "assets/vehicle/model-3-highland-diamond-black/drive.png": "a43550b975b33f20e28f6b6301342e1169ccac4e087450d7392753df8498ecc9",
+    "assets/vehicle/model-3-highland-diamond-black/park.png": "3a3dd5a05f5559c1d94c34e821e05f974a63317dc3114a32058fcbb5291248c0",
+    "assets/vehicle/model-3-highland-ultra-red/drive.png": "ad080a72fdd81fc9dbbc68de72bcb8a45b14b4f00017896b8c10ce92a888bb2e",
+    "assets/vehicle/model-3-highland-ultra-red/park.png": "baa4f3555d7039404ba9b3d54a08ed707d2290419b96fbc6a1399f6ae951f421",
+    "assets/vehicle/model-3-highland-quicksilver/drive.png": "a8b28de110ab656744113d8d643b2705eabdc5586a877412d817b251f2346542",
+    "assets/vehicle/model-3-highland-quicksilver/park.png": "2ab0122cc23a4238735287083055977c96b329f078975ece79cef2fb98858ffb",
     "assets/vehicle/model-y-juniper-quicksilver/drive.png": "8a357321520891ae0e60c47f565a7a8c4b73dfd2e7b88497085d4082144abd56",
     "assets/vehicle/model-y-juniper-quicksilver/park.png": "b5b13e4697a9afce622bca1fba55ccdd8d6008165ad9cfda59859996cea8ff93",
     "assets/vehicle/model-y-juniper-ultra-red/drive.png": "e374f903b083b10f880c3713552001b8747cdb6290567dec23649e67fd18ad89",
