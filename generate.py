@@ -469,7 +469,10 @@ def generate():
     scene=Scene()
     tree=ET.ElementTree(scene.build())
     ET.indent(tree,space="  ")
-    tree.write(ROOT/"scene.rml",encoding="unicode")
+    # Keep a conventional final newline so editors do not alter generated output.
+    (ROOT/"scene.rml").write_text(
+        ET.tostring(tree.getroot(),encoding="unicode") + "\n",
+        encoding="utf-8", newline="\n")
 
 
 if __name__ == "__main__":
