@@ -34,9 +34,19 @@ jobs:
       - name: Run regression tests
         run: python3 -m unittest discover -s . -p 'test_*.py'
 
+      # The pinned CLI links these even for --version/--once, before main().
+      - name: Install Linux runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            libegl1 libgles2 libx11-6 \
+            libwayland-client0 libwayland-egl1 libxkbcommon0 \
+            libstdc++6 zlib1g
+
       - name: Install checksum-pinned Rive CLI
         run: |
           python3 ci/install_rive_cli.py
+          ldd "$RIVE_CLI"
           "$RIVE_CLI" --version
 
       - name: Verify and build dashboard
