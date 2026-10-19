@@ -276,10 +276,10 @@ class Scene:
         self.text(cluster, "Current speed", "130", 20,23,210,115,110, prop="egoSpeed",light="FF2D3436")
         # Each unit follows the speed's digit count, as in LVGL's label alignment.
         for label, expr in (("km/h", "1-isImperial"), ("mph", "isImperial")):
-            unit = self.text(cluster, "Speed unit " + label, label, 214,104,65,25,18,"FFB8C1C5")
+            unit = self.text(cluster, "Speed unit " + label, label, 220,95,65,25,18,"FFB8C1C5")
             self.opacity(unit, "isImperial", expr, label)
             self.bind(unit, "egoSpeed", 13, self.formula("Unit position",
-                "34+8+min(1,max(0,input-9))*68+min(1,max(0,input-99))*68+68"))
+                "16+min(1,max(0,input-9))*68+min(1,max(0,input-99))*68+68"))
         up = self.rect(cluster, "Consumption fill", 12.5,192,5,1,"FFB8C1C5",2,originY=1,light="FF2D3436")
         self.bind(up, "powerLevel", 21, self.formula("Power Up", FORMULAS["Power Up"]))
         down = self.rect(cluster, "Recuperation fill",12.5,192,5,1,"FF5CBD68",2,originY=0)
