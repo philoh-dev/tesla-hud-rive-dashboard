@@ -1,0 +1,3613 @@
+<Rive version="1" kind="fragment">
+  <ViewModel name="DashViewModel" id="1:1" defaultInstanceId="1:2">
+    <ViewModelPropertyNumber name="egoSpeed" id="1:10" />
+    <ViewModelPropertyNumber name="gear" id="1:11" />
+    <ViewModelPropertyNumber name="leftBlinker" id="1:12" />
+    <ViewModelPropertyNumber name="rightBlinker" id="1:13" />
+    <ViewModelPropertyNumber name="leftBlindSpot" id="1:14" />
+    <ViewModelPropertyNumber name="rightBlindSpot" id="1:15" />
+    <ViewModelPropertyNumber name="fusedSpeedLimit" id="1:16" />
+    <ViewModelPropertyBoolean name="adasOn" id="1:17" />
+    <ViewModelPropertyNumber name="fullPackEnergy" id="1:18" />
+    <ViewModelPropertyNumber name="nominalEnergyRemaining" id="1:19" />
+    <ViewModelPropertyNumber name="energyBuffer" id="1:20" />
+    <ViewModelPropertyNumber name="powerLevel" id="1:21" />
+    <ViewModelPropertyNumber name="packVoltage" id="1:22" />
+    <ViewModelPropertyNumber name="packCurrent" id="1:23" />
+    <ViewModelPropertyNumber name="maxDischargePower" id="1:24" />
+    <ViewModelPropertyNumber name="maxRegenPower" id="1:25" />
+    <ViewModelPropertyBoolean name="isImperial" id="1:26" />
+    <ViewModelPropertyBoolean name="showCarBattery" id="1:27" />
+    <ViewModelPropertyBoolean name="alwaysOnBlindSpotMonitor" id="1:28" />
+    <ViewModelPropertyString name="dataSourceType" id="1:29" />
+    <ViewModelPropertyBoolean name="darkMode" id="1:30" />
+    <ViewModelPropertyNumber name="darkModeBackgroundGray" id="1:31" />
+    <ViewModelInstance name="Default" id="1:2" exports="true">
+      <ViewModelInstanceNumber propertyValue="130" viewModelPropertyId="1:10" />
+      <ViewModelInstanceNumber propertyValue="4" viewModelPropertyId="1:11" />
+      <ViewModelInstanceNumber propertyValue="2" viewModelPropertyId="1:12" />
+      <ViewModelInstanceNumber propertyValue="0" viewModelPropertyId="1:13" />
+      <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="1:14" />
+      <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="1:15" />
+      <ViewModelInstanceNumber propertyValue="130" viewModelPropertyId="1:16" />
+      <ViewModelInstanceBoolean propertyValue="true" viewModelPropertyId="1:17" />
+      <ViewModelInstanceNumber propertyValue="79" viewModelPropertyId="1:18" />
+      <ViewModelInstanceNumber propertyValue="41.76" viewModelPropertyId="1:19" />
+      <ViewModelInstanceNumber propertyValue="3" viewModelPropertyId="1:20" />
+      <ViewModelInstanceNumber propertyValue="25" viewModelPropertyId="1:21" />
+      <ViewModelInstanceNumber propertyValue="400" viewModelPropertyId="1:22" />
+      <ViewModelInstanceNumber propertyValue="200" viewModelPropertyId="1:23" />
+      <ViewModelInstanceNumber propertyValue="320" viewModelPropertyId="1:24" />
+      <ViewModelInstanceNumber propertyValue="80" viewModelPropertyId="1:25" />
+      <ViewModelInstanceBoolean propertyValue="false" viewModelPropertyId="1:26" />
+      <ViewModelInstanceBoolean propertyValue="true" viewModelPropertyId="1:27" />
+      <ViewModelInstanceBoolean propertyValue="true" viewModelPropertyId="1:28" />
+      <ViewModelInstanceString propertyValue="demo" viewModelPropertyId="1:29" />
+      <ViewModelInstanceBoolean propertyValue="true" viewModelPropertyId="1:30" />
+      <ViewModelInstanceNumber propertyValue="0" viewModelPropertyId="1:31" />
+    </ViewModelInstance>
+  </ViewModel>
+  <ImageAsset file="assets/vehicle/model-y-juniper-stealth-grey/drive.png" name="ego" id="5:1" />
+  <ImageAsset file="assets/vehicle/model-y-juniper-stealth-grey/park.png" name="park" id="5:2" />
+  <ImageAsset file="assets/blind-spot-left-wide.png" name="left_red" id="5:3" />
+  <ImageAsset file="assets/blind-spot-left-grey-wide.png" name="left_grey" id="5:4" />
+  <ImageAsset file="assets/blind-spot-right-wide.png" name="right_red" id="5:5" />
+  <ImageAsset file="assets/blind-spot-right-grey-wide.png" name="right_grey" id="5:6" />
+  <ImageAsset file="assets/autopilot-road-scene-wide.png" name="autopilot" id="5:7" />
+  <ImageAsset file="assets/turn-left.png" name="turn_left" id="5:8" />
+  <ImageAsset file="assets/turn-right.png" name="turn_right" id="5:9" />
+  <FontAsset file="fonts/Montserrat-Light.ttf" name="Montserrat Light" id="2:900" />
+  <FontAsset file="fonts/Montserrat-Bold.ttf" name="Montserrat Bold" id="2:901" />
+  <ComponentAsset name="Road motion" id="4:4" artboardId="4:1" />
+  <DataConverterToString decimals="0" round="true" name="Integer" id="2:1" />
+  <DataConverterToString name="Boolean text" id="2:2" />
+  <DataConverterToNumber name="Numeric boolean" id="2:4" />
+  <DataConverterGroup name="Boolean opacity" id="2:3">
+    <DataConverterGroupItem converterId="2:2" />
+    <DataConverterGroupItem converterId="2:4" />
+  </DataConverterGroup>
+  <Artboard name="Newhaven" id="3:1" width="1800" height="1080" styleId="3:2" viewModelId="1:1" viewModelInstanceId="1:2" clip="true" defaultStateMachineId="0:294">
+    <LayoutComponentStyle name="Artboard layout" id="3:2" />
+    <Fill name="Paint">
+      <SolidColor colorValue="FF000000" name="Color">
+        <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:102" />
+        <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:103" />
+        <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:104" />
+      </SolidColor>
+    </Fill>
+    <LayoutComponent name="Newhaven composition" width="0" height="0" id="0:105" styleId="0:106">
+      <LayoutComponentStyle id="0:106" name="Newhaven composition layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" flexDirectionValue="column" directionValue="ltr" />
+      <LayoutComponent name="Driving region 80 percent" width="0" height="0" id="0:107" styleId="0:108" fractionalHeight="4">
+        <LayoutComponentStyle id="0:108" name="Driving region 80 percent layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" flexBasis="0" flexBasisUnitsValue="points" flexDirectionValue="row" />
+        <LayoutComponent name="Left edge" width="0" height="0" id="0:109" styleId="0:110">
+          <LayoutComponentStyle id="0:110" name="Left edge layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" flexBasis="0" flexBasisUnitsValue="points" />
+          <Node name="Speed and power" x="0" y="0" id="0:111" scaleX="2.25" scaleY="2.25">
+            <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:112" />
+            <Text name="Current speed" x="20" y="23" width="210" height="115" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:113">
+              <TextStylePaint fontSize="110" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:114">
+                <Fill name="Paint">
+                  <SolidColor colorValue="FFF4F7FA" name="Color">
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:116" />
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:118" />
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:120" />
+                  </SolidColor>
+                </Fill>
+                <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+              </TextStylePaint>
+              <TextValueRun styleId="0:114" text="130" name="Value">
+                <DataBindContext sourcePathIds="1:1-1:10" propertyKey="268" converterId="2:1" />
+              </TextValueRun>
+            </Text>
+            <Text name="Speed unit km/h" x="214" y="104" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:121">
+              <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:122">
+                <Fill name="Paint">
+                  <SolidColor colorValue="FFB8C1C5" name="Color" />
+                </Fill>
+                <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+              </TextStylePaint>
+              <TextValueRun styleId="0:122" text="km/h" name="Value" />
+              <DataBindContext sourcePathIds="1:1-1:26" propertyKey="18" converterId="0:124" />
+              <DataBindContext sourcePathIds="1:1-1:10" propertyKey="13" converterId="0:125" />
+            </Text>
+            <Text name="Speed unit mph" x="214" y="104" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:126">
+              <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:127">
+                <Fill name="Paint">
+                  <SolidColor colorValue="FFB8C1C5" name="Color" />
+                </Fill>
+                <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+              </TextStylePaint>
+              <TextValueRun styleId="0:127" text="mph" name="Value" />
+              <DataBindContext sourcePathIds="1:1-1:26" propertyKey="18" converterId="0:129" />
+              <DataBindContext sourcePathIds="1:1-1:10" propertyKey="13" converterId="0:125" />
+            </Text>
+            <Shape name="Consumption fill" x="12.5" y="192" id="0:130">
+              <Rectangle name="Outline" width="5" height="1" cornerRadiusTL="2" id="0:131" originY="1">
+                <DataBindContext sourcePathIds="1:1-1:21" propertyKey="21" converterId="0:138" />
+              </Rectangle>
+              <Fill name="Paint">
+                <SolidColor colorValue="FFB8C1C5" name="Color">
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:133" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:135" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:137" />
+                </SolidColor>
+              </Fill>
+            </Shape>
+            <Shape name="Recuperation fill" x="12.5" y="192" id="0:139">
+              <Rectangle name="Outline" width="5" height="1" cornerRadiusTL="2" id="0:140" originY="0">
+                <DataBindContext sourcePathIds="1:1-1:21" propertyKey="21" converterId="0:141" />
+              </Rectangle>
+              <Fill name="Paint">
+                <SolidColor colorValue="FF5CBD68" name="Color" />
+              </Fill>
+            </Shape>
+            <Shape name="Power track" x="12.5" y="192" id="0:142">
+              <Rectangle name="Outline" width="5" height="288" cornerRadiusTL="3" id="0:143" />
+              <Fill name="Paint">
+                <SolidColor colorValue="FF2B3236" name="Color">
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:145" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:147" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:149" />
+                </SolidColor>
+              </Fill>
+            </Shape>
+          </Node>
+        </LayoutComponent>
+        <LayoutComponent name="Road center" width="0" height="0" id="0:150" styleId="0:151">
+          <LayoutComponentStyle id="0:151" name="Road center layout" layoutWidthScaleType="fixed" layoutHeightScaleType="fill" />
+          <Node name="Native 800 pixel scene" x="-900" y="0" id="0:152" scaleX="2.25" scaleY="2.25">
+            <Node name="left blind spot" x="200" y="292" id="0:153">
+              <DataBindContext sourcePathIds="1:1-1:14" propertyKey="18" converterId="0:154" />
+              <Image name="left red vehicle" assetId="5:3" x="0" y="0" id="0:155" samplerFilter="bilinear">
+                <DataBindContext sourcePathIds="1:1-1:12" propertyKey="18" converterId="0:156" />
+              </Image>
+              <Image name="left grey vehicle" assetId="5:4" x="0" y="0" id="0:157" samplerFilter="bilinear" />
+            </Node>
+            <Node name="right blind spot" x="600" y="292" id="0:158">
+              <DataBindContext sourcePathIds="1:1-1:15" propertyKey="18" converterId="0:159" />
+              <Image name="right red vehicle" assetId="5:5" x="0" y="0" id="0:160" samplerFilter="bilinear">
+                <DataBindContext sourcePathIds="1:1-1:13" propertyKey="18" converterId="0:161" />
+              </Image>
+              <Image name="right grey vehicle" assetId="5:6" x="0" y="0" id="0:162" samplerFilter="bilinear" />
+            </Node>
+            <Image name="Park front three-quarter vehicle" assetId="5:2" x="400" y="384" id="0:163" samplerFilter="bilinear" originY="1">
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:164" />
+            </Image>
+            <Image name="Driving ego vehicle" assetId="5:1" x="400" y="234" id="0:165" samplerFilter="bilinear">
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:166" />
+            </Image>
+            <Node name="Forward stopped direction" x="400" y="143" id="0:167">
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:168" />
+              <Node name="Forward direction motion" x="0" y="0" id="0:169" opacity="0">
+                <Shape name="Forward direction arrow" id="0:170">
+                  <PointsPath name="Outline" isClosed="true">
+                    <StraightVertex x="-12.662764405229668" y="-7.325939928686349" radius="0.5" id="0:171" />
+                    <StraightVertex x="-3.4534812014262726" y="-7.325939928686349" radius="0.5" id="0:172" />
+                    <StraightVertex x="-4.016552635479206" y="20.827631773960338" radius="0.5" id="0:173" />
+                    <StraightVertex x="4.016552635479206" y="20.827631773960338" radius="0.5" id="0:174" />
+                    <StraightVertex x="3.4534812014262726" y="-7.325939928686349" radius="0.5" id="0:175" />
+                    <StraightVertex x="12.662764405229668" y="-7.325939928686349" radius="0.5" id="0:176" />
+                    <StraightVertex x="0.0" y="-19.65296274672667" radius="0.5" id="0:177" />
+                  </PointsPath>
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:178" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:179" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:180" />
+                    </SolidColor>
+                  </Fill>
+                </Shape>
+              </Node>
+            </Node>
+            <Node name="Reverse stopped direction" x="400" y="326" id="0:181">
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:182" />
+              <Node name="Reverse direction motion" x="0" y="0" id="0:183" opacity="0">
+                <Shape name="Reverse direction arrow" id="0:184">
+                  <PointsPath name="Outline" isClosed="true">
+                    <StraightVertex x="-17.42404978172947" y="10.080543073412365" radius="0.5" id="0:185" />
+                    <StraightVertex x="-4.752013576835309" y="10.080543073412365" radius="0.5" id="0:186" />
+                    <StraightVertex x="-3.9835832348851405" y="-20.656670604594392" radius="0.5" id="0:187" />
+                    <StraightVertex x="3.9835832348851405" y="-20.656670604594392" radius="0.5" id="0:188" />
+                    <StraightVertex x="4.752013576835309" y="10.080543073412365" radius="0.5" id="0:189" />
+                    <StraightVertex x="17.42404978172947" y="10.080543073412365" radius="0.5" id="0:190" />
+                    <StraightVertex x="0.0" y="32.56657433610903" radius="0.5" id="0:191" />
+                  </PointsPath>
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:192" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:193" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:194" />
+                    </SolidColor>
+                  </Fill>
+                </Shape>
+              </Node>
+            </Node>
+            <Image name="left turn signal" assetId="5:8" x="300" y="42" id="0:195" samplerFilter="bilinear">
+              <DataBindContext sourcePathIds="1:1-1:12" propertyKey="18" converterId="0:196" />
+            </Image>
+            <Image name="right turn signal" assetId="5:9" x="500" y="42" id="0:197" samplerFilter="bilinear">
+              <DataBindContext sourcePathIds="1:1-1:13" propertyKey="18" converterId="0:198" />
+            </Image>
+            <NestedArtboard name="Speed driven road" id="0:199" artboardId="4:1">
+              <NestedSimpleAnimation name="Speed driven lane travel" animationId="4:3" isPlaying="true">
+                <DataBindContext sourcePathIds="1:1-1:10" propertyKey="199" converterId="0:200" />
+              </NestedSimpleAnimation>
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:201" />
+            </NestedArtboard>
+          </Node>
+        </LayoutComponent>
+        <LayoutComponent name="Right edge" width="0" height="0" id="0:202" styleId="0:203">
+          <LayoutComponentStyle id="0:203" name="Right edge layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" layoutAlignmentType="topRight" flexBasis="0" flexBasisUnitsValue="points" />
+          <LayoutComponent name="Speed limit anchor" width="270" height="0" id="0:204" styleId="0:205">
+            <LayoutComponentStyle id="0:205" name="Speed limit anchor layout" layoutWidthScaleType="fixed" layoutHeightScaleType="fill" />
+            <Node name="Known speed limit" x="108" y="162" id="0:206" scaleX="2.25" scaleY="2.25">
+              <DataBindContext sourcePathIds="1:1-1:16" propertyKey="18" converterId="0:207" />
+              <Text name="Speed limit value" x="-40" y="-35" width="80" height="70" sizingValue="fixed" alignValue="center" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:208">
+                <TextStylePaint fontSize="36" fontAssetId="2:901" familyName="Montserrat" styleName="Bold" name="Typography" id="0:209">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FF000000" name="Color" />
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:209" text="130" name="Value">
+                  <DataBindContext sourcePathIds="1:1-1:16" propertyKey="268" converterId="2:1" />
+                </TextValueRun>
+              </Text>
+              <Shape name="Sign face" x="0" y="0" id="0:210">
+                <Ellipse name="Outline" width="76" height="76" />
+                <Fill name="Paint">
+                  <SolidColor colorValue="FFFFFFFF" name="Color">
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:212" />
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:214" />
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:216" />
+                  </SolidColor>
+                </Fill>
+              </Shape>
+              <Shape name="Sign red border" x="0" y="0" id="0:217">
+                <Ellipse name="Outline" width="96" height="96" />
+                <Fill name="Paint">
+                  <SolidColor colorValue="FFE02020" name="Color" />
+                </Fill>
+              </Shape>
+            </Node>
+          </LayoutComponent>
+        </LayoutComponent>
+      </LayoutComponent>
+      <LayoutComponent name="Invisible status region 20 percent" width="0" height="0" id="0:218" styleId="0:219" fractionalHeight="1">
+        <LayoutComponentStyle id="0:219" name="Invisible status region 20 percent layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" flexBasis="0" flexBasisUnitsValue="points" />
+        <LayoutComponent name="Battery left" width="0" height="0" id="0:220" styleId="0:221">
+          <LayoutComponentStyle id="0:221" name="Battery left layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" flexBasis="0" flexBasisUnitsValue="points" />
+          <Node name="Known battery" x="54" y="81" id="0:222" scaleX="2.25" scaleY="2.25">
+            <DataBindContext sourcePathIds="1:1-1:18" propertyKey="18" converterId="0:223" />
+            <Node name="Battery percentage label" x="0" y="0" id="0:226">
+              <Text name="Battery percentage" x="58" y="0" width="35" height="24" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:227">
+                <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:228">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFB8C1C5" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:229" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:230" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:231" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:228" text="51" name="Value">
+                  <DataBindContext sourcePathIds="1:1-1:19" propertyKey="268" converterId="0:225" />
+                </TextValueRun>
+              </Text>
+              <Text name="Percent sign" x="80" y="0" width="22" height="24" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:232">
+                <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:233">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFB8C1C5" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:234" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:235" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:236" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:233" text="%" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:19" propertyKey="13" converterId="0:237" />
+              </Text>
+            </Node>
+            <Shape name="Battery charge" x="2" y="12" id="0:238">
+              <Rectangle name="Outline" width="40" height="10" cornerRadiusTL="1" id="0:239" originX="0">
+                <DataBindContext sourcePathIds="1:1-1:19" propertyKey="20" converterId="0:240" />
+              </Rectangle>
+              <Fill name="Paint">
+                <SolidColor colorValue="FF5CBD68" name="Color" />
+              </Fill>
+            </Shape>
+            <Shape name="Battery empty" x="22" y="12" id="0:241">
+              <Rectangle name="Outline" width="40" height="10" cornerRadiusTL="1" id="0:242" />
+              <Fill name="Paint">
+                <SolidColor colorValue="FF252A2D" name="Color">
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:244" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:246" />
+                  <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:248" />
+                </SolidColor>
+              </Fill>
+            </Shape>
+            <Shape name="Battery frame" x="22" y="12" id="0:249">
+              <Rectangle name="Outline" width="44" height="14" cornerRadiusTL="2" id="0:250" />
+              <Fill name="Paint">
+                <SolidColor colorValue="FF7C8589" name="Color" />
+              </Fill>
+            </Shape>
+            <Shape name="Battery terminal" x="45.5" y="12" id="0:251">
+              <Rectangle name="Outline" width="3" height="6" cornerRadiusTL="1" id="0:252" />
+              <Fill name="Paint">
+                <SolidColor colorValue="FF7C8589" name="Color" />
+              </Fill>
+            </Shape>
+          </Node>
+        </LayoutComponent>
+        <LayoutComponent name="Autopilot center" width="0" height="0" id="0:253" styleId="0:254">
+          <LayoutComponentStyle id="0:254" name="Autopilot center layout" layoutWidthScaleType="fixed" layoutHeightScaleType="fill" />
+          <Node name="Autopilot anchor" x="0" y="108" id="0:255" scaleX="2.025" scaleY="2.025">
+            <Image name="Autopilot" assetId="5:7" x="0" y="0" id="0:256" samplerFilter="bilinear">
+              <DataBindContext sourcePathIds="1:1-1:17" propertyKey="18" converterId="0:258" />
+            </Image>
+          </Node>
+        </LayoutComponent>
+        <LayoutComponent name="Gear right" width="0" height="0" id="0:259" styleId="0:260">
+          <LayoutComponentStyle id="0:260" name="Gear right layout" layoutWidthScaleType="fill" layoutHeightScaleType="fill" layoutAlignmentType="topRight" flexBasis="0" flexBasisUnitsValue="points" />
+          <LayoutComponent name="Gear anchor" width="108" height="0" id="0:261" styleId="0:262">
+            <LayoutComponentStyle id="0:262" name="Gear anchor layout" layoutWidthScaleType="fixed" layoutHeightScaleType="fill" />
+            <Node name="Selected gear" x="0" y="76.5" id="0:263" scaleX="2.25" scaleY="2.25">
+              <Text name="Gear P" x="0" y="0" width="24" height="28" sizingValue="fixed" alignValue="right" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:264">
+                <TextStylePaint fontSize="24" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:265">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:266" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:267" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:268" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:265" text="P" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:269" />
+              </Text>
+              <Text name="Gear R" x="0" y="0" width="24" height="28" sizingValue="fixed" alignValue="right" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:270">
+                <TextStylePaint fontSize="24" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:271">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:272" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:273" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:274" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:271" text="R" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:275" />
+              </Text>
+              <Text name="Gear N" x="0" y="0" width="24" height="28" sizingValue="fixed" alignValue="right" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:276">
+                <TextStylePaint fontSize="24" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:277">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:278" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:279" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:280" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:277" text="N" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:281" />
+              </Text>
+              <Text name="Gear D" x="0" y="0" width="24" height="28" sizingValue="fixed" alignValue="right" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:282">
+                <TextStylePaint fontSize="24" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:283">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:284" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:285" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:286" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:283" text="D" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:287" />
+              </Text>
+              <Text name="Gear —" x="0" y="0" width="24" height="28" sizingValue="fixed" alignValue="right" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:288">
+                <TextStylePaint fontSize="24" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:289">
+                  <Fill name="Paint">
+                    <SolidColor colorValue="FFF4F7FA" name="Color">
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:290" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:291" />
+                      <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:292" />
+                    </SolidColor>
+                  </Fill>
+                  <TextStyleFeature tag="1953396077" featureValue="1" name="Tabular figures" />
+                </TextStylePaint>
+                <TextValueRun styleId="0:289" text="—" name="Value" />
+                <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:293" />
+              </Text>
+            </Node>
+          </LayoutComponent>
+        </LayoutComponent>
+      </LayoutComponent>
+    </LayoutComponent>
+    <StateMachine id="0:294" name="Newhaven dashboard">
+      <StateMachineLayer name="Forward departure cue" id="0:295">
+        <AnyState x="0" y="-150" />
+        <ExitState x="600" y="-150" />
+        <EntryState x="0" y="0">
+          <StateTransition stateToId="0:296" />
+        </EntryState>
+        <AnimationState id="0:296" animationId="0:299" reset="true" x="200" y="0">
+          <StateTransition stateToId="0:297">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="4" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:297" animationId="0:300" reset="true" x="400" y="0">
+          <StateTransition stateToId="0:296">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="4" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:298">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="4" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:298" animationId="0:301" reset="true" x="600" y="0">
+          <StateTransition stateToId="0:296">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="4" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:297">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="4" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:296" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100" />
+        </AnimationState>
+      </StateMachineLayer>
+      <StateMachineLayer name="Reverse departure cue" id="0:302">
+        <AnyState x="0" y="-150" />
+        <ExitState x="600" y="-150" />
+        <EntryState x="0" y="0">
+          <StateTransition stateToId="0:303" />
+        </EntryState>
+        <AnimationState id="0:303" animationId="0:306" reset="true" x="200" y="0">
+          <StateTransition stateToId="0:304">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="2" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:304" animationId="0:307" reset="true" x="400" y="0">
+          <StateTransition stateToId="0:303">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="2" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:305">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="2" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:305" animationId="0:308" reset="true" x="600" y="0">
+          <StateTransition stateToId="0:303">
+            <TransitionViewModelCondition opValue="notEqual">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="2" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:304">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:10" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="0" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="1:1-1:11" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueNumberComparator value="2" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:303" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100" />
+        </AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+    <LinearAnimation name="Forward direction hidden" id="0:299" duration="1" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Forward direction stopped" id="0:300" duration="1" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0.3" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Forward direction departing" id="0:301" duration="24" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0.3" interpolationType="linear" />
+          <KeyFrameDouble frame="24" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:169">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+          <KeyFrameDouble frame="24" value="-40" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Reverse direction hidden" id="0:306" duration="1" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Reverse direction stopped" id="0:307" duration="1" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0.3" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Reverse direction departing" id="0:308" duration="24" fps="60" loopValue="oneShot">
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="18">
+          <KeyFrameDouble frame="0" value="0.3" interpolationType="linear" />
+          <KeyFrameDouble frame="24" value="0" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:183">
+        <KeyedProperty propertyKey="14">
+          <KeyFrameDouble frame="0" value="0" interpolationType="linear" />
+          <KeyFrameDouble frame="24" value="40" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <DataConverterFormula name="Theme channel 0 255" id="0:101">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="255" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="255" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 0 255" id="0:102">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:101" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 0 255" id="0:103">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:101" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 0 255" id="0:104">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:101" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Instruments outside Park" id="0:112">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Theme channel 244 45" id="0:115">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="45" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="244" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="45" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:116">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 247 52" id="0:117">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="52" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="247" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="52" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:118">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 250 54" id="0:119">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="54" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="250" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="54" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:120">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="km/h" id="0:123">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="km/h typed boolean" id="0:124">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:123" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Unit position" id="0:125">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="34" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenValue operationValue="8" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="9" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="68" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="99" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="68" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenValue operationValue="68" />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="mph" id="0:128">
+    <FormulaTokenInput />
+  </DataConverterFormula>
+  <DataConverterGroup name="mph typed boolean" id="0:129">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:128" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 184 45" id="0:132">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="45" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="184" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="45" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 184 45" id="0:133">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:132" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 193 52" id="0:134">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="52" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="193" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="52" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 193 52" id="0:135">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:134" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 197 54" id="0:136">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="54" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="197" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="54" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 197 54" id="0:137">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:136" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Power Up" id="0:138">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="1.44" />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Power Down" id="0:141">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="1.44" />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Theme channel 43 236" id="0:144">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="43" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 43 236" id="0:145">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:144" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 50 240" id="0:146">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="50" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 50 240" id="0:147">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:146" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 54 241" id="0:148">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="54" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 54 241" id="0:149">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:148" />
+  </DataConverterGroup>
+  <DataConverterFormula name="left Occupied" id="0:154">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:28" propertyKey="777" converterId="2:3" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:12" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="3" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="4" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="left Warning" id="0:156">
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="right Occupied" id="0:159">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:28" propertyKey="777" converterId="2:3" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:13" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="3" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="4" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="right Warning" id="0:161">
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Park vehicle visible" id="0:164">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Driving vehicle visible" id="0:166">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Forward direction gear" id="0:168">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="4" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:178">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:179">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:180">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Reverse direction gear" id="0:182">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:192">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:193">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:194">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="left Arrow" id="0:196">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0.5" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0.5" />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="right Arrow" id="0:198">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0.5" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0.5" />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Road Rate" id="0:200">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:10" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="0.609344" />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:26" propertyKey="777" converterId="2:3" />
+    </FormulaTokenValue>
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="3" />
+    <FormulaTokenValue operationValue="43.2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="4" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:11" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Road outside Park" id="0:201">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Limit known" id="0:207">
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Theme channel 255 236" id="0:211">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="255" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 255 236" id="0:212">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:211" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 255 240" id="0:213">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="255" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 255 240" id="0:214">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:213" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 255 241" id="0:215">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="255" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 255 241" id="0:216">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:215" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Battery Visible" id="0:223">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:27" propertyKey="777" converterId="2:3" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:19" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Battery Percent" id="0:224">
+    <FormulaTokenFunction functionType="4" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:19" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="3" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:18" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Battery label" id="0:225">
+    <DataConverterGroupItem converterId="0:224" />
+    <DataConverterGroupItem converterId="2:1" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 184 45" id="0:229">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:132" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 193 52" id="0:230">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:134" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 197 54" id="0:231">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:136" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 184 45" id="0:234">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:132" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 193 52" id="0:235">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:134" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 197 54" id="0:236">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:136" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Percent position" id="0:237">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="58" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="11" />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="4" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:19" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="3" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:18" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="9" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="4" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:19" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="3" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:18" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="99" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Battery width" id="0:240">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="4" />
+    <FormulaTokenFunction functionType="0" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:19" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="3" />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:18" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="2" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue>
+      <DataBindContext sourcePathIds="1:1-1:20" propertyKey="777" />
+    </FormulaTokenValue>
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="100" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenValue operationValue="0.4" />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterFormula name="Theme channel 37 236" id="0:243">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="37" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 37 236" id="0:244">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:243" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 42 240" id="0:245">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="42" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 42 240" id="0:246">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:245" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 45 241" id="0:247">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="45" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 45 241" id="0:248">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:247" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Assist active" id="0:257">
+    <FormulaTokenInput />
+  </DataConverterFormula>
+  <DataConverterGroup name="Assist active typed boolean" id="0:258">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:257" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:266">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:267">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:268">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Gear P" id="0:269">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:272">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:273">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:274">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Gear R" id="0:275">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:278">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:279">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:280">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Gear N" id="0:281">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="3" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:284">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:285">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:286">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Gear D" id="0:287">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="4" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 244 45" id="0:290">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:115" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 247 52" id="0:291">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:117" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 250 54" id="0:292">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:119" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Gear —" id="0:293">
+    <FormulaTokenFunction functionType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenFunction functionType="5" />
+    <FormulaTokenFunction functionType="6" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenInput />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="0" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenArgumentSeparator />
+    <FormulaTokenValue operationValue="2" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <Artboard name="Road motion" id="4:1" width="800" height="384" clip="true" styleId="4:2" viewModelId="1:1" viewModelInstanceId="1:2" isComponent="true" x="2400" y="0">
+    <LayoutComponentStyle name="Road layout" id="4:2" />
+    <Node name="Assist lanes" x="0" y="0" id="0:309">
+      <DataBindContext sourcePathIds="1:1-1:17" propertyKey="18" converterId="0:310" />
+      <Shape name="Lane Assist lanes -1 0" id="0:311">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="353.8958333333333" y="-27.2" radius="3" id="0:312" />
+          <StraightVertex x="352.5208333333333" y="-17.6" radius="3" id="0:313" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="1" cap="round" join="round" id="0:314">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 1" id="0:315">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="350.0" y="0.0" radius="3" id="0:316" />
+          <StraightVertex x="348.0520833333333" y="13.6" radius="3" id="0:317" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="2" cap="round" join="round" id="0:318">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 2" id="0:319">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="344.9583333333333" y="35.2" radius="3" id="0:320" />
+          <StraightVertex x="342.2083333333333" y="54.4" radius="3" id="0:321" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="3" cap="round" join="round" id="0:322">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 3" id="0:323">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="337.96875" y="84.0" radius="3" id="0:324" />
+          <StraightVertex x="334.1875" y="110.4" radius="3" id="0:325" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="4" cap="round" join="round" id="0:326">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 4" id="0:327">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="329.26041666666663" y="144.8" radius="3" id="0:328" />
+          <StraightVertex x="324.21875" y="180.0" radius="3" id="0:329" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="5" cap="round" join="round" id="0:330">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 5" id="0:331">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="318.375" y="220.8" radius="3" id="0:332" />
+          <StraightVertex x="311.72916666666663" y="267.2" radius="3" id="0:333" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="6" cap="round" join="round" id="0:334">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes -1 6" id="0:335">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="304.85416666666663" y="315.2" radius="3" id="0:336" />
+          <StraightVertex x="296.375" y="374.4" radius="3" id="0:337" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="7" cap="round" join="round" id="0:338">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 0" id="0:339">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="446.1041666666667" y="-27.2" radius="3" id="0:340" />
+          <StraightVertex x="447.4791666666667" y="-17.6" radius="3" id="0:341" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="1" cap="round" join="round" id="0:342">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 1" id="0:343">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="450.0" y="0.0" radius="3" id="0:344" />
+          <StraightVertex x="451.9479166666667" y="13.6" radius="3" id="0:345" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="2" cap="round" join="round" id="0:346">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 2" id="0:347">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="455.0416666666667" y="35.2" radius="3" id="0:348" />
+          <StraightVertex x="457.7916666666667" y="54.4" radius="3" id="0:349" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="3" cap="round" join="round" id="0:350">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 3" id="0:351">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="462.03125" y="84.0" radius="3" id="0:352" />
+          <StraightVertex x="465.8125" y="110.4" radius="3" id="0:353" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="4" cap="round" join="round" id="0:354">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 4" id="0:355">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="470.73958333333337" y="144.8" radius="3" id="0:356" />
+          <StraightVertex x="475.78125" y="180.0" radius="3" id="0:357" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="5" cap="round" join="round" id="0:358">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 5" id="0:359">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="481.625" y="220.8" radius="3" id="0:360" />
+          <StraightVertex x="488.27083333333337" y="267.2" radius="3" id="0:361" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="6" cap="round" join="round" id="0:362">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Assist lanes 1 6" id="0:363">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="495.14583333333337" y="315.2" radius="3" id="0:364" />
+          <StraightVertex x="503.625" y="374.4" radius="3" id="0:365" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="7" cap="round" join="round" id="0:366">
+          <SolidColor colorValue="FF0071FF" name="Color" />
+        </Stroke>
+      </Shape>
+    </Node>
+    <Node name="Neutral lanes" x="0" y="0" id="0:367">
+      <Shape name="Lane Neutral lanes -1 0" id="0:368">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="353.8958333333333" y="-27.2" radius="3" id="0:369" />
+          <StraightVertex x="352.5208333333333" y="-17.6" radius="3" id="0:370" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="1" cap="round" join="round" id="0:377">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:372" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:374" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:376" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 1" id="0:378">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="350.0" y="0.0" radius="3" id="0:379" />
+          <StraightVertex x="348.0520833333333" y="13.6" radius="3" id="0:380" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="2" cap="round" join="round" id="0:384">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:381" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:382" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:383" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 2" id="0:385">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="344.9583333333333" y="35.2" radius="3" id="0:386" />
+          <StraightVertex x="342.2083333333333" y="54.4" radius="3" id="0:387" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="3" cap="round" join="round" id="0:391">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:388" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:389" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:390" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 3" id="0:392">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="337.96875" y="84.0" radius="3" id="0:393" />
+          <StraightVertex x="334.1875" y="110.4" radius="3" id="0:394" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="4" cap="round" join="round" id="0:398">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:395" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:396" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:397" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 4" id="0:399">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="329.26041666666663" y="144.8" radius="3" id="0:400" />
+          <StraightVertex x="324.21875" y="180.0" radius="3" id="0:401" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="5" cap="round" join="round" id="0:405">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:402" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:403" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:404" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 5" id="0:406">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="318.375" y="220.8" radius="3" id="0:407" />
+          <StraightVertex x="311.72916666666663" y="267.2" radius="3" id="0:408" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="6" cap="round" join="round" id="0:412">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:409" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:410" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:411" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes -1 6" id="0:413">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="304.85416666666663" y="315.2" radius="3" id="0:414" />
+          <StraightVertex x="296.375" y="374.4" radius="3" id="0:415" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="7" cap="round" join="round" id="0:419">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:416" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:417" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:418" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 0" id="0:420">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="446.1041666666667" y="-27.2" radius="3" id="0:421" />
+          <StraightVertex x="447.4791666666667" y="-17.6" radius="3" id="0:422" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="1" cap="round" join="round" id="0:426">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:423" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:424" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:425" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 1" id="0:427">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="450.0" y="0.0" radius="3" id="0:428" />
+          <StraightVertex x="451.9479166666667" y="13.6" radius="3" id="0:429" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="2" cap="round" join="round" id="0:433">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:430" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:431" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:432" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 2" id="0:434">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="455.0416666666667" y="35.2" radius="3" id="0:435" />
+          <StraightVertex x="457.7916666666667" y="54.4" radius="3" id="0:436" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="3" cap="round" join="round" id="0:440">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:437" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:438" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:439" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 3" id="0:441">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="462.03125" y="84.0" radius="3" id="0:442" />
+          <StraightVertex x="465.8125" y="110.4" radius="3" id="0:443" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="4" cap="round" join="round" id="0:447">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:444" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:445" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:446" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 4" id="0:448">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="470.73958333333337" y="144.8" radius="3" id="0:449" />
+          <StraightVertex x="475.78125" y="180.0" radius="3" id="0:450" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="5" cap="round" join="round" id="0:454">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:451" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:452" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:453" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 5" id="0:455">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="481.625" y="220.8" radius="3" id="0:456" />
+          <StraightVertex x="488.27083333333337" y="267.2" radius="3" id="0:457" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="6" cap="round" join="round" id="0:461">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:458" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:459" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:460" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+      <Shape name="Lane Neutral lanes 1 6" id="0:462">
+        <PointsPath name="Outline" isClosed="false">
+          <StraightVertex x="495.14583333333337" y="315.2" radius="3" id="0:463" />
+          <StraightVertex x="503.625" y="374.4" radius="3" id="0:464" />
+        </PointsPath>
+        <Stroke name="Paint" thickness="7" cap="round" join="round" id="0:468">
+          <SolidColor colorValue="FFD9E0E3" name="Color">
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:465" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="136" converterId="0:466" />
+            <DataBindContext sourcePathIds="1:1-1:30" propertyKey="210" converterId="0:467" />
+          </SolidColor>
+        </Stroke>
+      </Shape>
+    </Node>
+    <LinearAnimation name="One 12 metre road cycle" id="4:3" duration="60" fps="60" loopValue="loop">
+      <KeyedObject objectId="0:314">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:312">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="353.8958333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="350.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:312">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-27.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="0.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:313">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="352.5208333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="348.0520833333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:313">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-17.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="13.6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:318">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="3" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:316">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="350.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="344.9583333333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:316">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="0.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="35.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:317">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="348.0520833333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="342.2083333333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:317">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="13.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="54.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:322">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="3" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:320">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="344.9583333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="337.96875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:320">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="35.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="84.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:321">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="342.2083333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="334.1875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:321">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="54.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="110.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:326">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="5" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:324">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="337.96875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="329.26041666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:324">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="84.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="144.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:325">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="334.1875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="324.21875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:325">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="110.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="180.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:330">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="5" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:328">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="329.26041666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="318.375" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:328">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="144.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="220.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:329">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="324.21875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="311.72916666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:329">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="180.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="267.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:334">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="7" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:332">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="318.375" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="304.85416666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:332">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="220.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="315.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:333">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="311.72916666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="296.375" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:333">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="267.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="374.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:338">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="7" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:336">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="304.85416666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="288.69791666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:336">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="315.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="428.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:337">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="296.375" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="278.3854166666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:337">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="374.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="500.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:342">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:340">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="446.1041666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="450.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:340">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-27.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="0.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:341">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="447.4791666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="451.9479166666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:341">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-17.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="13.6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:346">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="3" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:344">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="450.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="455.0416666666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:344">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="0.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="35.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:345">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="451.9479166666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="457.7916666666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:345">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="13.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="54.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:350">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="3" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:348">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="455.0416666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="462.03125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:348">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="35.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="84.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:349">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="457.7916666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="465.8125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:349">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="54.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="110.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:354">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="5" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:352">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="462.03125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="470.73958333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:352">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="84.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="144.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:353">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="465.8125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="475.78125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:353">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="110.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="180.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:358">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="5" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:356">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="470.73958333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="481.625" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:356">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="144.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="220.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:357">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="475.78125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="488.27083333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:357">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="180.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="267.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:362">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="7" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:360">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="481.625" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="495.14583333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:360">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="220.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="315.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:361">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="488.27083333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="503.625" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:361">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="267.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="374.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:366">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="7" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:364">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="495.14583333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="511.30208333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:364">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="315.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="428.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:365">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="503.625" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="521.6145833333334" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:365">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="374.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="500.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:377">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:369">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="353.8958333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="350.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:369">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-27.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="0.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:370">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="352.5208333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="348.0520833333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:370">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-17.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="13.6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:384">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="3" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:379">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="350.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="344.9583333333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:379">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="0.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="35.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:380">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="348.0520833333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="342.2083333333333" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:380">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="13.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="54.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:391">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="3" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:386">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="344.9583333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="337.96875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:386">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="35.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="84.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:387">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="342.2083333333333" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="334.1875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:387">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="54.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="110.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:398">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="5" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:393">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="337.96875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="329.26041666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:393">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="84.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="144.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:394">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="334.1875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="324.21875" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:394">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="110.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="180.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:405">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="5" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:400">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="329.26041666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="318.375" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:400">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="144.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="220.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:401">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="324.21875" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="311.72916666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:401">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="180.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="267.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:412">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="7" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:407">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="318.375" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="304.85416666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:407">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="220.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="315.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:408">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="311.72916666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="296.375" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:408">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="267.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="374.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:419">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="7" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:414">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="304.85416666666663" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="288.69791666666663" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:414">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="315.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="428.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:415">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="296.375" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="278.3854166666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:415">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="374.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="500.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:426">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:421">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="446.1041666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="450.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:421">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-27.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="0.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:422">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="447.4791666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="451.9479166666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:422">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="-17.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="13.6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:433">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="3" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:428">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="450.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="455.0416666666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:428">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="0.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="35.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:429">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="451.9479166666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="457.7916666666667" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:429">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="13.6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="54.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:440">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="3" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:435">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="455.0416666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="462.03125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:435">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="35.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="84.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:436">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="457.7916666666667" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="465.8125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:436">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="54.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="110.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:447">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="5" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:442">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="462.03125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="470.73958333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:442">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="84.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="144.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:443">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="465.8125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="475.78125" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:443">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="110.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="180.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:454">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="5" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="6" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:449">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="470.73958333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="481.625" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:449">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="144.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="220.8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:450">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="475.78125" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="488.27083333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:450">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="180.0" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="267.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:461">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="6" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="7" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:456">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="481.625" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="495.14583333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:456">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="220.8" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="315.2" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:457">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="488.27083333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="503.625" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:457">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="267.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="374.4" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:468">
+        <KeyedProperty propertyKey="47">
+          <KeyFrameDouble value="7" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="8" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:463">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="495.14583333333337" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="511.30208333333337" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:463">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="315.2" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="428.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:464">
+        <KeyedProperty propertyKey="24">
+          <KeyFrameDouble value="503.625" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="521.6145833333334" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+      <KeyedObject objectId="0:464">
+        <KeyedProperty propertyKey="25">
+          <KeyFrameDouble value="374.4" frame="0" interpolationType="linear" />
+          <KeyFrameDouble value="500.0" frame="60" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <DataConverterGroup name="Assist active typed boolean" id="0:310">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:257" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 217 236" id="0:371">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="217" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="236" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:372">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 224 240" id="0:373">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="224" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="240" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:374">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Theme channel 227 241" id="0:375">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenOperation operationType="0" />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="227" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenValue operationValue="241" />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenOperation operationType="2" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:376">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:381">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:382">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:383">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:388">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:389">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:390">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:395">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:396">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:397">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:402">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:403">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:404">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:409">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:410">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:411">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:416">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:417">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:418">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:423">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:424">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:425">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:430">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:431">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:432">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:437">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:438">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:439">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:444">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:445">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:446">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:451">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:452">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:453">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:458">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:459">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:460">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 217 236" id="0:465">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:371" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 224 240" id="0:466">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:373" />
+  </DataConverterGroup>
+  <DataConverterGroup name="Theme boolean channel 227 241" id="0:467">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:375" />
+  </DataConverterGroup>
+</Rive>

@@ -1,0 +1,6 @@
+.tooling/
+build/
+__pycache__/
+.DS_Store
+*.py[cod]
+.venv/

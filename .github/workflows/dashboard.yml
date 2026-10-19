@@ -1,0 +1,57 @@
+name: Dashboard CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-dashboard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      RIVE_CLI: ${{ github.workspace }}/.tooling/ci/rive
+    steps:
+      - name: Check out standalone dashboard repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      # Check committed scene reproducibility before the build regenerates it.
+      - name: Run regression tests
+        run: python3 -m unittest discover -s . -p 'test_*.py'
+
+      - name: Install checksum-pinned Rive CLI
+        run: |
+          python3 ci/install_rive_cli.py
+          "$RIVE_CLI" --version
+
+      - name: Verify and build dashboard
+        # build.py also enforces the 5,000,000-byte export-size limit.
+        run: |
+          python3 build.py
+          sha256sum dashboard/*.riv > build/dashboard.sha256
+
+      - name: Upload dashboard and source
+        uses: actions/upload-artifact@v4
+        with:
+          name: thud-dashboard-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            dashboard/*.riv
+            scene.rml
+            build/dashboard.sha256

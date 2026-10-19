@@ -1,0 +1,7 @@
+name: thud_dashboard
+main: Newhaven
+artboard:
+  background: "#000000"
+logs:
+  file: build/rive.log
+  problems: build/problems.log

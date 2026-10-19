@@ -1,0 +1,17 @@
+{
+  "description": "SHA-256 of the bundled original T Hud dashboard assets and font license",
+  "sha256": {
+    "assets/autopilot-road-scene-wide.png": "9207c5b75d47a252ec297a3c8a6d300ec3c428d247a1dcf71788dbf452273d0d",
+    "assets/blind-spot-left-grey-wide.png": "2c8be896a4b321930b67b650e2ae164bb92c0eb5ac3911d15fcf1c2a0450c6a0",
+    "assets/blind-spot-left-wide.png": "55ad23178abb702e22de16b50d0a35f61fe0508142b1845f986c8082bcc6f36a",
+    "assets/blind-spot-right-grey-wide.png": "16e95b30dd8f95efaeda4bb443189cfe5e61781f013fc3403c4645d4b083e701",
+    "assets/blind-spot-right-wide.png": "4b2810614e143fd517c35005efd7fe6814107fe7e623a667a84b7f87f94163d5",
+    "assets/vehicle/model-y-juniper-stealth-grey/park.png": "f2b8ee06879f25f4dd5c89074302d6373b0fef66a80c6bd968b87bdf823346f5",
+    "assets/vehicle/model-y-juniper-stealth-grey/drive.png": "7ff3590d995dac918716b167d2f063a27f30669cb9075104e0cd139aa7c6556a",
+    "assets/turn-left.png": "9d724b636b637cce9a5d1293311efcf9f949bf6933971887f6693e80209608fd",
+    "assets/turn-right.png": "ff34ed37e756ddc03078fb696b245abe576148b191f2d8d77f841aea232bddaa",
+    "fonts/Montserrat-Bold.ttf": "4e6d93bc38122c371acb8dc0dbefbf2649c235191e1be136bb5720546d719808",
+    "fonts/Montserrat-Light.ttf": "853de0dd715d6681f7038cf6cd53c1695b614657cbc57c8f542fe08d5b84e006",
+    "fonts/OFL.txt": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e"
+  }
+}
