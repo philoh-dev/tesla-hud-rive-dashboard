@@ -52,8 +52,12 @@ paint only; the existing sprites guide camera, shape and wheels. Each
 `assets/vehicle/model-3-highland-<paint>/README.md` records its prompt
 specifications. These are illustrative renders, not official Tesla artwork.
 
-Montserrat Light/Bold were copied from the firmware's `assets/fonts/` and redistributed
-under the accompanying SIL Open Font License in `fonts/OFL.txt`.
+Inter Regular, Medium and SemiBold are from the Inter project by Rasmus Andersson
+and contributors (https://github.com/rsms/inter), reused from DashPilot's bundled
+`dash-apps/web-vanilla/fonts/inter-{400,500,600}.ttf` files. They are redistributed
+under the accompanying SIL Open Font License in `fonts/Inter-OFL.txt`.
+Legacy Montserrat files are retained with their original license but are not
+embedded in current dashboard exports.
 
 The road-scene Autopilot badge is T Hud's existing project-local geometric
 artwork, originally prepared by the firmware's `scripts/prepare_indicator_assets.py`.
@@ -62,6 +66,10 @@ Turn signals are original geometric vector paths authored in `generate.py`
 (`turn_signal_points`), using a conventional filled arrowhead and rectangular
 shaft with lightly rounded corners. The right arrow mirrors the left geometry.
 No Tesla-downloaded turn-signal PNGs are bundled or embedded in current exports.
+
+The phone battery icon is an original geometric vector outline authored in
+`generate.py` (`phone_icon`), not downloaded artwork. The car battery has no
+separate car-identification icon.
 
 The Rive port does not copy DashPilot's demo artwork. It uses the published
 `DashViewModel` property names to interoperate with that host.

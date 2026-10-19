@@ -30,8 +30,9 @@
     "assets/blind-spot-right-wide.png": "4b2810614e143fd517c35005efd7fe6814107fe7e623a667a84b7f87f94163d5",
     "assets/vehicle/model-y-juniper-stealth-grey/park.png": "f2b8ee06879f25f4dd5c89074302d6373b0fef66a80c6bd968b87bdf823346f5",
     "assets/vehicle/model-y-juniper-stealth-grey/drive.png": "7ff3590d995dac918716b167d2f063a27f30669cb9075104e0cd139aa7c6556a",
-    "fonts/Montserrat-Bold.ttf": "4e6d93bc38122c371acb8dc0dbefbf2649c235191e1be136bb5720546d719808",
-    "fonts/Montserrat-Light.ttf": "853de0dd715d6681f7038cf6cd53c1695b614657cbc57c8f542fe08d5b84e006",
-    "fonts/OFL.txt": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e"
+    "fonts/Inter-Regular.ttf": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
+    "fonts/Inter-Medium.ttf": "8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63",
+    "fonts/Inter-SemiBold.ttf": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
+    "fonts/Inter-OFL.txt": "ba70f4c49083f5644d7c8309ccc63c5cb261cf7894e638a69eb3b4c8303bcc1e"
   }
 }

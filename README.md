@@ -166,8 +166,14 @@ after a successful Dashboard CI run. Generated intermediate files under
 
 - Responsive left/right instruments with a centered road scene and Autopilot.
 - Current speed, European speed-limit sign, selected gear and battery percentage.
+- Car battery on the left and phone battery beside the gear on the right, with
+  a phone icon; phone visibility follows DashPilot's `showPhoneBattery` setting.
+- Odometer beside the car battery: `123.456km`, with a muted km suffix.
 - Power-consumption and green recuperation indicators.
 - Speed-dependent road animation and blue lanes while Autopilot is active.
+- Cruise set speed with a blue MAX caption beside the speed limit while assist
+  is active. Inter Regular for speed values, Medium for labels and SemiBold
+  for the speed-limit digits and MAX caption.
 - Bright/dim turn-signal phases and shared grey/red blind-spot vehicles.
 - Separate Park and Drive car views, plus stopped D/R direction arrows with a
   0.4-second departure movement/fade.
@@ -203,7 +209,7 @@ The km/h-versus-mph road-playback comparison remains unresolved; see the
 [validation report](VALIDATION.md) before relying on runtime behavior.
 
 Vehicle and icon provenance is documented in [CREDITS.md](CREDITS.md).
-Montserrat fonts include their [SIL Open Font License](fonts/OFL.txt).
+Inter fonts include their [SIL Open Font License](fonts/Inter-OFL.txt).
 Turn-signal arrows are original vector geometry, not downloaded Tesla artwork.
 Check the credits for vehicle artwork provenance before redistributing or
 submitting a contest entry.

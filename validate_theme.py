@@ -67,6 +67,7 @@ def main():
         assert contains(image,(170,940,280,1010),power), 'Incorrect battery-percentage color'
         assert image.getpixel((125,975))==empty, 'Incorrect empty-battery color'
         assert image.getpixel((75,975))==(92,189,104), 'Battery charge is no longer green'
+        assert contains(image,(1560,940,1670,1010),power), 'Incorrect phone-battery text color'
     for enabled in (True,False):
         image=capture(f'assist-{enabled}',enabled,True)
         assert contains(image,(750,0,1050,350),(0,113,255)), 'Autopilot blue changed with theme'

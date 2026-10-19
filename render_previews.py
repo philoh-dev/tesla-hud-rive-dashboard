@@ -9,13 +9,13 @@ from generate import ROOT, generate, VEHICLES, DEFAULT_VEHICLE
 
 PREVIEWS=(
     ('drive-dark',dict(gear=4,egoSpeed=130,fusedSpeedLimit=130,powerLevel=35,
-                       darkMode=True,adasOn=True,leftBlinker=2,rightBlinker=0,
+                       darkMode=True,adasOn=True,accSetSpeed=130,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=2,rightBlinker=0,
                        leftBlindSpot=1,rightBlindSpot=1)),
     ('drive-light',dict(gear=4,egoSpeed=130,fusedSpeedLimit=130,powerLevel=35,
-                        darkMode=False,adasOn=False,leftBlinker=2,rightBlinker=0,
+                        darkMode=False,adasOn=False,accSetSpeed=130,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=2,rightBlinker=0,
                         leftBlindSpot=1,rightBlindSpot=1)),
     ('park-dark',dict(gear=1,egoSpeed=0,fusedSpeedLimit=0,powerLevel=0,
-                      darkMode=True,adasOn=False,leftBlinker=0,rightBlinker=0,
+                      darkMode=True,adasOn=False,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=0,rightBlinker=0,
                       leftBlindSpot=0,rightBlindSpot=0)),
 )
 

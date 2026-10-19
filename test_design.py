@@ -16,7 +16,8 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_bundled_assets_match_original_source_checksums(self):
         manifest=json.loads((ROOT/'assets/manifest.json').read_text())
         expected={path for vehicle in VEHICLES for path in vehicle_assets(vehicle).values()}
-        expected.update(f'fonts/{name}' for name in ('Montserrat-Light.ttf','Montserrat-Bold.ttf','OFL.txt'))
+        expected.update(f'fonts/{name}' for name in ('Inter-Regular.ttf','Inter-Medium.ttf',
+                                                    'Inter-SemiBold.ttf','Inter-OFL.txt'))
         self.assertEqual(set(manifest['sha256']),expected)
         for path,digest in manifest['sha256'].items():
             with self.subTest(asset=path):
@@ -78,6 +79,129 @@ class NewhavenDesignTest(unittest.TestCase):
                     result=eval(FORMULAS[side+' Arrow'],{'__builtins__':{}},
                                 dict(input=state,max=max,min=min,sqrt=math.sqrt,pow=pow))
                     self.assertEqual(result,opacity)
+
+    def test_turn_signal_has_shorter_shaft_and_larger_triangle(self):
+        tip, head_top, neck_top, tail_top, *_ = turn_signal_points('left')
+        self.assertEqual(tail_top[0] - neck_top[0], 9)
+        self.assertEqual(head_top[0] - tip[0], 23)
+        self.assertEqual(abs(head_top[1]) * 2, 36)
+        self.assertEqual(neck_top[1], -7)
+        self.assertEqual(abs(tail_top[1]) * 2, 14)
+
+    def test_cruise_set_speed_visibility_and_inter_font(self):
+        self.assertEqual(PROPERTIES['accSetSpeed'][0], 'Number')
+        self.assertEqual(PROPERTIES['selfdriveActive'], ('Boolean', False))
+        for speed in (-1, 0, 30, 130):
+            known = eval(FORMULAS['Cruise Speed Known'], {'__builtins__': {}},
+                         dict(input=speed,min=min,max=max))
+            self.assertEqual(known, int(speed > 0))
+        layer=self.scene.find(".//StateMachineLayer[@name='Cruise assist visibility']")
+        hidden,visible=layer.findall('AnimationState')
+        for transition,flag in zip(hidden.findall('StateTransition'),('adasOn','selfdriveActive')):
+            self.assertEqual(transition.get('stateToId'),visible.get('id'))
+            self.assertEqual(transition.find('.//DataBindContext').get('sourcePathIds'),f'1:1-{IDS[flag]}')
+            self.assertEqual(transition.find('.//TransitionValueBooleanComparator').get('value'),'true')
+        transition=visible.find('StateTransition')
+        self.assertEqual(transition.get('stateToId'),hidden.get('id'))
+        self.assertEqual(len(transition.findall('TransitionViewModelCondition')),2)
+        self.assertTrue(all(c.get('value')=='false' for c in transition.iter('TransitionValueBooleanComparator')))
+        cruise = self.scene.find(".//Node[@name='Cruise set speed']")
+        gate=self.scene.find(".//Node[@name='Cruise assist visibility']")
+        self.assertEqual(gate.get('x'), '-108')
+        binding = cruise.find('DataBindContext')
+        self.assertEqual(binding.get('sourcePathIds'), f"1:1-{IDS['accSetSpeed']}")
+        value = cruise.find("Text[@name='Cruise speed value']")
+        style = value.find('TextStylePaint')
+        self.assertEqual(style.get('fontAssetId'), '2:900')
+        self.assertEqual(style.get('styleName'), 'Regular')
+        self.assertEqual(value.find('TextValueRun/DataBindContext').get('sourcePathIds'),
+                         f"1:1-{IDS['accSetSpeed']}")
+        self.assertEqual(style.get('familyName'), 'Inter')
+
+    def test_approved_inter_weights_are_used_consistently(self):
+        expected={'Current speed':('2:900','Regular'), 'Cruise speed value':('2:900','Regular'),
+                  'Speed limit value':('2:901','SemiBold'), 'Cruise MAX label':('2:901','SemiBold'),
+                  'Speed unit km/h':('2:902','Medium'), 'Gear D':('2:902','Medium'),
+                  'Battery percentage':('2:902','Medium')}
+        for name,(identity,weight) in expected.items():
+            style=self.scene.find(f".//Text[@name='{name}']/TextStylePaint")
+            self.assertEqual((style.get('fontAssetId'),style.get('styleName')),(identity,weight))
+            self.assertEqual(style.get('familyName'),'Inter')
+        self.assertEqual({a.get('file') for a in self.scene.iter('FontAsset')},
+                         {'fonts/Inter-Regular.ttf','fonts/Inter-Medium.ttf','fonts/Inter-SemiBold.ttf'})
+
+    def test_device_battery_widgets_and_phone_bindings(self):
+        car=self.scene.find(".//Node[@name='Known battery']")
+        self.assertIsNone(car.find("Node[@name='Car battery device icon']"))
+        self.assertEqual(car.get('x'),'54')
+        phone_setting=self.scene.find(".//Node[@name='Phone battery setting']")
+        self.assertIsNotNone(self.scene.find(".//LayoutComponent[@name='Gear anchor']/Node[@name='Phone battery setting']"))
+        self.assertEqual(phone_setting.get('x'),'-270')
+        self.assertIsNone(car.find(".//Shape[@name='Car side silhouette']"))
+        setting=phone_setting.find('DataBindContext')
+        self.assertEqual(setting.get('sourcePathIds'),f"1:1-{IDS['showPhoneBattery']}")
+        self.assertEqual(setting.get('converterId'),'2:3')
+        phone=phone_setting.find("Node[@name='Known phone battery']")
+        self.assertIsNotNone(phone.find("Node[@name='Phone battery device icon']"))
+        self.assertEqual(phone.find('DataBindContext').get('sourcePathIds'),f"1:1-{IDS['phoneBattery']}")
+        value=phone.find(".//Text[@name='Phone battery percentage']/TextValueRun/DataBindContext")
+        self.assertEqual(value.get('sourcePathIds'),f"1:1-{IDS['phoneBattery']}")
+        for number,percent,known in ((-1,0,0),(0,0,1),(9,9,1),(78,78,1),(99.9,99,1),(100,100,1),(150,100,1)):
+            env=dict(input=number,min=min,max=max,floor=math.floor)
+            self.assertEqual(eval(FORMULAS['Phone Battery Percent'],{'__builtins__':{}},env),percent)
+            self.assertEqual(eval(FORMULAS['Phone Battery Known'],{'__builtins__':{}},env),known)
+
+    def test_requested_battery_changes_do_not_move_power_rail(self):
+        cluster=self.scene.find(".//Node[@name='Speed and power']")
+        for name in ('Consumption fill','Recuperation fill','Power track'):
+            shape=cluster.find(f"Shape[@name='{name}']")
+            self.assertEqual(shape.get('x'),'12.5')
+
+    def test_car_and_phone_battery_percentages_have_matching_typography(self):
+        for car_name,phone_name in (('Battery percentage','Phone battery percentage'),
+                                    ('Percent sign','Phone percent sign')):
+            car=self.scene.find(f".//Text[@name='{car_name}']/TextStylePaint")
+            phone=self.scene.find(f".//Text[@name='{phone_name}']/TextStylePaint")
+            for key in ('fontSize','fontAssetId','familyName','styleName'):
+                self.assertEqual(car.get(key),phone.get(key))
+            self.assertEqual(phone.get('fontSize'),'18')
+
+    def test_odometer_has_inline_muted_km_suffix_and_live_host_bindings(self):
+        setting=self.scene.find(".//Node[@name='Odometer setting']")
+        self.assertEqual(setting.get('x'),'324')
+        self.assertEqual(setting.find('DataBindContext').get('sourcePathIds'),
+                         f"1:1-{IDS['showOdometer']}")
+        for name in ('Metric','Imperial'):
+            for count in range(1,5):
+                text=setting.find(f".//Text[@name='{name} odometer {count} groups']")
+                runs=text.findall('TextValueRun')
+                self.assertEqual(len(runs),count*2)
+                self.assertEqual(runs[-1].get('text'),'km')
+                self.assertEqual([r.get('text') for r in runs if r.get('name')=='Thousands separator'],
+                                 ['.']*(count-1))
+                self.assertEqual(runs[0].find('DataBindContext').get('sourcePathIds'),
+                                 f"1:1-{IDS['odometer']}")
+                style=text.find(f"TextStylePaint[@id='{runs[-1].get('styleId')}']")
+                self.assertEqual(style.find('Fill/SolidColor').get('colorValue'),'FF7C8589')
+        pad=self.scene.find("DataConverterStringPad[@name='Odometer three digits']")
+        self.assertEqual((pad.get('text'),pad.get('length')),('0','3'))
+        for value,expected in ((0,0),(12345.9,12345),(999999,999999)):
+            self.assertEqual(eval(FORMULAS['Odometer Km'],{'__builtins__':{}},
+                                  dict(input=value,max=max,floor=math.floor)),expected)
+        self.assertEqual(eval(FORMULAS['Odometer Imperial To Km'],{'__builtins__':{}},
+                              dict(input=1000,max=max,floor=math.floor)),1609)
+
+    def test_autopilot_uses_flat_host_compatible_boolean_binding(self):
+        self.assertEqual(PROPERTIES['adasOn'][0], 'Boolean')
+        for selector in (".//Image[@name='Autopilot']", ".//Node[@name='Assist lanes']"):
+            binding = self.scene.find(selector + '/DataBindContext')
+            self.assertEqual(binding.attrib, dict(sourcePathIds=f"1:1-{IDS['adasOn']}",
+                                                 propertyKey='18', converterId='2:3'))
+        converter = self.scene.find("DataConverterGroup[@id='2:3']")
+        self.assertEqual([item.get('converterId') for item in converter], ['2:2', '2:4'])
+        self.assertIsNotNone(self.scene.find("DataConverterToString[@id='2:2']"))
+        self.assertIsNotNone(self.scene.find("DataConverterToNumber[@id='2:4']"))
+        self.assertIsNone(self.scene.find("DataConverterFormula[@name='Assist active']"))
 
     def test_original_aspect_and_80_20_regions(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
@@ -142,7 +266,8 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_no_vehicle_transition_or_intermediate_assets_are_shipped(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
         cue_ids={n.get('id') for n in main.iter('Node')
-                 if n.get('name') in ('Forward direction motion','Reverse direction motion')}
+                 if n.get('name') in ('Forward direction motion','Reverse direction motion',
+                                      'Cruise assist visibility')}
         self.assertTrue(all(obj.get('objectId') in cue_ids for obj in main.iter('KeyedObject')))
         self.assertEqual(list(self.scene.iter('ListenerViewModelChange')),[])
         self.assertEqual(len(list(self.scene.iter('ImageAsset'))),len(ASSETS))

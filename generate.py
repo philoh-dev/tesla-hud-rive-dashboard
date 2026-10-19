@@ -54,6 +54,12 @@ PROPERTIES = {
     # Expose the host setting, but deliberately ignore it for the OLED black
     # background: dark mode must remain #000000 even when gray is requested.
     "darkModeBackgroundGray": ("Number", 0),
+    "accSetSpeed": ("Number", 130),
+    "selfdriveActive": ("Boolean", False),
+    "phoneBattery": ("Number", 78),
+    "showPhoneBattery": ("Boolean", True),
+    "odometer": ("Number", 123456),
+    "showOdometer": ("Boolean", True),
 }
 IDS = {key: f"1:{index + 10}" for index, key in enumerate(PROPERTIES)}
 
@@ -67,7 +73,7 @@ def turn_signal_points(side):
     if side not in ('left','right'):
         raise ValueError(f'Unsupported turn-signal side: {side}')
     direction=1 if side=='left' else -1
-    outline=((-16,0),(1,-15),(1,-5),(16,-5),(16,5),(1,5),(1,15))
+    outline=((-16,0),(7,-18),(7,-7),(16,-7),(16,7),(7,7),(7,18))
     return [(direction*x,y) for x,y in outline]
 
 
@@ -104,6 +110,13 @@ FORMULAS = {
     "Battery Visible": BATTERY_VISIBLE, "Road Rate": ROAD_RATE,
     "Power Up": "min(100,max(0,input))*1.44",
     "Power Down": "min(100,max(0,0-input))*1.44",
+    "Cruise Speed Known": "min(1,max(0,input))",
+    "Phone Battery Percent": "floor(min(100,max(0,input)))",
+    "Phone Battery Known": "max(0,1+min(0,input))",
+    "Odometer Km": "floor(max(0,input))",
+    # Match DashPilot Android's CarState.KM_TO_MILES constant, not a second
+    # independently rounded conversion factor. The requested suffix stays km.
+    "Odometer Imperial To Km": "floor(max(0,input)/0.621371)",
 }
 for side in ("left", "right"):
     blink, blind = f"{side}Blinker", f"{side}BlindSpot"
@@ -227,14 +240,30 @@ class Scene:
         self.paint(shape, color, stroke, light=light)
         return vertices
 
+    def phone_icon(self,parent):
+        """Original phone outline, not an image asset."""
+        icon=self.node(parent,'Phone battery device icon')
+        ink='FFB8C1C5'
+        self.polygon(icon,'Phone outline',[(0,0),(14,0),(14,25),(0,25)],
+                     ink,1.6,light='FF2D3436')
+        self.rect(icon,'Phone speaker',7,3,5,1.3,ink,.5,light='FF2D3436')
+        self.rect(icon,'Phone home indicator',7,22,4,1.3,ink,.5,light='FF2D3436')
+        return icon
+
     def text(self, parent, name, value, x, y, width, height, size, color="FFF4F7FA", bold=False,
              prop=None, converter="2:1", align="left", light=None):
         text = self.el(parent, "Text", name=name, x=x, y=y, width=width, height=height,
                        sizingValue="fixed", alignValue=align, verticalAlignValue="middle",
                        wrapValue="noWrap", overflowValue="fitFontSize", id=self.ident())
         identity = self.ident()
-        style = self.el(text, "TextStylePaint", fontSize=size, fontAssetId="2:901" if bold else "2:900",
-                        familyName="Montserrat", styleName="Bold" if bold else "Light", name="Typography", id=identity)
+        if name in ('Current speed','Cruise speed value'):
+            font_id,weight='2:900','Regular'
+        elif bold:
+            font_id,weight='2:901','SemiBold'
+        else:
+            font_id,weight='2:902','Medium'
+        style = self.el(text, "TextStylePaint", fontSize=size, fontAssetId=font_id,
+                        familyName="Inter", styleName=weight, name="Typography", id=identity)
         self.paint(style, color, light=light)
         self.el(style, "TextStyleFeature", tag=1953396077, featureValue=1, name="Tabular figures")
         run = self.el(text, "TextValueRun", styleId=identity, text=value, name="Value")
@@ -272,8 +301,10 @@ class Scene:
         for name, path in self.assets.items():
             self.el(self.document, "ImageAsset", file=path,
                     name=name, id=IMAGE_IDS[name])
-        self.el(self.document, "FontAsset", file="fonts/Montserrat-Light.ttf", name="Montserrat Light", id="2:900")
-        self.el(self.document, "FontAsset", file="fonts/Montserrat-Bold.ttf", name="Montserrat Bold", id="2:901")
+        for filename,identity,label in (('Inter-Regular.ttf','2:900','Regular'),
+                                        ('Inter-SemiBold.ttf','2:901','SemiBold'),
+                                        ('Inter-Medium.ttf','2:902','Medium')):
+            self.el(self.document,"FontAsset",file='fonts/'+filename,name='Inter '+label,id=identity)
         self.el(self.document, "ComponentAsset", name="Road motion", id="4:4", artboardId="4:1")
         self.el(self.document, "DataConverterToString", decimals=0, round=True, name="Integer", id="2:1")
         self.el(self.document, "DataConverterToString", name="Boolean text", id="2:2")
@@ -354,6 +385,16 @@ class Scene:
         right = self.layout(driving,"Right edge",fill_w=True,fill_h=True,layoutAlignmentType="topRight",
                             flexBasis=0,flexBasisUnitsValue="points")
         right_box = self.layout(right,"Speed limit anchor",width=270,fill_h=True)
+        cruise_gate = self.node(right_box,"Cruise assist visibility",-108,162,
+                                scaleX=2.25,scaleY=2.25,opacity=0)
+        cruise = self.node(cruise_gate,"Cruise set speed")
+        self.opacity(cruise,"accSetSpeed",FORMULAS["Cruise Speed Known"],"Cruise Speed Known")
+        # accSetSpeed already arrives in the selected display units, just like
+        # egoSpeed and fusedSpeedLimit. Match the current-speed Inter typography.
+        self.text(cruise,"Cruise speed value","130",-40,-32,80,44,32,
+                  prop="accSetSpeed",align="center",light="FF2D3436")
+        self.text(cruise,"Cruise MAX label","MAX",-40,12,80,22,14,
+                  "FF0071FF",True,align="center")
         sign = self.node(right_box,"Known speed limit",108,162,scaleX=2.25,scaleY=2.25)
         self.opacity(sign,"fusedSpeedLimit","min(1,max(0,input))","Limit known")
         self.text(sign,"Speed limit value","130",-40,-35,80,70,36,"FF000000",True,
@@ -379,13 +420,79 @@ class Scene:
         self.rect(bat,"Battery empty",22,12,40,10,"FF252A2D",1,light="FFECF0F1")
         self.rect(bat,"Battery frame",22,12,44,14,"FF7C8589",2)
         self.rect(bat,"Battery terminal",45.5,12,3,6,"FF7C8589",1)
+        odo_setting=self.node(battery_col,'Odometer setting',324,81,scaleX=2.25,scaleY=2.25)
+        self.bind(odo_setting,'showOdometer',18,'2:3')
+        odo=self.node(odo_setting,'Known odometer')
+        self.opacity(odo,'odometer','max(0,1+min(0,input))','Odometer known')
+        # Separate unit branches keep Boolean changes out of numeric formula
+        # tokens. Two styled runs lay out the muted suffix directly after digits.
+        pad_id=self.ident()
+        self.el(self.document,'DataConverterStringPad',id=pad_id,name='Odometer three digits',
+                length=3,text='0',padType='start')
+        for name,formula,imperial in (('Metric','Odometer Km',False),
+                                     ('Imperial','Odometer Imperial To Km',True)):
+            unit=self.node(odo,name+' odometer units')
+            if imperial:
+                self.bind(unit,'isImperial',18,'2:3')
+            else:
+                self.opacity(unit,'isImperial','1-isImperial','Metric odometer visible')
+            km=FORMULAS[formula]
+            for count in range(1,5):
+                label_name=f'{name} odometer {count} groups'
+                leading=f'floor(({km})/{1000**(count-1)})'
+                converter=self.chain(label_name+' leading',self.formula(label_name+' leading',leading),'2:1')
+                value=self.text(unit,label_name,'123',0,0,145,24,18,'FFB8C1C5',
+                                prop='odometer',converter=converter,light='FF2D3436')
+                lower='1' if count==1 else f'min(1,max(0,({km})-{1000**(count-1)}+1))'
+                upper='1' if count==4 else f'1-min(1,max(0,({km})-{1000**count}+1))'
+                self.opacity(value,'odometer',f'({lower})*({upper})',label_name+' visible')
+                number_style=value.find('TextStylePaint').get('id')
+                for group in range(count-2,-1,-1):
+                    self.el(value,'TextValueRun',styleId=number_style,text='.',name='Thousands separator')
+                    digits=f'floor(({km})/{1000**group})%1000'
+                    converter=self.chain(label_name+f' group {group}',
+                                         self.formula(label_name+f' group {group}',digits),'2:1',pad_id)
+                    run=self.el(value,'TextValueRun',styleId=number_style,text='000',name='Odometer digits')
+                    self.bind(run,'odometer',268,converter)
+                style_id=self.ident()
+                suffix_style=self.el(value,'TextStylePaint',id=style_id,name='Muted odometer unit',
+                                     fontSize=18,fontAssetId='2:902',familyName='Inter',styleName='Medium')
+                self.paint(suffix_style,'FF7C8589',light='FF8B9396')
+                self.el(value,'TextValueRun',styleId=style_id,text='km',name='Odometer unit')
+        phone_setting=self.node(battery_col,'Phone battery setting',360,81,scaleX=2.25,scaleY=2.25)
+        self.bind(phone_setting,'showPhoneBattery',18,'2:3')
+        phone=self.node(phone_setting,'Known phone battery')
+        self.opacity(phone,'phoneBattery',FORMULAS['Phone Battery Known'],'Phone Battery Known')
+        self.phone_icon(phone)
+        phone_bat=self.node(phone,'Phone battery gauge',22,0)
+        phone_converter=self.chain('Phone battery label',
+                                  self.formula('Phone Battery Percent',FORMULAS['Phone Battery Percent']),'2:1')
+        self.text(phone_bat,'Phone battery percentage','78',42,0,35,24,18,'FFB8C1C5',
+                  prop='phoneBattery',converter=phone_converter,light='FF2D3436')
+        phone_percent=self.text(phone_bat,'Phone percent sign','%',64,0,22,24,18,
+                                'FFB8C1C5',light='FF2D3436')
+        self.bind(phone_percent,'phoneBattery',13,self.formula('Phone percent position',
+            '42+11*(1+min(1,max(0,input-9))+min(1,max(0,input-99)))'))
+        phone_fill=self.rect(phone_bat,'Phone battery charge',2,12,28,10,'FF5CBD68',1,originX=0)
+        self.bind(phone_fill,'phoneBattery',20,self.formula('Phone battery width',
+                  '('+FORMULAS['Phone Battery Percent']+')*0.28'))
+        self.rect(phone_bat,'Phone battery empty',16,12,28,10,'FF252A2D',1,light='FFECF0F1')
+        self.rect(phone_bat,'Phone battery frame',16,12,32,14,'FF7C8589',2)
+        self.rect(phone_bat,'Phone battery terminal',33.5,12,3,6,'FF7C8589',1)
         ap_col = self.layout(footer,"Autopilot center",width=0,fill_h=True)
         ap = self.image(self.node(ap_col,"Autopilot anchor",0,108,scaleX=2.025,scaleY=2.025),
                         "Autopilot","autopilot",0,0)
-        self.opacity(ap,"adasOn","adasOn","Assist active")
+        # Match DashPilot's reference dashboard: use the flat Boolean-to-number
+        # converter, without nesting groups around an identity formula. Older
+        # phone runtimes need not evaluate a redundant formula for this flag.
+        self.bind(ap,"adasOn",18,"2:3")
         gear_col = self.layout(footer,"Gear right",fill_w=True,fill_h=True,layoutAlignmentType="topRight",
                                flexBasis=0,flexBasisUnitsValue="points")
         gear_box = self.layout(gear_col,"Gear anchor",width=108,fill_h=True)
+        # Share the right-edge anchor with the gear, independent of viewport width.
+        battery_col.remove(phone_setting)
+        gear_box.append(phone_setting)
+        phone_setting.set('x','-270')
         gear_node = self.node(gear_box,"Selected gear",0,76.5,scaleX=2.25,scaleY=2.25)
         for letter,value in (("P",1),("R",2),("N",3),("D",4),("—",0)):
             txt = self.text(gear_node,"Gear "+letter,letter,0,0,24,28,24,align="right",light="FF2D3436")
@@ -395,8 +502,42 @@ class Scene:
         machine=self.el(main,"StateMachine",id=machine_id,name="Newhaven dashboard")
         for cue in direction_cues:
             self.direction_machine(main,machine,*cue)
+        self.cruise_machine(main,machine,cruise_gate)
         self.road_artboard()
         return self.document
+
+    def cruise_machine(self,main,machine,target):
+        # Separate OR transitions avoid external Boolean formula tokens, which
+        # do not reliably follow live host updates in the native renderer.
+        layer=self.el(machine,'StateMachineLayer',name='Cruise assist visibility',id=self.ident())
+        self.el(layer,'AnyState')
+        self.el(layer,'ExitState')
+        entry=self.el(layer,'EntryState')
+        states={name:self.ident() for name in ('hidden','visible')}
+        self.el(entry,'StateTransition',stateToId=states['hidden'])
+        nodes={}
+        for name,opacity in (('hidden',0),('visible',1)):
+            animation_id=self.ident()
+            nodes[name]=self.el(layer,'AnimationState',id=states[name],animationId=animation_id,
+                                reset=True)
+            animation=self.el(main,'LinearAnimation',id=animation_id,name='Cruise '+name,
+                              duration=1,fps=60,loopValue='oneShot')
+            obj=self.el(animation,'KeyedObject',objectId=target.get('id'))
+            prop=self.el(obj,'KeyedProperty',propertyKey=18)
+            self.el(prop,'KeyFrameDouble',frame=0,value=opacity,interpolationType='hold')
+
+        def condition(transition,prop,value):
+            test=self.el(transition,'TransitionViewModelCondition',opValue='equal')
+            comparator=self.el(test,'TransitionPropertyViewModelComparator')
+            self.bind(self.el(comparator,'BindablePropertyBoolean'),prop,634)
+            self.el(test,'TransitionValueBooleanComparator',value=value)
+
+        for prop in ('adasOn','selfdriveActive'):
+            transition=self.el(nodes['hidden'],'StateTransition',stateToId=states['visible'])
+            condition(transition,prop,True)
+        transition=self.el(nodes['visible'],'StateTransition',stateToId=states['hidden'])
+        for prop in ('adasOn','selfdriveActive'):
+            condition(transition,prop,False)
 
     def number_condition(self,transition,prop,value,operator='equal'):
         condition=self.el(transition,'TransitionViewModelCondition',opValue=operator)
@@ -459,7 +600,7 @@ class Scene:
         for color,label in (("FF0071FF","Assist lanes"),("FFD9E0E3","Neutral lanes")):
             group=self.node(road,label)
             if label=="Assist lanes":
-                self.opacity(group,"adasOn","adasOn","Assist active")
+                self.bind(group,"adasOn",18,"2:3")
             for side in (-1,1):
                 # Include a clipped incoming dash so the loop never pops a new
                 # marking into view at the top. One cycle is 6 m paint + 6 m gap.
@@ -492,7 +633,7 @@ def generate(vehicle=DEFAULT_VEHICLE):
         bundled=ROOT/path
         if not bundled.is_file():
             raise FileNotFoundError(f'Missing bundled dashboard asset: {bundled}')
-    for name in ('Montserrat-Light.ttf','Montserrat-Bold.ttf','OFL.txt'):
+    for name in ('Inter-Regular.ttf','Inter-Medium.ttf','Inter-SemiBold.ttf','Inter-OFL.txt'):
         if not (ROOT/'fonts'/name).is_file():
             raise FileNotFoundError(f'Missing bundled font/license: {name}')
     scene=Scene(vehicle)

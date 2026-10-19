@@ -2,7 +2,7 @@
 
 These files are committed so this repository builds independently of T Hud's
 firmware checkout. `manifest.json` records the SHA-256 values of the active
-PNG assets, two fonts and font license.
+PNG assets, three active Inter fonts and their font license.
 `generate.py` references their actual repository-relative paths.
 
 - Vehicle images in `vehicle/model-y-juniper-stealth-grey/`: project-local
@@ -28,7 +28,7 @@ PNG assets, two fonts and font license.
   design. Adjacent grey/red cars are exact mirrored pairs.
 - Autopilot badge: project-local geometric artwork, not an enlarged manual
   bitmap. The blue badge is `#0071ff` with a white steering-wheel symbol.
-- Fonts: Montserrat Light/Bold; see the bundled `fonts/OFL.txt`.
+- Fonts: Inter Regular/Medium/SemiBold; see `fonts/Inter-OFL.txt`.
 
 ## Original vector turn signals
 

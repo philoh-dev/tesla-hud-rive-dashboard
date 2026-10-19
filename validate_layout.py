@@ -32,7 +32,9 @@ def main():
         return {
             'speed':image.crop((0,90,450,330)),
             'power rail':image.crop((0,330,75,800)),
-            'battery':image.crop((0,900,320,1080)),
+            'car battery':image.crop((0,900,350,1080)),
+            'odometer':image.crop((310,900,640,1080)),
+            'phone battery':image.crop((width-400,900,width-120,1080)),
             'speed limit':image.crop((width-300,0,width,350)),
             'gear':image.crop((width-120,900,width,1080)),
             'road and vehicles':image.crop((width//2-620,400,width//2+620,850)),
