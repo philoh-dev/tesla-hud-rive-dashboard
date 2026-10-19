@@ -98,7 +98,7 @@
                 <DataBindContext sourcePathIds="1:1-1:10" propertyKey="268" converterId="2:1" />
               </TextValueRun>
             </Text>
-            <Text name="Speed unit km/h" x="214" y="104" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:121">
+            <Text name="Speed unit km/h" x="220" y="95" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:121">
               <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:122">
                 <Fill name="Paint">
                   <SolidColor colorValue="FFB8C1C5" name="Color" />
@@ -109,7 +109,7 @@
               <DataBindContext sourcePathIds="1:1-1:26" propertyKey="18" converterId="0:124" />
               <DataBindContext sourcePathIds="1:1-1:10" propertyKey="13" converterId="0:125" />
             </Text>
-            <Text name="Speed unit mph" x="214" y="104" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:126">
+            <Text name="Speed unit mph" x="220" y="95" width="65" height="25" sizingValue="fixed" alignValue="left" verticalAlignValue="middle" wrapValue="noWrap" overflowValue="fitFontSize" id="0:126">
               <TextStylePaint fontSize="18" fontAssetId="2:900" familyName="Montserrat" styleName="Light" name="Typography" id="0:127">
                 <Fill name="Paint">
                   <SolidColor colorValue="FFB8C1C5" name="Color" />
@@ -808,11 +808,7 @@
     <FormulaTokenParenthesisOpen />
     <FormulaTokenParenthesisOpen />
     <FormulaTokenParenthesisOpen />
-    <FormulaTokenParenthesisOpen />
-    <FormulaTokenValue operationValue="34" />
-    <FormulaTokenOperation operationType="0" />
-    <FormulaTokenValue operationValue="8" />
-    <FormulaTokenParenthesisClose />
+    <FormulaTokenValue operationValue="16" />
     <FormulaTokenOperation operationType="0" />
     <FormulaTokenParenthesisOpen />
     <FormulaTokenFunction functionType="0" />
