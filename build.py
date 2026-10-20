@@ -7,21 +7,28 @@ import shutil
 import subprocess
 
 from generate import ROOT, generate, VEHICLES, DEFAULT_VEHICLE
+from universal import UNIVERSAL_TARGET, generate_universal
 
 OUTPUT = ROOT / 'dashboard' / 'model-y-juniper-stealth-grey.riv'
 
 
 def main():
     parser = argparse.ArgumentParser(description='Build all vehicle dashboards or one selected design.')
-    parser.add_argument('--vehicle', choices=VEHICLES)
+    selection=parser.add_mutually_exclusive_group()
+    selection.add_argument('--vehicle', choices=VEHICLES)
+    selection.add_argument('--universal',action='store_true',help='Build only the live vehicle-selecting dashboard.')
     args = parser.parse_args()
     local = ROOT / '.tooling' / ('rive.exe' if os.name == 'nt' else 'rive')
     cli = os.environ.get('RIVE_CLI') or (str(local) if local.exists() else shutil.which('rive'))
     if not cli:
         raise SystemExit('Install Rive CLI 1.6.0 or set RIVE_CLI to its executable.')
     try:
-        for vehicle in (args.vehicle,) if args.vehicle else VEHICLES:
-            generate(vehicle)
+        targets=(UNIVERSAL_TARGET,) if args.universal else (args.vehicle,) if args.vehicle else (*VEHICLES,UNIVERSAL_TARGET)
+        for vehicle in targets:
+            if vehicle==UNIVERSAL_TARGET:
+                generate_universal()
+            else:
+                generate(vehicle)
             subprocess.run([cli, str(ROOT), '--verify'], check=True)
             subprocess.run([cli, str(ROOT), '--once'], check=True)
             result = ROOT / 'build' / 'thud_dashboard.riv'
