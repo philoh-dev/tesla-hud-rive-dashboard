@@ -123,7 +123,6 @@ FORMULAS = {
     "Road steering dead zone and clamp": ROAD_BEND,
     "Power Up": "min(100,max(0,input))*1.44",
     "Power Down": "min(100,max(0,0-input))*1.44",
-    "Cruise Speed Known": "min(1,max(0,input))",
     "Phone Battery Percent": "floor(min(100,max(0,input)))",
     "Phone Battery Known": "max(0,1+min(0,input))",
     "Odometer Km": "floor(max(0,input))",
@@ -412,16 +411,30 @@ class Scene:
         right_box = self.layout(right,"Speed limit anchor",width=270,fill_h=True)
         # Center the complete value + MAX block on the sign at y≈181, rather
         # than aligning the set-speed digits alone. Matches the approved preview.
-        cruise_gate = self.node(right_box,"Cruise assist visibility",-108,174.5,
-                                scaleX=2.25,scaleY=2.25,opacity=0)
-        cruise = self.node(cruise_gate,"Cruise set speed")
-        self.opacity(cruise,"accSetSpeed",FORMULAS["Cruise Speed Known"],"Cruise Speed Known")
+        cruise_anchor = self.node(right_box,"Cruise anchor",-108,174.5,
+                                  scaleX=2.25,scaleY=2.25)
+        cruise = self.node(cruise_anchor,"Cruise set speed")
+        # Match dash_demo.riv: a native range mapper drives opacity directly.
+        # Assist flags and state-machine playback must not gate the value.
+        known=self.ident()
+        self.el(self.document,'DataConverterRangeMapper',id=known,name='Cruise speed visibility',
+                minInput=0,maxInput=1,minOutput=0,maxOutput=1,clampLower=True,clampUpper=True)
+        self.bind(cruise,'accSetSpeed',18,known)
         # accSetSpeed already arrives in the selected display units, just like
         # egoSpeed and fusedSpeedLimit. Match the current-speed Inter typography.
         self.text(cruise,"Cruise speed value","130",-40,-32,80,44,32,
                   prop="accSetSpeed",align="center",light="FF2D3436")
-        self.text(cruise,"Cruise MAX label","MAX",-40,12,80,22,14,
-                  "FF0071FF",True,align="center")
+        caption=self.text(cruise,"Cruise MAX label","MAX",-40,12,80,22,14,
+                          "FF0071FF",True,align="center")
+        ink=caption.find('TextStylePaint/Fill/SolidColor')
+        # Assist changes styling only. Use native numeric range mappers after
+        # the established Boolean converter, without formulas or transitions.
+        for key,off,on in ((118,184,0),(136,193,113),(210,197,255)):
+            channel=self.ident()
+            self.el(self.document,'DataConverterRangeMapper',id=channel,
+                    name=f'Cruise caption channel {key}',minInput=0,maxInput=1,
+                    minOutput=off,maxOutput=on,clampLower=True,clampUpper=True)
+            self.bind(ink,'adasOn',key,self.chain(f'Cruise caption assist {key}','2:3',channel))
         sign = self.node(right_box,"Known speed limit",108,181,scaleX=2.25,scaleY=2.25)
         self.opacity(sign,"fusedSpeedLimit","min(1,max(0,input))","Limit known")
         self.text(sign,"Speed limit value","130",-40,-35,80,70,36,"FF000000",True,
@@ -529,43 +542,9 @@ class Scene:
         machine=self.el(main,"StateMachine",id=machine_id,name="Newhaven dashboard")
         for cue in direction_cues:
             self.direction_machine(main,machine,*cue)
-        self.cruise_machine(main,machine,cruise_gate)
         self.road_artboard()
         add_park_ground(self,self.document)
         return self.document
-
-    def cruise_machine(self,main,machine,target):
-        # Separate OR transitions avoid external Boolean formula tokens, which
-        # do not reliably follow live host updates in the native renderer.
-        layer=self.el(machine,'StateMachineLayer',name='Cruise assist visibility',id=self.ident())
-        self.el(layer,'AnyState')
-        self.el(layer,'ExitState')
-        entry=self.el(layer,'EntryState')
-        states={name:self.ident() for name in ('hidden','visible')}
-        self.el(entry,'StateTransition',stateToId=states['hidden'])
-        nodes={}
-        for name,opacity in (('hidden',0),('visible',1)):
-            animation_id=self.ident()
-            nodes[name]=self.el(layer,'AnimationState',id=states[name],animationId=animation_id,
-                                reset=True)
-            animation=self.el(main,'LinearAnimation',id=animation_id,name='Cruise '+name,
-                              duration=1,fps=60,loopValue='oneShot')
-            obj=self.el(animation,'KeyedObject',objectId=target.get('id'))
-            prop=self.el(obj,'KeyedProperty',propertyKey=18)
-            self.el(prop,'KeyFrameDouble',frame=0,value=opacity,interpolationType='hold')
-
-        def condition(transition,prop,value):
-            test=self.el(transition,'TransitionViewModelCondition',opValue='equal')
-            comparator=self.el(test,'TransitionPropertyViewModelComparator')
-            self.bind(self.el(comparator,'BindablePropertyBoolean'),prop,634)
-            self.el(test,'TransitionValueBooleanComparator',value=value)
-
-        for prop in ('adasOn','selfdriveActive'):
-            transition=self.el(nodes['hidden'],'StateTransition',stateToId=states['visible'])
-            condition(transition,prop,True)
-        transition=self.el(nodes['visible'],'StateTransition',stateToId=states['hidden'])
-        for prop in ('adasOn','selfdriveActive'):
-            condition(transition,prop,False)
 
     def number_condition(self,transition,prop,value,operator='equal'):
         condition=self.el(transition,'TransitionViewModelCondition',opValue=operator)

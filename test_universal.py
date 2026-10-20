@@ -80,7 +80,7 @@ class UniversalDashboardTest(unittest.TestCase):
     def test_other_instruments_and_road_are_unchanged(self):
         single=Scene(FALLBACK_VEHICLE).build()
         for tag,name in (('Node','Speed and power'),('Node','Autopilot anchor'),
-                         ('Node','Cruise assist visibility'),('Artboard','Road motion'),
+                         ('Node','Cruise anchor'),('Artboard','Road motion'),
                          ('LayoutComponent','Invisible status region 20 percent')):
             expected=single.find(f".//{tag}[@name='{name}']")
             actual=self.scene.find(f".//{tag}[@name='{name}']")

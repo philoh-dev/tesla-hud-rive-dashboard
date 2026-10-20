@@ -15,7 +15,7 @@ PREVIEWS=(
                         darkMode=False,adasOn=False,accSetSpeed=130,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=2,rightBlinker=0,
                         leftBlindSpot=1,rightBlindSpot=1)),
     ('park-dark',dict(gear=1,egoSpeed=0,fusedSpeedLimit=0,powerLevel=0,
-                      darkMode=True,adasOn=False,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=0,rightBlinker=0,
+                      darkMode=True,adasOn=False,accSetSpeed=0,odometer=123456,showOdometer=True,phoneBattery=78,showPhoneBattery=True,leftBlinker=0,rightBlinker=0,
                       leftBlindSpot=0,rightBlindSpot=0)),
 )
 

@@ -125,14 +125,16 @@ Road animation converts mph to physical km/h internally.
   cover initial off/on, engagement, disengagement and re-engagement in both themes.
   This verifies rendering when the host supplies the flag, not live CAN delivery.
 - `accSetSpeed` (Number): cruise set speed in the host's selected display units,
-  shown immediately left of the speed-limit sign with a blue MAX caption when
-  positive and either `adasOn` or `selfdriveActive` (Boolean) is true. Unknown,
+  shown immediately left of the speed-limit sign whenever positive, independently
+  of `adasOn` and `selfdriveActive`. Unknown,
   zero and negative values are hidden; the speed-limit sign remains independent.
   Its value uses Inter Regular, matching current speed. Labels use Inter Medium;
   speed-limit digits and the MAX caption use Inter SemiBold.
-  Explicit Boolean state-machine transitions implement the OR condition; a
-  separate numeric binding gates unknown set speeds without combining Boolean
-  values inside a formula.
+  Like DashPilot's `dash_demo.riv`, a direct native range mapper clamps the value
+  to 0–1 for opacity, without a formula or visibility state-machine transitions.
+  `adasOn` changes only the MAX caption color: blue when true, muted when false.
+  Checks include rendering with both assist flags off and with an idle-only state
+  machine, without any assist visibility transitions.
 - `powerLevel`: signed normalized power/recuperation percentage supplied by
   the host. Battery percentage uses floor rounding of usable energy.
 - `darkMode`: live theme selection, default dark. `darkModeBackgroundGray` is

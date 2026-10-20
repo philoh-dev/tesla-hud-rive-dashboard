@@ -124,25 +124,21 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_cruise_set_speed_visibility_and_inter_font(self):
         self.assertEqual(PROPERTIES['accSetSpeed'][0], 'Number')
         self.assertEqual(PROPERTIES['selfdriveActive'], ('Boolean', False))
-        for speed in (-1, 0, 30, 130):
-            known = eval(FORMULAS['Cruise Speed Known'], {'__builtins__': {}},
-                         dict(input=speed,min=min,max=max))
-            self.assertEqual(known, int(speed > 0))
-        layer=self.scene.find(".//StateMachineLayer[@name='Cruise assist visibility']")
-        hidden,visible=layer.findall('AnimationState')
-        for transition,flag in zip(hidden.findall('StateTransition'),('adasOn','selfdriveActive')):
-            self.assertEqual(transition.get('stateToId'),visible.get('id'))
-            self.assertEqual(transition.find('.//DataBindContext').get('sourcePathIds'),f'1:1-{IDS[flag]}')
-            self.assertEqual(transition.find('.//TransitionValueBooleanComparator').get('value'),'true')
-        transition=visible.find('StateTransition')
-        self.assertEqual(transition.get('stateToId'),hidden.get('id'))
-        self.assertEqual(len(transition.findall('TransitionViewModelCondition')),2)
-        self.assertTrue(all(c.get('value')=='false' for c in transition.iter('TransitionValueBooleanComparator')))
+        self.assertIsNone(self.scene.find(".//StateMachineLayer[@name='Cruise assist visibility']"))
         cruise = self.scene.find(".//Node[@name='Cruise set speed']")
-        gate=self.scene.find(".//Node[@name='Cruise assist visibility']")
-        self.assertEqual(gate.get('x'), '-108')
+        anchor=self.scene.find(".//Node[@name='Cruise anchor']")
+        self.assertEqual(anchor.get('x'), '-108')
+        self.assertIsNone(anchor.get('opacity'))
+        self.assertEqual(anchor.findall('DataBindContext'),[])
         binding = cruise.find('DataBindContext')
         self.assertEqual(binding.get('sourcePathIds'), f"1:1-{IDS['accSetSpeed']}")
+        self.assertEqual(binding.get('propertyKey'),'18')
+        mapper=self.scene.find(f"DataConverterRangeMapper[@id='{binding.get('converterId')}']")
+        self.assertIsNotNone(mapper)
+        self.assertEqual([mapper.get(k) for k in ('minInput','maxInput','minOutput','maxOutput')],['0','1','0','1'])
+        self.assertEqual([mapper.get(k) for k in ('clampLower','clampUpper')],['true','true'])
+        self.assertFalse(any(obj.get('objectId') in (anchor.get('id'),cruise.get('id'))
+                             for obj in self.scene.iter('KeyedObject')))
         value = cruise.find("Text[@name='Cruise speed value']")
         style = value.find('TextStylePaint')
         self.assertEqual(style.get('fontAssetId'), '2:900')
@@ -150,6 +146,10 @@ class NewhavenDesignTest(unittest.TestCase):
         self.assertEqual(value.find('TextValueRun/DataBindContext').get('sourcePathIds'),
                          f"1:1-{IDS['accSetSpeed']}")
         self.assertEqual(style.get('familyName'), 'Inter')
+        caption=cruise.find("Text[@name='Cruise MAX label']")
+        bindings=caption.findall('TextStylePaint/Fill/SolidColor/DataBindContext')
+        self.assertEqual({b.get('propertyKey') for b in bindings},{'118','136','210'})
+        self.assertTrue(all(b.get('sourcePathIds')==f"1:1-{IDS['adasOn']}" for b in bindings))
 
     def test_approved_inter_weights_are_used_consistently(self):
         expected={'Current speed':('2:900','Regular'), 'Cruise speed value':('2:900','Regular'),
@@ -309,7 +309,7 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_speed_readouts_keep_the_approved_optical_alignment(self):
         speed=self.scene.find(".//Text[@name='Current speed']")
         limit=self.scene.find(".//Node[@name='Known speed limit']")
-        cruise=self.scene.find(".//Node[@name='Cruise assist visibility']")
+        cruise=self.scene.find(".//Node[@name='Cruise anchor']")
         self.assertEqual((speed.get('x'),speed.get('y')),('20','23'))
         self.assertEqual(limit.get('y'),'181')
         self.assertEqual(cruise.get('y'),'174.5')
@@ -322,8 +322,7 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_no_vehicle_transition_or_intermediate_assets_are_shipped(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
         cue_ids={n.get('id') for n in main.iter('Node')
-                 if n.get('name') in ('Forward direction motion','Reverse direction motion',
-                                      'Cruise assist visibility')}
+                 if n.get('name') in ('Forward direction motion','Reverse direction motion')}
         self.assertTrue(all(obj.get('objectId') in cue_ids for obj in main.iter('KeyedObject')))
         self.assertEqual(list(self.scene.iter('ListenerViewModelChange')),[])
         self.assertEqual(len(list(self.scene.iter('ImageAsset'))),len(ASSETS))

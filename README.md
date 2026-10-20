@@ -235,8 +235,9 @@ after a successful Dashboard CI run. Generated intermediate files under
 - Steering-responsive road curves with a small dead zone and smooth changes;
   the car and nearby road remain centered. This is a visual effect, not a
   prediction of the road ahead.
-- Cruise set speed with a blue MAX caption beside the speed limit while assist
-  is active. Inter Regular for speed values, Medium for labels and SemiBold
+- Cruise set speed beside the speed limit whenever a positive value is available.
+  The MAX caption is blue while assist is active and muted otherwise.
+  Inter Regular for speed values, Medium for labels and SemiBold
   for the speed-limit digits and MAX caption.
 - Bright/dim turn-signal phases and shared grey/red blind-spot vehicles.
 - Separate Park and Drive car views, plus stopped D/R direction arrows with a

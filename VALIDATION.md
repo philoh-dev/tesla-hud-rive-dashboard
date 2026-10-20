@@ -76,11 +76,12 @@ validation is implied, and the existing unresolved issues below remain.
 - All twelve exports built with original vector turn signals. Refreshed all
   README captures; visually checked the bright left arrow and dim-left/bright-right
   combination in the real renderer. Retired bitmap indicators are no longer embedded.
-- Cruise set speed and MAX caption next to the speed limit: either `adasOn` or
-  `selfdriveActive` enables it, zero/unknown set speed hides it, and live set-speed
-  changes redraw the value. Native renderer checks cover both themes and assist
-  handoff with one flag remaining true. Visibility uses explicit Boolean state
-  transitions after a combined formula failed the off-state renderer test.
+- Cruise set speed and MAX caption next to the speed limit: a direct native
+  range-mapper binding shows positive `accSetSpeed`, independently of assist flags.
+  Zero/negative speeds hide it; live updates redraw the value. `adasOn` changes
+  only the caption color. Native checks cover both themes, assist on/off/handoff,
+  and operation with an idle-only state machine, matching `dash_demo.riv`'s direct
+  visibility approach. This replaces the previous assist visibility transitions.
   Turn-signal shafts are 14 pixels thick while staying 9 pixels long.
 - The five additional Highland colors each have Park, dark Drive and light
   Drive captures. Park and light Drive captures were visually checked for
