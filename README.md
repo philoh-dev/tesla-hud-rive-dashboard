@@ -43,6 +43,52 @@ speed and power/recuperation instruments are hidden.
 These are actual Rive renderer captures of the included design. To regenerate
 them, run `python3 render_previews.py` with the Rive CLI and a graphics context.
 
+## Phone impressions
+
+The current Model Y Juniper Stealth Grey dashboard rendered at each display's
+landscape proportions, with illustrative device frames and camera cutouts.
+These are mockups, not on-device validation: DashPilot's safe-area handling and
+system bars may change the usable display area. The Fold uses its **cover screen
+only**, not the unfolded display.
+
+### iPhone 18 Pro Max
+
+![Dark dashboard impression on iPhone 18 Pro Max](docs/images/devices/iphone-18-pro-max-dark.png)
+
+<details>
+<summary>Light theme</summary>
+
+![Light dashboard impression on iPhone 18 Pro Max](docs/images/devices/iphone-18-pro-max-light.png)
+
+</details>
+
+### Samsung Galaxy S26 Ultra
+
+![Dark dashboard impression on Samsung Galaxy S26 Ultra](docs/images/devices/samsung-galaxy-s26-ultra-dark.png)
+
+<details>
+<summary>Light theme</summary>
+
+![Light dashboard impression on Samsung Galaxy S26 Ultra](docs/images/devices/samsung-galaxy-s26-ultra-light.png)
+
+</details>
+
+### Samsung Galaxy Z Fold8 Ultra — cover screen
+
+![Dark dashboard impression on the Samsung Galaxy Z Fold8 Ultra cover screen](docs/images/devices/samsung-galaxy-z-fold8-ultra-cover-dark.png)
+
+<details>
+<summary>Light theme</summary>
+
+![Light dashboard impression on the Samsung Galaxy Z Fold8 Ultra cover screen](docs/images/devices/samsung-galaxy-z-fold8-ultra-cover-light.png)
+
+</details>
+
+Display proportions follow the manufacturer specifications for
+[iPhone 18 Pro Max](https://www.apple.com/iphone-18-pro/specs/),
+[Galaxy S26 Ultra](https://www.samsung.com/hk_en/smartphones/galaxy-s26-ultra/)
+and [Galaxy Z Fold8 Ultra](https://www.samsung.com/ch_fr/smartphones/galaxy-z/galaxy-z-fold8-ultra-graphite-256gb-sm-f976bzkbeee/).
+
 ## Supported vehicles
 
 - **Model Y Juniper Stealth Grey** — [download dashboard](dashboard/model-y-juniper-stealth-grey.riv).
