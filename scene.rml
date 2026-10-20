@@ -196,6 +196,79 @@
             <Image name="Park front three-quarter vehicle" assetId="5:2" x="400" y="384" id="0:165" samplerFilter="bilinear" originY="1">
               <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:166" />
             </Image>
+            <Node name="Park ground" x="0" y="0" id="0:879">
+              <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:166" />
+              <Solo id="0:880" name="Vehicle ground selector" activeComponentId="0:881">
+                <Node name="model-y-juniper-stealth-grey ground" x="0" y="0" id="0:881">
+                  <Node name="Dark park ground" x="0" y="0" id="0:882">
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="18" converterId="0:884" />
+                    <Shape name="Continuous projected footprint" id="0:885">
+                      <PointsPath name="Ground plane outline" isClosed="true" isClockwise="true">
+                        <StraightVertex x="249" y="313" radius="9" />
+                        <StraightVertex x="529" y="242" radius="9" />
+                        <StraightVertex x="595" y="270" radius="9" />
+                        <StraightVertex x="583" y="290" radius="9" />
+                        <StraightVertex x="563" y="302" radius="9" />
+                        <StraightVertex x="541" y="309" radius="9" />
+                        <StraightVertex x="391" y="378" radius="9" />
+                        <StraightVertex x="369" y="385" radius="9" />
+                        <StraightVertex x="345" y="379" radius="9" />
+                        <StraightVertex x="320" y="378" radius="9" />
+                        <StraightVertex x="280" y="372" radius="9" />
+                        <StraightVertex x="240" y="356" radius="9" />
+                        <StraightVertex x="220" y="346" radius="9" />
+                        <StraightVertex x="200" y="332" radius="9" />
+                      </PointsPath>
+                      <Fill name="Soft penumbra" fillRule="clockwise">
+                        <SolidColor colorValue="FF60666B" />
+                        <Feather name="Soft outer edge" strength="12" spaceValue="local" />
+                      </Fill>
+                      <Fill name="Continuous contact shading" fillRule="clockwise">
+                        <LinearGradient name="Ground depth falloff" startX="369" startY="383" endX="331" endY="293">
+                          <GradientStop position="0" colorValue="B0000000" />
+                          <GradientStop position="0.4" colorValue="84000000" />
+                          <GradientStop position="1" colorValue="1A000000" />
+                        </LinearGradient>
+                        <Feather name="Contact edge softness" strength="4" spaceValue="local" />
+                      </Fill>
+                    </Shape>
+                  </Node>
+                  <Node name="Light park ground" x="0" y="0" id="0:886">
+                    <DataBindContext sourcePathIds="1:1-1:30" propertyKey="18" converterId="0:888" />
+                    <Shape name="Continuous projected footprint" id="0:889">
+                      <PointsPath name="Ground plane outline" isClosed="true" isClockwise="true">
+                        <StraightVertex x="249" y="313" radius="9" />
+                        <StraightVertex x="529" y="242" radius="9" />
+                        <StraightVertex x="595" y="270" radius="9" />
+                        <StraightVertex x="583" y="290" radius="9" />
+                        <StraightVertex x="563" y="302" radius="9" />
+                        <StraightVertex x="541" y="309" radius="9" />
+                        <StraightVertex x="391" y="378" radius="9" />
+                        <StraightVertex x="369" y="385" radius="9" />
+                        <StraightVertex x="345" y="379" radius="9" />
+                        <StraightVertex x="320" y="378" radius="9" />
+                        <StraightVertex x="280" y="372" radius="9" />
+                        <StraightVertex x="240" y="356" radius="9" />
+                        <StraightVertex x="220" y="346" radius="9" />
+                        <StraightVertex x="200" y="332" radius="9" />
+                      </PointsPath>
+                      <Fill name="Soft penumbra" fillRule="clockwise">
+                        <SolidColor colorValue="38000000" />
+                        <Feather name="Soft outer edge" strength="12" spaceValue="local" />
+                      </Fill>
+                      <Fill name="Continuous contact shading" fillRule="clockwise">
+                        <LinearGradient name="Ground depth falloff" startX="369" startY="383" endX="331" endY="293">
+                          <GradientStop position="0" colorValue="98000000" />
+                          <GradientStop position="0.4" colorValue="72000000" />
+                          <GradientStop position="1" colorValue="17000000" />
+                        </LinearGradient>
+                        <Feather name="Contact edge softness" strength="4" spaceValue="local" />
+                      </Fill>
+                    </Shape>
+                  </Node>
+                </Node>
+              </Solo>
+            </Node>
             <Image name="Driving ego vehicle" assetId="5:1" x="400" y="234" id="0:167" samplerFilter="bilinear">
               <DataBindContext sourcePathIds="1:1-1:11" propertyKey="18" converterId="0:168" />
             </Image>
@@ -10631,5 +10704,23 @@
   <DataConverterGroup name="Theme boolean channel 227 241" id="0:877">
     <DataConverterGroupItem converterId="2:3" />
     <DataConverterGroupItem converterId="0:746" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Dark park ground visible" id="0:883">
+    <FormulaTokenInput />
+  </DataConverterFormula>
+  <DataConverterGroup name="Dark park ground visible typed boolean" id="0:884">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:883" />
+  </DataConverterGroup>
+  <DataConverterFormula name="Light park ground visible" id="0:887">
+    <FormulaTokenParenthesisOpen />
+    <FormulaTokenValue operationValue="1" />
+    <FormulaTokenOperation operationType="1" />
+    <FormulaTokenInput />
+    <FormulaTokenParenthesisClose />
+  </DataConverterFormula>
+  <DataConverterGroup name="Light park ground visible typed boolean" id="0:888">
+    <DataConverterGroupItem converterId="2:3" />
+    <DataConverterGroupItem converterId="0:887" />
   </DataConverterGroup>
 </Rive>

@@ -2,6 +2,7 @@
 import xml.etree.ElementTree as ET
 
 from generate import ROOT, Scene, VEHICLES, IMAGE_IDS, vehicle_assets
+from park_ground import add_park_ground
 
 UNIVERSAL_TARGET='universal-dashboard'
 VEHICLE_PROPERTY='vehicleDesign'
@@ -65,6 +66,7 @@ class UniversalScene(Scene):
                 children[vehicle]=child.get('id')
             selections[role]=(solo,children)
 
+        selections['ground']=add_park_ground(self,document,VEHICLES)
         machine=board.find('StateMachine')
         layer=self.el(machine,'StateMachineLayer',name='Vehicle design selection',id=self.ident())
         any_state=self.el(layer,'AnyState')

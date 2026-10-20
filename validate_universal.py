@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compare universal initial/live selection against dedicated vehicle renders."""
 import json
+import argparse
 import os
 import shutil
 import subprocess
@@ -8,10 +9,14 @@ import xml.etree.ElementTree as ET
 
 from PIL import Image, ImageChops
 from generate import ROOT, VEHICLES, IDS, Scene
-from universal import UniversalScene, VEHICLE_PROPERTY, VEHICLE_PROPERTY_ID, FALLBACK_VEHICLE
+from universal import (UniversalScene, VEHICLE_PROPERTY, VEHICLE_PROPERTY_ID,
+                       FALLBACK_VEHICLE)
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--preview-only',action='store_true',help='Render clean Park previews without the full regression suite.')
+    args=parser.parse_args()
     output=ROOT/'build/universal-validation'
     output.mkdir(parents=True,exist_ok=True)
     local=ROOT/'.tooling'/('rive.exe' if os.name=='nt' else 'rive')
@@ -19,10 +24,13 @@ def main():
     if not cli:
         raise SystemExit('Install Rive CLI or set RIVE_CLI.')
 
-    def project(scene,name,controls=False):
+    def project(scene,name,controls=False,ground=True):
         path=output/name
         path.mkdir(exist_ok=True)
         document=scene.build()
+        if not ground:
+            parent=document.find(".//Node[@name='Native 800 pixel scene']")
+            parent.remove(parent.find("Node[@name='Park ground']"))
         for asset in (*document.iter('ImageAsset'),*document.iter('FontAsset')):
             asset.set('file',str(ROOT/asset.get('file')))
         instance=document.find('ViewModel/ViewModelInstance')
@@ -46,7 +54,9 @@ def main():
         return path
 
     universal=project(UniversalScene(),'universal',True)
+    # Pixel-exact comparison against the same shared floor in dedicated files.
     references={vehicle:project(Scene(vehicle),'reference-'+vehicle) for vehicle in VEHICLES}
+    baseline=project(Scene(FALLBACK_VEHICLE),'reference-no-ground',ground=False)
 
     def capture(path,name,gear=4,selected=None,dark=True,events=()):
         screenshot,dump=output/(name+'.png'),output/(name+'.json')
@@ -65,6 +75,13 @@ def main():
         # Exclude the fixture-only controls at the very top, not dashboard UI.
         diff=ImageChops.difference(actual.crop((0,40,1800,1080)),expected.crop((0,40,1800,1080)))
         assert diff.getbbox() is None,f'{label}: universal differs from dedicated vehicle at {diff.getbbox()}'
+
+    preview=project(UniversalScene(),'preview')
+    for dark in (True,False):
+        capture(preview,'park-preview-'+('dark' if dark else 'light'),1,FALLBACK_VEHICLE,dark=dark)
+    if args.preview_only:
+        print(f'Park previews rendered in {output}')
+        return
 
     reference_images={}
     for vehicle in VEHICLES:
@@ -107,8 +124,26 @@ def main():
             expected,_=capture(references[vehicle],f'light-reference-{vehicle}-{gear}',gear,dark=False)
             actual,_=capture(universal,f'light-{vehicle}-{gear}',gear,vehicle,dark=False)
             assert_same(actual,expected,f'light {vehicle} {gear}')
+    for dark in (True,False):
+        label='dark' if dark else 'light'
+        original,_=capture(baseline,'no-ground-'+label,1,dark=dark)
+        grounded,_=capture(universal,'park-ground-'+label,1,FALLBACK_VEHICLE,dark=dark)
+        diff=ImageChops.difference(original.crop((0,40,1800,1080)),
+                                   grounded.crop((0,40,1800,1080)))
+        bounds=diff.getbbox()
+        assert bounds is not None,f'{label}: Park ground must be visible'
+        assert bounds[0]>250 and bounds[1]>360 and bounds[2]<1550 and bounds[3]<940,(
+            f'{label}: ground changed pixels outside the local floor: {bounds}')
+        for gear in (2,3,4):
+            original,_=capture(baseline,f'no-ground-{label}-{gear}',gear,dark=dark)
+            actual,_=capture(universal,f'ground-hidden-{label}-{gear}',gear,FALLBACK_VEHICLE,dark=dark)
+            assert_same(actual,original,f'{label} ground hidden in gear {gear}')
+        actual,_=capture(universal,'ground-hidden-after-park-'+label,1,FALLBACK_VEHICLE,dark=dark,
+                         events=('--pointer=click@360,20','--advance=4'))
+        original,_=capture(baseline,'drive-after-park-'+label,4,dark=dark)
+        assert_same(actual,original,f'{label} ground disappears after shifting out of Park')
     print(f'Universal renderer checks passed: all {len(VEHICLES)} initial/live selections, Park/Drive switching,')
-    print('generic default/empty/unknown fallbacks and representative light-theme comparisons.')
+    print('generic fallbacks, light-theme comparisons and theme-aware, Park-only local ground shadows.')
 
 
 if __name__=='__main__':

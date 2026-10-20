@@ -31,7 +31,10 @@ class NewhavenDesignTest(unittest.TestCase):
                      'left red vehicle', 'left grey vehicle', 'right red vehicle', 'right grey vehicle'):
             self.assertIn(name, names)
 
-    def test_each_vehicle_changes_only_ego_assets(self):
+    def test_each_vehicle_changes_only_ego_assets_and_park_footprint(self):
+        expected=Scene().build()
+        parent=expected.find(".//Node[@name='Native 800 pixel scene']")
+        parent.remove(parent.find("Node[@name='Park ground']"))
         for vehicle in VEHICLES:
             with self.subTest(vehicle=vehicle):
                 scene=Scene(vehicle).build()
@@ -43,7 +46,9 @@ class NewhavenDesignTest(unittest.TestCase):
                 for asset in scene.iter('ImageAsset'):
                     if asset.get('name') in ('ego','park'):
                         asset.set('file',ASSETS[asset.get('name')])
-                self.assertEqual(ET.tostring(scene),ET.tostring(Scene().build()))
+                parent=scene.find(".//Node[@name='Native 800 pixel scene']")
+                parent.remove(parent.find("Node[@name='Park ground']"))
+                self.assertEqual(ET.tostring(scene),ET.tostring(expected))
 
     def test_unknown_vehicle_is_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):

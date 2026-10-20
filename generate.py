@@ -7,6 +7,7 @@ Formula expressions below are also evaluated by the independent contract tests.
 import ast
 from pathlib import Path
 import xml.etree.ElementTree as ET
+from park_ground import add_park_ground
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_VEHICLE = 'model-y-juniper-stealth-grey'
@@ -530,6 +531,7 @@ class Scene:
             self.direction_machine(main,machine,*cue)
         self.cruise_machine(main,machine,cruise_gate)
         self.road_artboard()
+        add_park_ground(self,self.document)
         return self.document
 
     def cruise_machine(self,main,machine,target):
