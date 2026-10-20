@@ -121,7 +121,7 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_approved_inter_weights_are_used_consistently(self):
         expected={'Current speed':('2:900','Regular'), 'Cruise speed value':('2:900','Regular'),
                   'Speed limit value':('2:901','SemiBold'), 'Cruise MAX label':('2:901','SemiBold'),
-                  'Speed unit km/h':('2:902','Medium'), 'Gear D':('2:902','Medium'),
+                  'Current speed mph':('2:900','Regular'), 'Gear D':('2:902','Medium'),
                   'Battery percentage':('2:902','Medium')}
         for name,(identity,weight) in expected.items():
             style=self.scene.find(f".//Text[@name='{name}']/TextStylePaint")
@@ -129,6 +129,21 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(style.get('familyName'),'Inter')
         self.assertEqual({a.get('file') for a in self.scene.iter('FontAsset')},
                          {'fonts/Inter-Regular.ttf','fonts/Inter-Medium.ttf','fonts/Inter-SemiBold.ttf'})
+
+    def test_speed_unit_is_shaped_inline_without_digit_count_offsets(self):
+        cluster=self.scene.find(".//Node[@name='Speed and power']")
+        for name,label in (('Current speed','km/h'),('Current speed mph','mph')):
+            text=cluster.find(f"Text[@name='{name}']")
+            self.assertEqual((text.get('x'),text.get('y'),text.get('width')),('20','23','300'))
+            runs=text.findall('TextValueRun')
+            self.assertEqual(len(runs),2)
+            self.assertEqual(runs[1].get('text'),'\u2009'+label)
+            style=text.find(f"TextStylePaint[@id='{runs[1].get('styleId')}']")
+            self.assertEqual((style.get('fontAssetId'),style.get('fontSize')),('2:902','21.25'))
+            self.assertEqual(style.find('Fill/SolidColor').get('colorValue'),'FFB8C1C5')
+            self.assertIsNotNone(text.find('DataBindContext'))
+            self.assertEqual(text.findall("DataBindContext[@propertyKey='13']"),[])
+        self.assertIsNone(self.scene.find("DataConverterFormula[@name='Unit position']"))
 
     def test_device_battery_widgets_and_phone_bindings(self):
         car=self.scene.find(".//Node[@name='Known battery']")
@@ -257,6 +272,14 @@ class NewhavenDesignTest(unittest.TestCase):
         self.assertEqual((anchor.get('x'), anchor.get('y')), ('0', '108'))
         border = self.scene.find(".//Shape[@name='Sign red border']/Ellipse")
         self.assertEqual((border.get('width'), border.get('height')), ('96', '96'))
+
+    def test_speed_readouts_keep_the_approved_optical_alignment(self):
+        speed=self.scene.find(".//Text[@name='Current speed']")
+        limit=self.scene.find(".//Node[@name='Known speed limit']")
+        cruise=self.scene.find(".//Node[@name='Cruise assist visibility']")
+        self.assertEqual((speed.get('x'),speed.get('y')),('20','23'))
+        self.assertEqual(limit.get('y'),'181')
+        self.assertEqual(cruise.get('y'),'174.5')
 
     def test_generated_source_is_reproducible(self):
         ET.indent(self.scene, space='  ')

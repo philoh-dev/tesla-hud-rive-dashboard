@@ -44,6 +44,17 @@ battery stay left; speed limit and gear stay right; road, blind-spot vehicles
 and Autopilot remain center-relative. Contain/Cover scale or crop the canvas
 instead of reflowing it.
 
+Current speed and its muted unit are styled runs in the same text line, with
+one thin space between them. This replaces the old digit-count positioning
+formula and keeps km/h or mph directly beside the rendered digits. The numeric
+font remains Inter Regular 110; the inline unit compensates for line fitting
+to preserve the approved visible size.
+Current speed and the speed-limit sign are optically centered at approximately
+y=181 in the 1080-unit artboard. The set-speed value and MAX caption are treated
+as one block, with that whole block centered vertically on the speed-limit sign.
+Their different font sizes require different text-box offsets; aligning the
+boxes alone does not align the visible content.
+
 ## Actual renderer checks
 
 Requires Pillow and a working graphics context:

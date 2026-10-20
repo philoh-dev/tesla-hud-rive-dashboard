@@ -256,7 +256,7 @@ class Scene:
                        sizingValue="fixed", alignValue=align, verticalAlignValue="middle",
                        wrapValue="noWrap", overflowValue="fitFontSize", id=self.ident())
         identity = self.ident()
-        if name in ('Current speed','Cruise speed value'):
+        if name in ('Current speed','Current speed mph','Cruise speed value'):
             font_id,weight='2:900','Regular'
         elif bold:
             font_id,weight='2:901','SemiBold'
@@ -329,13 +329,20 @@ class Scene:
         left = self.layout(driving, "Left edge", fill_w=True, fill_h=True, flexBasis=0, flexBasisUnitsValue="points")
         cluster = self.node(left, "Speed and power", scaleX=2.25, scaleY=2.25)
         self.opacity(cluster,"gear",f"1-({PARK})","Instruments outside Park")
-        self.text(cluster, "Current speed", "130", 20,23,210,115,110, prop="egoSpeed",light="FF2D3436")
-        # Each unit follows the speed's digit count, as in LVGL's label alignment.
+        # Shape the unit in the same text line as the digits. A thin space keeps
+        # it attached for every speed, instead of estimating glyph widths.
         for label, expr in (("km/h", "1-isImperial"), ("mph", "isImperial")):
-            unit = self.text(cluster, "Speed unit " + label, label, 220,95,65,25,18,"FFB8C1C5")
-            self.opacity(unit, "isImperial", expr, label)
-            self.bind(unit, "egoSpeed", 13, self.formula("Unit position",
-                "16+min(1,max(0,input-9))*68+min(1,max(0,input-99))*68+68"))
+            name='Current speed' if label=='km/h' else 'Current speed mph'
+            speed=self.text(cluster,name,'130',20,23,300,115,110,
+                            prop='egoSpeed',light='FF2D3436')
+            self.opacity(speed,'isImperial',expr,label)
+            identity=self.ident()
+            # Compensate for the large line's fit-to-height to retain the
+            # approved on-screen unit size and baseline.
+            unit=self.el(speed,'TextStylePaint',id=identity,name='Speed unit '+label,
+                         fontSize=21.25,fontAssetId='2:902',familyName='Inter',styleName='Medium')
+            self.paint(unit,'FFB8C1C5')
+            self.el(speed,'TextValueRun',styleId=identity,text='\u2009'+label,name='Inline unit')
         up = self.rect(cluster, "Consumption fill", 12.5,192,5,1,"FFB8C1C5",2,originY=1,light="FF2D3436")
         self.bind(up, "powerLevel", 21, self.formula("Power Up", FORMULAS["Power Up"]))
         down = self.rect(cluster, "Recuperation fill",12.5,192,5,1,"FF5CBD68",2,originY=0)
@@ -385,7 +392,9 @@ class Scene:
         right = self.layout(driving,"Right edge",fill_w=True,fill_h=True,layoutAlignmentType="topRight",
                             flexBasis=0,flexBasisUnitsValue="points")
         right_box = self.layout(right,"Speed limit anchor",width=270,fill_h=True)
-        cruise_gate = self.node(right_box,"Cruise assist visibility",-108,162,
+        # Center the complete value + MAX block on the sign at y≈181, rather
+        # than aligning the set-speed digits alone. Matches the approved preview.
+        cruise_gate = self.node(right_box,"Cruise assist visibility",-108,174.5,
                                 scaleX=2.25,scaleY=2.25,opacity=0)
         cruise = self.node(cruise_gate,"Cruise set speed")
         self.opacity(cruise,"accSetSpeed",FORMULAS["Cruise Speed Known"],"Cruise Speed Known")
@@ -395,7 +404,7 @@ class Scene:
                   prop="accSetSpeed",align="center",light="FF2D3436")
         self.text(cruise,"Cruise MAX label","MAX",-40,12,80,22,14,
                   "FF0071FF",True,align="center")
-        sign = self.node(right_box,"Known speed limit",108,162,scaleX=2.25,scaleY=2.25)
+        sign = self.node(right_box,"Known speed limit",108,181,scaleX=2.25,scaleY=2.25)
         self.opacity(sign,"fusedSpeedLimit","min(1,max(0,input))","Limit known")
         self.text(sign,"Speed limit value","130",-40,-35,80,70,36,"FF000000",True,
                   "fusedSpeedLimit",align="center")

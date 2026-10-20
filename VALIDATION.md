@@ -6,7 +6,13 @@ validation or device-FPS claim.
 ## Passing
 
 - Rive CLI 1.6.0 verification and compilation, no warnings/errors.
-- 35 standard-library regression tests (including matching car/phone battery
+- Optical alignment measured in the approved 1800×1080 dark preview at 130:
+  the complete set-speed value + MAX block and the speed-limit sign each have
+  a visible vertical center of 181 px. Current speed retains its 180.5 px
+  glyph center (approximately 181 px), position, size and tight inline unit.
+- 37 standard-library regression tests (including optical speed-readout alignment,
+  inline speed-unit spacing,
+  matching car/phone battery
   typography, grouped odometer bindings,
   absence of a car-identification icon,
   car/phone battery widgets,

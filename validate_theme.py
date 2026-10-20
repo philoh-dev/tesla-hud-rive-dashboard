@@ -57,7 +57,7 @@ def main():
         assert contains(image,(40,80,500,300),ink), 'Incorrect speed text color'
         assert contains(image,(750,0,1050,350),lanes), 'Incorrect neutral lane color'
         face=(255,255,255) if image is dark else (236,240,241)
-        assert image.getpixel((1638,100))==face, 'Incorrect speed-limit sign face'
+        assert image.getpixel((1638,119))==face, 'Incorrect speed-limit sign face'
         track=(43,50,54) if image is dark else (236,240,241)
         power=(184,193,197) if image is dark else (45,52,54)
         empty=(37,42,45) if image is dark else (236,240,241)
