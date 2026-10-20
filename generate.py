@@ -18,7 +18,8 @@ VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
             'model-3-highland-pearl-white-multi-coat', 'model-3-highland-marine-blue',
             'model-3-highland-diamond-black', 'model-3-highland-ultra-red',
             'model-3-highland-quicksilver',
-            'model-y-legacy-deep-blue-metallic', 'generic-vehicle')
+            'model-y-legacy-deep-blue-metallic', 'model-y-legacy-pearl-white-multi-coat',
+            'generic-vehicle')
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {

@@ -44,6 +44,27 @@ validation is implied, and the existing unresolved issues below remain.
 
 ## Passing
 
+### Model Y Legacy Pearl White Multi-Coat addition
+
+- Added Pearl White Park/Drive sprites using the built-in image generator,
+  preserving transparent alpha and the shared sprite dimensions. Asset hashes
+  and the Legacy ground footprint are covered by regression tests.
+- The new standalone export verifies and compiles without errors or warnings
+  at 1,288,409 bytes; the updated universal export is 3,562,106 bytes.
+- All 54 standard-library tests pass. Native universal checks pass for all 15
+  initial/live vehicle selections, Park/Drive switching, fallbacks, light-theme
+  comparisons (including Pearl White Legacy), and Park-only ground shadows.
+- Dark Drive, light Drive and dark Park captures were rendered and visually
+  inspected. Other standalone exports were unchanged. No device testing or
+  resolution of the previously documented unrelated issues is claimed.
+- Follow-up scale adjustment: both Legacy Drive sprites were enlarged about
+  10% to 122 × 136 pixels, retaining transparency and centered placement.
+  Both Legacy exports and the universal file were rebuilt; Deep Blue Metallic
+  is now 1,295,921 bytes. Both sets of documentation captures were refreshed,
+  and all 54 source tests passed again. Park artwork and layout are unchanged.
+
+### Existing shared checks
+
 - Rive CLI 1.6.0 verification and compilation, no warnings/errors.
 - Optical alignment measured in the approved 1800×1080 dark preview at 130:
   the complete set-speed value + MAX block and the speed-limit sign each have

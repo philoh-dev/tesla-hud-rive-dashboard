@@ -23,6 +23,8 @@ def main():
     cli=os.environ.get('RIVE_CLI') or (str(local) if local.exists() else shutil.which('rive'))
     if not cli:
         raise SystemExit('Install Rive CLI or set RIVE_CLI.')
+    # Keep fixture controls separate as the vehicle catalogue grows.
+    unknown_x,empty_x,park_x,drive_x=(20*(len(VEHICLES)+i) for i in range(1,5))
 
     def project(scene,name,controls=False,ground=True):
         path=output/name
@@ -40,9 +42,9 @@ def main():
             board=document.find("Artboard[@name='Newhaven']")
             machine=board.find('StateMachine')
             choices=[(20*(i+1),vehicle,VEHICLE_PROPERTY_ID,'String',635) for i,vehicle in enumerate(VEHICLES)]
-            choices += [(300,'unknown-vehicle',VEHICLE_PROPERTY_ID,'String',635),
-                        (320,'',VEHICLE_PROPERTY_ID,'String',635),
-                        (340,1,IDS['gear'],'Number',636),(360,4,IDS['gear'],'Number',636)]
+            choices += [(unknown_x,'unknown-vehicle',VEHICLE_PROPERTY_ID,'String',635),
+                        (empty_x,'',VEHICLE_PROPERTY_ID,'String',635),
+                        (park_x,1,IDS['gear'],'Number',636),(drive_x,4,IDS['gear'],'Number',636)]
             for x,value,identity,kind,key in choices:
                 scene.rect(board,'Universal test control',x,20,16,16,'FF000000')
                 listener=scene.el(machine,'StateMachineListenerSingle',targetId=board[-1].get('id'),listenerTypeValue='click')
@@ -110,16 +112,16 @@ def main():
         assert_same(actual,reference_images[(vehicle,4)],f'live {vehicle}')
     vehicle='model-y-legacy-deep-blue-metallic'
     actual,_=capture(universal,'live-selection-then-park',selected=FALLBACK_VEHICLE,
-                     events=(choose(vehicle),'--advance=3','--pointer=click@340,20','--advance=3'))
+                     events=(choose(vehicle),'--advance=3',f'--pointer=click@{park_x},20','--advance=3'))
     assert_same(actual,reference_images[(vehicle,1)],'selected model followed by Park')
     actual,_=capture(universal,'live-park-selection-then-drive',gear=1,selected=FALLBACK_VEHICLE,
-                     events=(choose(vehicle),'--advance=3','--pointer=click@360,20','--advance=3'))
+                     events=(choose(vehicle),'--advance=3',f'--pointer=click@{drive_x},20','--advance=3'))
     assert_same(actual,reference_images[(vehicle,4)],'hidden Drive view follows selection in Park')
-    for x,label in ((300,'unknown'),(320,'empty')):
+    for x,label in ((unknown_x,'unknown'),(empty_x,'empty')):
         actual,_=capture(universal,'live-fallback-'+label,selected=vehicle,
                          events=(f'--pointer=click@{x},20','--advance=3'))
         assert_same(actual,reference_images[(FALLBACK_VEHICLE,4)],'live '+label)
-    for vehicle in (FALLBACK_VEHICLE,'model-3-highland-ultra-red'):
+    for vehicle in (FALLBACK_VEHICLE,'model-3-highland-ultra-red','model-y-legacy-pearl-white-multi-coat'):
         for gear in (1,4):
             expected,_=capture(references[vehicle],f'light-reference-{vehicle}-{gear}',gear,dark=False)
             actual,_=capture(universal,f'light-{vehicle}-{gear}',gear,vehicle,dark=False)
@@ -139,7 +141,7 @@ def main():
             actual,_=capture(universal,f'ground-hidden-{label}-{gear}',gear,FALLBACK_VEHICLE,dark=dark)
             assert_same(actual,original,f'{label} ground hidden in gear {gear}')
         actual,_=capture(universal,'ground-hidden-after-park-'+label,1,FALLBACK_VEHICLE,dark=dark,
-                         events=('--pointer=click@360,20','--advance=4'))
+                         events=(f'--pointer=click@{drive_x},20','--advance=4'))
         original,_=capture(baseline,'drive-after-park-'+label,4,dark=dark)
         assert_same(actual,original,f'{label} ground disappears after shifting out of Park')
     print(f'Universal renderer checks passed: all {len(VEHICLES)} initial/live selections, Park/Drive switching,')

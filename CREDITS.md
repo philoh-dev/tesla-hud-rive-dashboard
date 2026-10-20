@@ -61,6 +61,12 @@ only. These are new illustrative sprites, not recolored Juniper artwork or
 official Tesla renders. Final prompt specifications are recorded in that
 directory's `README.md`; generated alpha is preserved during mechanical scaling.
 
+Model Y Legacy Pearl White Multi-Coat artwork in
+`assets/vehicle/model-y-legacy-pearl-white-multi-coat/` was generated using the
+built-in image generator as paint edits of the Legacy blue sprites, guided by
+the user's Pearl White reference. Camera angles, black glass/trim and silver
+wheels are retained. Prompt specifications are in that directory's `README.md`.
+
 Inter Regular, Medium and SemiBold are from the Inter project by Rasmus Andersson
 and contributors (https://github.com/rsms/inter), reused from DashPilot's bundled
 `dash-apps/web-vanilla/fonts/inter-{400,500,600}.ttf` files. They are redistributed

@@ -98,6 +98,7 @@ and [Galaxy Z Fold8 Ultra](https://www.samsung.com/ch_fr/smartphones/galaxy-z/ga
 - **Model Y Juniper Quicksilver** — [download dashboard](dashboard/model-y-juniper-quicksilver.riv).
 - **Model Y Juniper Ultra Red** — [download dashboard](dashboard/model-y-juniper-ultra-red.riv).
 - **Model Y Legacy Deep Blue Metallic** — [download dashboard](dashboard/model-y-legacy-deep-blue-metallic.riv).
+- **Model Y Legacy Pearl White Multi-Coat** — [download dashboard](dashboard/model-y-legacy-pearl-white-multi-coat.riv).
 - **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
 - **Model 3 Highland Pearl White Multi-Coat** — [download dashboard](dashboard/model-3-highland-pearl-white-multi-coat.riv).
 - **Model 3 Highland Marine Blue** — [download dashboard](dashboard/model-3-highland-marine-blue.riv).
@@ -126,6 +127,18 @@ steering-responsive road and generic blind-spot vehicles with the other designs.
 ![Deep Blue Metallic Legacy Model Y parked dashboard](docs/images/model-y-legacy-deep-blue-metallic/park-dark.png)
 
 [Light-theme driving preview](docs/images/model-y-legacy-deep-blue-metallic/drive-light.png).
+
+### Model Y Legacy Pearl White Multi-Coat
+
+Pearl White Multi-Coat paint based on the supplied reference, with the Legacy
+body, separate lamp clusters and silver wheels. The shared dashboard behavior
+and blind-spot vehicles are unchanged. In the universal dashboard, set
+`vehicleDesign` to `model-y-legacy-pearl-white-multi-coat`.
+
+![Pearl White Legacy Model Y parked dashboard](docs/images/model-y-legacy-pearl-white-multi-coat/park-dark.png)
+
+[Dark driving preview](docs/images/model-y-legacy-pearl-white-multi-coat/drive-dark.png) /
+[Light driving preview](docs/images/model-y-legacy-pearl-white-multi-coat/drive-light.png).
 
 ### Additional Model 3 Highland colors
 
@@ -208,6 +221,7 @@ dashboard/
 ├── model-y-juniper-quicksilver.riv
 ├── model-y-juniper-ultra-red.riv
 ├── model-y-legacy-deep-blue-metallic.riv
+├── model-y-legacy-pearl-white-multi-coat.riv
 ├── model-3-highland-pearl-white-multi-coat.riv
 ├── model-3-highland-marine-blue.riv
 ├── model-3-highland-diamond-black.riv

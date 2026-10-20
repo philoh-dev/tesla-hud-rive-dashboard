@@ -19,6 +19,9 @@ PNG assets, three active Inter fonts and their font license.
   Pearl White Multi-Coat, Marine Blue, Diamond Black, Ultra Red and Quicksilver
   paint edits of those same Park/Drive views. Shared wheels, camera roles and
   dashboard layout are retained; each directory documents its prompt specifications.
+- Vehicle images in `vehicle/model-y-legacy-pearl-white-multi-coat/`: generated
+  Pearl White paint edits of the Legacy Park/Drive sprites, guided by the user's
+  reference. Camera roles, silver wheels and shared blind-spot assets are retained.
 - Vehicle images in `vehicle/model-y-juniper-white-multi-coat/`: generated white
   paint variants of the Juniper sprites, guided by user-supplied paint references.
 - Vehicle images in `vehicle/model-y-juniper-diamond-black/`: generated Diamond

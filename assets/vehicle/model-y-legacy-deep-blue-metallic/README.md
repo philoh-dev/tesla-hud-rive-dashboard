@@ -31,3 +31,7 @@ the Legacy body or lamps. Shared blind-spot vehicles are unchanged.
 Generated alpha is retained; assets are mechanically scaled into the shared
 Park/Drive sprite sizes. These are illustrative dashboard renders, not official
 Tesla artwork or dimensionally exact vehicle models.
+
+The final Drive canvas is 122 × 136 pixels, enlarged approximately 10% from
+111 × 124 to match the Juniper's visible vehicle scale despite transparent
+margins. Park artwork is unchanged.

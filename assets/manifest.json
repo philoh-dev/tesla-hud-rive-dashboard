@@ -1,9 +1,11 @@
 {
   "description": "SHA-256 of bundled shared artwork, vehicle assets and fonts",
   "sha256": {
+    "assets/vehicle/model-y-legacy-pearl-white-multi-coat/drive.png": "3ec71a22e95078e9be6544a9ec2a6a11843e05b89a87fa2df52d1b3177529d6b",
+    "assets/vehicle/model-y-legacy-pearl-white-multi-coat/park.png": "96938bdb75c68b92202f895d3ec1f9bd56353ebe5c2eba0a5151e038d3062530",
     "assets/vehicle/generic-vehicle/drive.png": "bad0943446d65a08e94c9f7c87d67483705af7e2a1d6c216bb8114427e8350c5",
     "assets/vehicle/generic-vehicle/park.png": "4f4f6dd25595e43297c3747349a0fafa5e4caa8d6c7faf6b7169316e74d0a7b9",
-    "assets/vehicle/model-y-legacy-deep-blue-metallic/drive.png": "161f294fe4c147d843ddfa20e4960ecc45cc74096ace2e76708aa5b8a6e04f59",
+    "assets/vehicle/model-y-legacy-deep-blue-metallic/drive.png": "382e5b61e20ccc83ea16504af678fc0b82d32886653776d96db6577602a91dd3",
     "assets/vehicle/model-y-legacy-deep-blue-metallic/park.png": "8868e5e4d826477d6a5bdc611058dbbbd568d8fa801b28c7ef7333dedc26f8fd",
     "assets/vehicle/model-3-highland-pearl-white-multi-coat/drive.png": "8287b92caabf805a0596be24fadeb4c41680f0bc4de40e2f23aeb50db1efdde7",
     "assets/vehicle/model-3-highland-pearl-white-multi-coat/park.png": "dc6fb6abbdeaf300d7fa0f133d6ba3e9905321086d145b42af5dbee4bcaafeb9",
