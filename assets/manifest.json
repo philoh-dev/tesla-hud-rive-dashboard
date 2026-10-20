@@ -1,6 +1,8 @@
 {
   "description": "SHA-256 of bundled shared artwork, vehicle assets and fonts",
   "sha256": {
+    "assets/vehicle/model-y-legacy-deep-blue-metallic/drive.png": "161f294fe4c147d843ddfa20e4960ecc45cc74096ace2e76708aa5b8a6e04f59",
+    "assets/vehicle/model-y-legacy-deep-blue-metallic/park.png": "8868e5e4d826477d6a5bdc611058dbbbd568d8fa801b28c7ef7333dedc26f8fd",
     "assets/vehicle/model-3-highland-pearl-white-multi-coat/drive.png": "8287b92caabf805a0596be24fadeb4c41680f0bc4de40e2f23aeb50db1efdde7",
     "assets/vehicle/model-3-highland-pearl-white-multi-coat/park.png": "dc6fb6abbdeaf300d7fa0f133d6ba3e9905321086d145b42af5dbee4bcaafeb9",
     "assets/vehicle/model-3-highland-marine-blue/drive.png": "44e35e6c75b17af70ca3f7f2ca9c444cd0705de7d20d9570c73b358197cad940",

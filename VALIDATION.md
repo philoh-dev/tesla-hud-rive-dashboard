@@ -3,6 +3,45 @@
 Status: **not fully passing**. Local CLI rendering only; no Android/iOS device
 validation or device-FPS claim.
 
+## Steering curve — all vehicle exports
+
+All thirteen vehicle `.riv` files under `dashboard/` have been built with the
+same steering implementation as the initial Model Y Juniper Stealth Grey test
+export. Every export passes CLI verification and compilation and remains below
+the 5 MB limit. The steering rollout did not modify existing vehicle artwork or
+committed screenshots. The standard-library suite passes all 41 tests, including the check
+that vehicle variants differ only in their selected Park/Drive image assets.
+
+`validate_steering.py` passes in the native renderer: negative/positive steering,
+increasing and bounded bend, ±2° dead zone, actual live smoothing and return to
+straight, direction reversal, moving/stopped dashes, unchanged nearby road/car
+and footer, both themes and assist states, hidden Park road, and landscape
+phone widths of 2340 and 2520 at normalized height 1080. A live 60° step reaches
+normalized bend 0.0915 / 0.2746 / 0.6591 after 1 / 3 / 12 frames, confirming the
+0.12-second interpolation rather than an instantaneous jump.
+
+Park/gear states, live assist/cruise, exact theme colors/live changes and departure
+cues were rerun and pass. The road's stopped, moving and proportional-speed
+assertions pass, but the existing equivalent km/h-versus-mph comparison still
+fails. The native steering checks used the default Model Y Juniper Stealth Grey
+design; they were not separately repeated for each artwork variant. No
+Android/iOS steering or performance validation is claimed.
+
+## Model Y Legacy Deep Blue Metallic
+
+Added a separate vehicle design with dedicated pre-Juniper Park and Drive
+sprites generated from the user's two references. Asset checksums, RGBA PNG
+format and shared sprite dimensions are covered by the regression suite.
+The remaining twelve vehicle exports were not rebuilt for this asset-only
+addition; the new export verifies and compiles at 1,287,484 bytes.
+
+Dark Drive, light Drive and dark Park documentation captures were rendered and
+visually checked. The Legacy artwork retains separate headlights/rear lamp
+clusters and silver wheels; generic blind-spot cars, layout, theme, telemetry
+and steering-responsive road are shared. This brings vehicle documentation
+coverage to 39 captures across 13 designs. No additional phone or performance
+validation is implied, and the existing unresolved issues below remain.
+
 ## Passing
 
 - Rive CLI 1.6.0 verification and compilation, no warnings/errors.
@@ -10,7 +49,9 @@ validation or device-FPS claim.
   the complete set-speed value + MAX block and the speed-limit sign each have
   a visible vertical center of 181 px. Current speed retains its 180.5 px
   glyph center (approximately 181 px), position, size and tight inline unit.
-- 37 standard-library regression tests (including optical speed-readout alignment,
+- 41 standard-library regression tests (including the separate Legacy model,
+  RGBA sprite dimensions, signed/clamped steering,
+  native smoothing and phase-clock bindings, near-road anchoring, optical speed-readout alignment,
   inline speed-unit spacing,
   matching car/phone battery
   typography, grouped odometer bindings,
@@ -119,6 +160,7 @@ python3 validate_batteries.py
 python3 validate_layout.py
 python3 validate_theme.py
 python3 validate_departure.py
+python3 validate_steering.py
 python3 validate_road.py
 ```
 

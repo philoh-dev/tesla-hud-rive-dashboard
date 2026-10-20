@@ -31,6 +31,11 @@ the Park/Drive image paths; all bindings, layout and blind-spot assets are
 shared. Both scripts restore canonical Model Y `scene.rml` in a `finally`
 block, so build order does not change the committed default source.
 
+The pre-Juniper Model Y in Deep Blue Metallic uses
+`--vehicle model-y-legacy-deep-blue-metallic`. Its Park and Drive artwork is
+separate from Juniper artwork; layout, telemetry and blind-spot vehicles remain
+shared.
+
 Highland paint variants use the same flags with IDs
 `model-3-highland-pearl-white-multi-coat`, `model-3-highland-marine-blue`,
 `model-3-highland-diamond-black`, `model-3-highland-ultra-red` and
@@ -66,6 +71,7 @@ python3 validate_batteries.py
 python3 validate_layout.py
 python3 validate_theme.py
 python3 validate_departure.py
+python3 validate_steering.py
 python3 validate_road.py
 ```
 
@@ -96,6 +102,19 @@ The host binds `DashViewModel`; the dashboard itself does not connect to BLE or
 decode CAN frames. Speed and speed limit arrive in the selected display units.
 Road animation converts mph to physical km/h internally.
 
+- `egoSteeringAngle` (Number): steering-wheel degrees, negative left and
+  positive right. The road ignores the central ±2°, reaches its bounded bend
+  at ±90°, and smooths changes over 0.12 seconds with a native Rive converter.
+  Distant lane markings follow a quadratic curve; the near road, ego car,
+  blind-spot vehicles and instruments stay anchored. This is a steering-based
+  illustration, not detected road geometry or a predicted driving path.
+  Private `_roadPhase` and `_roadBend` fields are maintained by the animation;
+  the host must not write them. A single phase clock moves every dash along
+  the curve at the existing speed-dependent rate, without smoothing speed.
+  All thirteen vehicle exports include this shared implementation. Native
+  steering checks use the default Model Y Juniper Stealth Grey artwork;
+  per-vehicle tests verify that only the selected Park/Drive assets differ.
+  Documentation images remain unchanged; phone validation is separate.
 - `gear`: 0 unknown, 1 P, 2 R, 3 N, 4 D.
 - `leftBlinker` / `rightBlinker`: 0 off, 1 dark phase, 2 bright phase.
 - Blind-spot vehicles are grey for occupancy and red for matching turn intent,

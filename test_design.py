@@ -5,7 +5,9 @@ import hashlib
 import json
 import xml.etree.ElementTree as ET
 
-from generate import ASSETS, ROOT, Scene, ROAD_RATE, PROPERTIES, IDS, VEHICLES, vehicle_assets, turn_signal_points, FORMULAS
+from generate import (ASSETS, ROOT, Scene, ROAD_RATE, ROAD_BEND, ROAD_BEND_ANCHOR,
+                      ROAD_BEND_PIXELS, ROAD_STEERING_SMOOTHING, PROPERTIES, IDS,
+                      VEHICLES, vehicle_assets, turn_signal_points, FORMULAS)
 
 
 class NewhavenDesignTest(unittest.TestCase):
@@ -51,6 +53,22 @@ class NewhavenDesignTest(unittest.TestCase):
         for color in ('stealth-grey','pearl-white-multi-coat','marine-blue',
                       'diamond-black','ultra-red','quicksilver'):
             self.assertIn('model-3-highland-'+color,VEHICLES)
+
+    def test_legacy_model_y_is_a_separate_vehicle_with_its_own_assets(self):
+        vehicle='model-y-legacy-deep-blue-metallic'
+        self.assertIn(vehicle,VEHICLES)
+        assets=vehicle_assets(vehicle)
+        for name in ('ego','park'):
+            view='drive' if name=='ego' else 'park'
+            self.assertEqual(assets[name],f'assets/vehicle/{vehicle}/{view}.png')
+            self.assertNotEqual(assets[name],ASSETS[name])
+        self.assertEqual({key:path for key,path in assets.items() if key not in ('ego','park')},
+                         {key:path for key,path in ASSETS.items() if key not in ('ego','park')})
+        for view,dimensions in (('park',(410,307)),('drive',(111,124))):
+            data=(ROOT/f'assets/vehicle/{vehicle}/{view}.png').read_bytes()
+            self.assertEqual(data[:8],b'\x89PNG\r\n\x1a\n')
+            self.assertEqual((int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')),dimensions)
+            self.assertEqual(data[25],6,'Vehicle sprites must retain RGBA alpha')
 
     def test_turn_signals_are_original_mirrored_vectors(self):
         left=turn_signal_points('left')
@@ -354,10 +372,60 @@ class NewhavenDesignTest(unittest.TestCase):
         animation=road.find('LinearAnimation')
         self.assertEqual(animation.get('fps'),'60')
         self.assertEqual(len(road.findall('.//Shape')),28)
-        self.assertEqual(len(animation.findall("KeyedObject/KeyedProperty[@propertyKey='47']")),28)
+        clock=road.find("Node[@name='Road phase clock']")
+        self.assertEqual(animation.find('KeyedObject').get('objectId'),clock.get('id'))
+        keys=animation.findall("KeyedObject/KeyedProperty[@propertyKey='13']/KeyFrameDouble")
+        self.assertEqual([(k.get('frame'),k.get('value')) for k in keys],[('0','0'),('60','1')])
+        for stroke in road.iter('Stroke'):
+            binding=stroke.find("DataBindContext[@propertyKey='47']")
+            self.assertEqual(binding.get('sourcePathIds'),f"1:1-{IDS['_roadPhase']}")
         for vertex in road.iter('StraightVertex'):
             x,y=float(vertex.get('x')),float(vertex.get('y'))
             self.assertAlmostEqual(abs(x-400),50+y*55/384)
+
+    def test_steering_has_signed_dead_zone_and_bounded_monotonic_curve(self):
+        self.assertEqual(PROPERTIES['egoSteeringAngle'],('Number',0))
+        self.assertEqual(PROPERTIES['_roadBend'],('Number',0))
+        def bend(angle):
+            return eval(ROAD_BEND,{'__builtins__':{}},dict(input=angle,min=min,max=max))
+        for angle in (-2,-1,0,1,2):
+            self.assertEqual(bend(angle),0)
+        for angle in (3,15,30,60,90,180,819):
+            self.assertGreater(bend(angle),0)
+            self.assertLessEqual(bend(angle),1)
+            self.assertEqual(bend(-angle),-bend(angle))
+        self.assertEqual(bend(90),bend(819))
+        self.assertEqual(sorted(bend(n) for n in range(-180,181)),
+                         [bend(n) for n in range(-180,181)])
+
+    def test_native_steering_smoothing_is_separate_from_road_travel(self):
+        road=self.scene.find("Artboard[@name='Road motion']")
+        steering=road.find("Node[@name='Smoothed road steering']")
+        bindings=steering.findall('DataBindContext')
+        self.assertEqual(bindings[0].get('sourcePathIds'),f"1:1-{IDS['egoSteeringAngle']}")
+        self.assertEqual(bindings[1].get('sourcePathIds'),f"1:1-{IDS['_roadBend']}")
+        self.assertEqual(bindings[1].get('direction'),'true')
+        smoothing=self.scene.find("DataConverterInterpolator[@name='Road steering smoothing']")
+        self.assertEqual(float(smoothing.get('duration')),ROAD_STEERING_SMOOTHING)
+        self.assertEqual(ROAD_STEERING_SMOOTHING,.12)
+        clock=road.find("Node[@name='Road phase clock']/DataBindContext")
+        self.assertEqual(clock.get('sourcePathIds'),f"1:1-{IDS['_roadPhase']}")
+        self.assertEqual(clock.get('direction'),'true')
+
+    def test_curved_lane_geometry_keeps_near_road_anchored(self):
+        road=self.scene.find("Artboard[@name='Road motion']")
+        for shape in road.iter('Shape'):
+            vertices=shape.findall('PointsPath/StraightVertex')
+            self.assertEqual(len(vertices),5)
+            for vertex in vertices:
+                self.assertEqual(vertex.get('radius'),'0')
+                self.assertEqual({b.get('propertyKey') for b in vertex.findall('DataBindContext')},
+                                 {'24','25'})
+        self.assertEqual(ROAD_BEND_ANCHOR,240)
+        for bend in (-1,0,1):
+            shifts=[ROAD_BEND_PIXELS*bend*max(0,1-y/ROAD_BEND_ANCHOR)**2
+                    for y in (0,120,240,300,384)]
+            self.assertEqual(shifts,[95*bend,23.75*bend,0,0,0])
 
     def test_rejected_motion_interpolation_is_not_shipped(self):
         motion = [a for a in self.scene.iter('ImageAsset') if '/motion/' in a.get('file','')]

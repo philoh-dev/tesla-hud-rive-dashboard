@@ -52,6 +52,15 @@ paint only; the existing sprites guide camera, shape and wheels. Each
 `assets/vehicle/model-3-highland-<paint>/README.md` records its prompt
 specifications. These are illustrative renders, not official Tesla artwork.
 
+Model Y Legacy Deep Blue Metallic artwork in
+`assets/vehicle/model-y-legacy-deep-blue-metallic/` was generated with the built-in
+image generator from the user's front and rear pre-Juniper Model Y references.
+The references guide body shape, separate headlights/rear lamps, metallic blue
+paint and silver wheels; existing Juniper sprites guide camera and render style
+only. These are new illustrative sprites, not recolored Juniper artwork or
+official Tesla renders. Final prompt specifications are recorded in that
+directory's `README.md`; generated alpha is preserved during mechanical scaling.
+
 Inter Regular, Medium and SemiBold are from the Inter project by Rasmus Andersson
 and contributors (https://github.com/rsms/inter), reused from DashPilot's bundled
 `dash-apps/web-vanilla/fonts/inter-{400,500,600}.ttf` files. They are redistributed

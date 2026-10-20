@@ -16,7 +16,8 @@ VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
             'model-y-juniper-ultra-red',
             'model-3-highland-pearl-white-multi-coat', 'model-3-highland-marine-blue',
             'model-3-highland-diamond-black', 'model-3-highland-ultra-red',
-            'model-3-highland-quicksilver')
+            'model-3-highland-quicksilver',
+            'model-y-legacy-deep-blue-metallic')
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {
@@ -60,6 +61,12 @@ PROPERTIES = {
     "showPhoneBattery": ("Boolean", True),
     "odometer": ("Number", 123456),
     "showOdometer": ("Boolean", True),
+    # DashPilot supplies steering-wheel degrees: negative left, positive right.
+    "egoSteeringAngle": ("Number", 0),
+    # Private animation state, never written by the host. Separate phase and
+    # smoothed bend let the dashes move along the curve without smoothing speed.
+    "_roadPhase": ("Number", 0),
+    "_roadBend": ("Number", 0),
 }
 IDS = {key: f"1:{index + 10}" for index, key in enumerate(PROPERTIES)}
 
@@ -105,9 +112,14 @@ BATTERY = ("floor(min(100,max(0,(round(nominalEnergyRemaining*100)-"
 BATTERY_VISIBLE = f"showCarBattery*min(1,max(0,nominalEnergyRemaining*100))*min(1,{AVAILABLE})"
 PHYSICAL_SPEED = "max(0,egoSpeed)*(1+0.609344*isImperial)"
 ROAD_RATE = f"({PHYSICAL_SPEED})/43.2*({equal('gear',4)}-{equal('gear',2)})"
+ROAD_BEND = "min(1,max(0,(input-2)/88))-min(1,max(0,(0-input-2)/88))"
+ROAD_BEND_PIXELS = 95
+ROAD_BEND_ANCHOR = 240
+ROAD_STEERING_SMOOTHING = .12
 FORMULAS = {
     "Park": PARK, "Driving": DRIVE, "Battery Percent": BATTERY,
     "Battery Visible": BATTERY_VISIBLE, "Road Rate": ROAD_RATE,
+    "Road steering dead zone and clamp": ROAD_BEND,
     "Power Up": "min(100,max(0,input))*1.44",
     "Power Down": "min(100,max(0,0-input))*1.44",
     "Cruise Speed Known": "min(1,max(0,input))",
@@ -131,7 +143,6 @@ class Scene:
         self.document = ET.Element("Rive", version="1", kind="fragment")
         self.serial = 100
         self.converters = {}
-        self.animation_keys = []
 
     def ident(self):
         self.serial += 1
@@ -166,6 +177,12 @@ class Scene:
                 token = self.el(parent, "FormulaTokenValue")
                 converter = "2:3" if PROPERTIES[node.id][0] == "Boolean" else None
                 self.bind(token, node.id, 777, converter)
+        elif isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            self.el(parent, "FormulaTokenParenthesisOpen")
+            self.el(parent, "FormulaTokenValue", operationValue=0)
+            self.el(parent, "FormulaTokenOperation", operationType=1)
+            self.tokens(parent, node.operand)
+            self.el(parent, "FormulaTokenParenthesisClose")
         elif isinstance(node, ast.BinOp):
             self.el(parent, "FormulaTokenParenthesisOpen")
             self.tokens(parent, node.left)
@@ -606,6 +623,20 @@ class Scene:
                      clip=True,styleId="4:2",viewModelId="1:1",viewModelInstanceId="1:2",
                      isComponent=True,x=2400,y=0)
         self.el(road,"LayoutComponentStyle",name="Road layout",id="4:2")
+        # Target-to-source bindings publish native animated transforms into
+        # private VM fields. Geometry can then use both the moving road phase
+        # and a single smoothed steering value, with no scripts or host changes.
+        phase=self.node(road,'Road phase clock')
+        self.bind(phase,'_roadPhase',13).set('direction','true')
+        steering=self.node(road,'Smoothed road steering')
+        smoothing=self.ident()
+        self.el(self.document,'DataConverterInterpolator',id=smoothing,
+                name='Road steering smoothing',duration=ROAD_STEERING_SMOOTHING,
+                interpolationType='linear')
+        self.bind(steering,'egoSteeringAngle',13,self.chain(
+            'Smooth bounded road steering',
+            self.formula('Road steering dead zone and clamp',ROAD_BEND),smoothing))
+        self.bind(steering,'_roadBend',13).set('direction','true')
         for color,label in (("FF0071FF","Assist lanes"),("FFD9E0E3","Neutral lanes")):
             group=self.node(road,label)
             if label=="Assist lanes":
@@ -616,25 +647,36 @@ class Scene:
                 for row, (start, length) in enumerate(zip((-34,0,44,105,181,276,394),(12,17,24,33,44,58,74))):
                     y = start*384/480
                     bottom = (start+length)*384/480
-                    points=[(400+side*(50+y*55/384),y),
-                            (400+side*(50+bottom*55/384),bottom)]
+                    # Short polyline subdivisions follow the quadratic bend
+                    # smoothly even on the largest nearby dash. At zero steer
+                    # all points lie on the original straight boundary.
+                    points=[(400+side*(50+(y+(bottom-y)*t)*55/384),y+(bottom-y)*t)
+                            for t in (0,.25,.5,.75,1)]
                     vertices=self.polygon(group,f"Lane {label} {side} {row}",points,color,row+1,False,
                                           light="FFECF0F1" if label=="Neutral lanes" else None)
                     stroke=group[-1].find('Stroke')
                     stroke.set('id',self.ident())
-                    self.animation_keys.append((stroke.get('id'),47,row+1,row+2))
-                    for endpoint, vertex in enumerate(vertices):
+                    self.bind(stroke,'_roadPhase',47,self.formula(
+                        f'Road dash width {row}',f'{row+1}+input'))
+                    for index, vertex in enumerate(vertices):
+                        vertex.set('radius','0')
+                        t=index/(len(vertices)-1)
                         next_start = (0,44,105,181,276,394,535)[row]
                         next_length = (17,24,33,44,58,74,90)[row]
-                        end_y=(next_start+(next_length if endpoint else 0))*384/480
-                        self.animation_keys.extend(((vertex.get('id'),24,points[endpoint][0],400+side*(50+end_y*55/384)),
-                                                    (vertex.get('id'),25,points[endpoint][1],end_y)))
+                        end_y=(next_start+next_length*t)*384/480
+                        start_y=points[index][1]
+                        moving_y=f'({start_y}+({end_y-start_y})*input)'
+                        self.bind(vertex,'_roadPhase',25,self.formula(
+                            f'Road dash y {row} {index}',moving_y))
+                        bend=f'{ROAD_BEND_PIXELS}*_roadBend*pow(max(0,1-({moving_y})/{ROAD_BEND_ANCHOR}),2)'
+                        self.bind(vertex,'_roadPhase',24,self.formula(
+                            f'Road dash x {side} {row} {index}',
+                            f'400+({side})*(50+({moving_y})*55/384)+({bend})'))
         animation=self.el(road,"LinearAnimation",name="One 12 metre road cycle",id="4:3",duration=60,fps=60,loopValue="loop")
-        for identity,key,start,end in self.animation_keys:
-            obj=self.el(animation,"KeyedObject",objectId=identity)
-            prop=self.el(obj,"KeyedProperty",propertyKey=key)
-            self.el(prop,"KeyFrameDouble",value=start,frame=0,interpolationType="linear")
-            self.el(prop,"KeyFrameDouble",value=end,frame=60,interpolationType="linear")
+        obj=self.el(animation,'KeyedObject',objectId=phase.get('id'))
+        prop=self.el(obj,'KeyedProperty',propertyKey=13)
+        self.el(prop,'KeyFrameDouble',value=0,frame=0,interpolationType='linear')
+        self.el(prop,'KeyFrameDouble',value=1,frame=60,interpolationType='linear')
 
 
 def generate(vehicle=DEFAULT_VEHICLE):

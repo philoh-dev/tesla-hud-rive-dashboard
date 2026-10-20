@@ -97,6 +97,7 @@ and [Galaxy Z Fold8 Ultra](https://www.samsung.com/ch_fr/smartphones/galaxy-z/ga
 - **Model Y Juniper Marine Blue** — [download dashboard](dashboard/model-y-juniper-marine-blue.riv).
 - **Model Y Juniper Quicksilver** — [download dashboard](dashboard/model-y-juniper-quicksilver.riv).
 - **Model Y Juniper Ultra Red** — [download dashboard](dashboard/model-y-juniper-ultra-red.riv).
+- **Model Y Legacy Deep Blue Metallic** — [download dashboard](dashboard/model-y-legacy-deep-blue-metallic.riv).
 - **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
 - **Model 3 Highland Pearl White Multi-Coat** — [download dashboard](dashboard/model-3-highland-pearl-white-multi-coat.riv).
 - **Model 3 Highland Marine Blue** — [download dashboard](dashboard/model-3-highland-marine-blue.riv).
@@ -112,6 +113,19 @@ and front three-quarter Park artwork. Blind-spot cars remain shared.
 ![Model 3 Highland driving dashboard](docs/images/model-3-highland-stealth-grey/drive-dark.png)
 
 ![Model 3 Highland parked dashboard](docs/images/model-3-highland-stealth-grey/park-dark.png)
+
+### Model Y Legacy Deep Blue Metallic
+
+Dedicated pre-Juniper Model Y artwork, with the original separate headlights
+and rear lamp clusters, Deep Blue Metallic paint and silver wheels based on
+user-supplied references. It shares the responsive layout, telemetry bindings,
+steering-responsive road and generic blind-spot vehicles with the other designs.
+
+![Deep Blue Metallic Legacy Model Y driving dashboard](docs/images/model-y-legacy-deep-blue-metallic/drive-dark.png)
+
+![Deep Blue Metallic Legacy Model Y parked dashboard](docs/images/model-y-legacy-deep-blue-metallic/park-dark.png)
+
+[Light-theme driving preview](docs/images/model-y-legacy-deep-blue-metallic/drive-light.png).
 
 ### Additional Model 3 Highland colors
 
@@ -193,6 +207,7 @@ dashboard/
 ├── model-y-juniper-marine-blue.riv
 ├── model-y-juniper-quicksilver.riv
 ├── model-y-juniper-ultra-red.riv
+├── model-y-legacy-deep-blue-metallic.riv
 ├── model-3-highland-pearl-white-multi-coat.riv
 ├── model-3-highland-marine-blue.riv
 ├── model-3-highland-diamond-black.riv
@@ -217,6 +232,9 @@ after a successful Dashboard CI run. Generated intermediate files under
 - Odometer beside the car battery: `123.456km`, with a muted km suffix.
 - Power-consumption and green recuperation indicators.
 - Speed-dependent road animation and blue lanes while Autopilot is active.
+- Steering-responsive road curves with a small dead zone and smooth changes;
+  the car and nearby road remain centered. This is a visual effect, not a
+  prediction of the road ahead.
 - Cruise set speed with a blue MAX caption beside the speed limit while assist
   is active. Inter Regular for speed values, Medium for labels and SemiBold
   for the speed-limit digits and MAX caption.

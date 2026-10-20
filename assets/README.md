@@ -11,6 +11,10 @@ PNG assets, three active Inter fonts and their font license.
   the rear-elevated angle.
 - Vehicle images in `vehicle/model-3-highland-stealth-grey/`: generated Highland
   sedan artwork from user-supplied references, with the same two camera roles.
+- Vehicle images in `vehicle/model-y-legacy-deep-blue-metallic/`: dedicated
+  generated pre-Juniper Model Y artwork based on user-supplied front/rear
+  references, with Deep Blue Metallic paint, silver wheels and the original
+  separate lamp clusters. Existing Juniper sprites guide camera and style only.
 - Additional Highland directories `vehicle/model-3-highland-<paint>/` contain
   Pearl White Multi-Coat, Marine Blue, Diamond Black, Ultra Red and Quicksilver
   paint edits of those same Park/Drive views. Shared wheels, camera roles and
