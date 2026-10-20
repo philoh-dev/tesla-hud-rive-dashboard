@@ -75,6 +75,9 @@ This requires the Rive CLI and a graphics context. Outputs under
 demo telemetry, not in-car captures or conceptual mockups. Driving previews
 show 130 km/h, a 130 km/h speed limit, left turn intent and both occupied blind
 spots. Dark mode shows Autopilot active; light mode shows neutral lanes.
+All three states show the current footer: 51% car battery, `123.456km`
+odometer and 78% phone battery beside the gear. Both battery percentages use
+the same 18-pixel Inter Medium typography.
 
 ## Data bindings
 

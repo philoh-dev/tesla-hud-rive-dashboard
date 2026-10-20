@@ -1,4 +1,4 @@
-# Rive validation — 19 October 2026
+# Rive validation — 20 October 2026
 
 Status: **not fully passing**. Local CLI rendering only; no Android/iOS device
 validation or device-FPS claim.
@@ -60,7 +60,11 @@ validation or device-FPS claim.
   muted km suffix and imperial-to-km conversion. These and the runtime theme/layout
   checks passed before increasing the phone percentage from 16 to 18 pixels.
   The matching battery typography is covered by regression tests and rebuilt
-  exports; a post-change screenshot refresh was not performed.
+  exports. On 20 October, all 36 documentation captures (12 vehicles × dark
+  Drive, light Drive and dark Park) were regenerated from the current source,
+  including the matching battery typography, right-side phone widget and
+  `123.456km` odometer. Documentation image links and capture coverage were
+  checked; this screenshot refresh does not resolve the runtime issues below.
 
 ## Unresolved
 
