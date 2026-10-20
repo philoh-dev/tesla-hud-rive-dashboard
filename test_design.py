@@ -90,6 +90,16 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertFalse((ROOT/'assets'/name).exists())
         self.assertFalse(any(key.startswith('turn_') for key in ASSETS))
 
+    def test_generic_vehicle_has_dedicated_rgba_assets(self):
+        self.assertIn('generic-vehicle',VEHICLES)
+        assets=vehicle_assets('generic-vehicle')
+        for name,view,size in (('ego','drive',(111,124)),('park','park',(410,307))):
+            self.assertEqual(assets[name],f'assets/vehicle/generic-vehicle/{view}.png')
+            data=(ROOT/assets[name]).read_bytes()
+            self.assertEqual(data[:8],b'\x89PNG\r\n\x1a\n')
+            self.assertEqual((int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')),size)
+            self.assertEqual(data[25],6)
+
     def test_vector_turn_signal_keeps_off_dim_bright_states(self):
         for side in ('left','right'):
             for state,opacity in ((0,0),(1,.5),(2,1)):
