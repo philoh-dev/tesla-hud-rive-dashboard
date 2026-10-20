@@ -67,6 +67,13 @@ built-in image generator as paint edits of the Legacy blue sprites, guided by
 the user's Pearl White reference. Camera angles, black glass/trim and silver
 wheels are retained. Prompt specifications are in that directory's `README.md`.
 
+Model Y Legacy Midnight Silver Metallic artwork in
+`assets/vehicle/model-y-legacy-midnight-silver-metallic/` was generated with the
+built-in image generator as paint edits of the Legacy blue sprites, using the
+user's Midnight Silver reference. The existing camera angles, black glass/trim
+and silver wheels are retained. Prompt specifications are recorded in that
+directory's `README.md`; generated alpha is preserved during mechanical resizing.
+
 Inter Regular, Medium and SemiBold are from the Inter project by Rasmus Andersson
 and contributors (https://github.com/rsms/inter), reused from DashPilot's bundled
 `dash-apps/web-vanilla/fonts/inter-{400,500,600}.ttf` files. They are redistributed

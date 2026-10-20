@@ -75,20 +75,22 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual((int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')),dimensions)
             self.assertEqual(data[25],6,'Vehicle sprites must retain RGBA alpha')
 
-    def test_legacy_pearl_white_has_dedicated_assets_and_matching_ground(self):
+    def test_legacy_paint_variants_have_dedicated_assets_and_matching_ground(self):
         from park_ground import park_ground_outline
-        vehicle='model-y-legacy-pearl-white-multi-coat'
-        self.assertIn(vehicle,VEHICLES)
-        for role,view,width,height in (('park','park',410,307),('ego','drive',122,136)):
-            path=vehicle_assets(vehicle)[role]
-            self.assertEqual(path,f'assets/vehicle/{vehicle}/{view}.png')
-            data=(ROOT/path).read_bytes()
-            self.assertEqual(data[:8],b'\x89PNG\r\n\x1a\n')
-            self.assertEqual((int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')),
-                             (width,height))
-            self.assertEqual(data[25],6,'Vehicle sprites must retain RGBA alpha')
-        self.assertEqual(park_ground_outline(vehicle),
-                         park_ground_outline('model-y-legacy-deep-blue-metallic'))
+        for paint in ('pearl-white-multi-coat','midnight-silver-metallic'):
+            vehicle='model-y-legacy-'+paint
+            with self.subTest(vehicle=vehicle):
+                self.assertIn(vehicle,VEHICLES)
+                for role,view,width,height in (('park','park',410,307),('ego','drive',122,136)):
+                    path=vehicle_assets(vehicle)[role]
+                    self.assertEqual(path,f'assets/vehicle/{vehicle}/{view}.png')
+                    data=(ROOT/path).read_bytes()
+                    self.assertEqual(data[:8],b'\x89PNG\r\n\x1a\n')
+                    self.assertEqual((int.from_bytes(data[16:20],'big'),int.from_bytes(data[20:24],'big')),
+                                     (width,height))
+                    self.assertEqual(data[25],6,'Vehicle sprites must retain RGBA alpha')
+                self.assertEqual(park_ground_outline(vehicle),
+                                 park_ground_outline('model-y-legacy-deep-blue-metallic'))
 
     def test_turn_signals_are_original_mirrored_vectors(self):
         left=turn_signal_points('left')
@@ -214,11 +216,14 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(eval(FORMULAS['Phone Battery Percent'],{'__builtins__':{}},env),percent)
             self.assertEqual(eval(FORMULAS['Phone Battery Known'],{'__builtins__':{}},env),known)
 
-    def test_requested_battery_changes_do_not_move_power_rail(self):
+    def test_power_rail_is_thicker_and_flush_with_left_edge(self):
         cluster=self.scene.find(".//Node[@name='Speed and power']")
         for name in ('Consumption fill','Recuperation fill','Power track'):
             shape=cluster.find(f"Shape[@name='{name}']")
-            self.assertEqual(shape.get('x'),'12.5')
+            self.assertEqual(shape.get('x'),'4')
+            rectangle=shape.find('Rectangle')
+            self.assertEqual(rectangle.get('width'),'8')
+            self.assertEqual(float(shape.get('x'))-float(rectangle.get('width'))/2,0)
 
     def test_car_and_phone_battery_percentages_have_matching_typography(self):
         for car_name,phone_name in (('Battery percentage','Phone battery percentage'),

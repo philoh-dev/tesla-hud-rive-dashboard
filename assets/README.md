@@ -22,6 +22,9 @@ PNG assets, three active Inter fonts and their font license.
 - Vehicle images in `vehicle/model-y-legacy-pearl-white-multi-coat/`: generated
   Pearl White paint edits of the Legacy Park/Drive sprites, guided by the user's
   reference. Camera roles, silver wheels and shared blind-spot assets are retained.
+- Vehicle images in `vehicle/model-y-legacy-midnight-silver-metallic/`: generated
+  Midnight Silver Metallic paint edits of the Legacy Park/Drive sprites, guided
+  by the user's reference and retaining the enlarged Legacy Drive scale.
 - Vehicle images in `vehicle/model-y-juniper-white-multi-coat/`: generated white
   paint variants of the Juniper sprites, guided by user-supplied paint references.
 - Vehicle images in `vehicle/model-y-juniper-diamond-black/`: generated Diamond

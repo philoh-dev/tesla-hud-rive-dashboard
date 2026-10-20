@@ -121,7 +121,8 @@ def main():
         actual,_=capture(universal,'live-fallback-'+label,selected=vehicle,
                          events=(f'--pointer=click@{x},20','--advance=3'))
         assert_same(actual,reference_images[(FALLBACK_VEHICLE,4)],'live '+label)
-    for vehicle in (FALLBACK_VEHICLE,'model-3-highland-ultra-red','model-y-legacy-pearl-white-multi-coat'):
+    for vehicle in (FALLBACK_VEHICLE,'model-3-highland-ultra-red','model-y-legacy-pearl-white-multi-coat',
+                    'model-y-legacy-midnight-silver-metallic'):
         for gear in (1,4):
             expected,_=capture(references[vehicle],f'light-reference-{vehicle}-{gear}',gear,dark=False)
             actual,_=capture(universal,f'light-{vehicle}-{gear}',gear,vehicle,dark=False)

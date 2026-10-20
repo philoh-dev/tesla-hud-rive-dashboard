@@ -144,8 +144,8 @@
               </TextStylePaint>
               <TextValueRun styleId="0:131" text=" mph" name="Inline unit" />
             </Text>
-            <Shape name="Consumption fill" x="12.5" y="192" id="0:132">
-              <Rectangle name="Outline" width="5" height="1" cornerRadiusTL="2" id="0:133" originY="1">
+            <Shape name="Consumption fill" x="4" y="192" id="0:132">
+              <Rectangle name="Outline" width="8" height="1" cornerRadiusTL="2" id="0:133" originY="1">
                 <DataBindContext sourcePathIds="1:1-1:21" propertyKey="21" converterId="0:140" />
               </Rectangle>
               <Fill name="Paint">
@@ -156,16 +156,16 @@
                 </SolidColor>
               </Fill>
             </Shape>
-            <Shape name="Recuperation fill" x="12.5" y="192" id="0:141">
-              <Rectangle name="Outline" width="5" height="1" cornerRadiusTL="2" id="0:142" originY="0">
+            <Shape name="Recuperation fill" x="4" y="192" id="0:141">
+              <Rectangle name="Outline" width="8" height="1" cornerRadiusTL="2" id="0:142" originY="0">
                 <DataBindContext sourcePathIds="1:1-1:21" propertyKey="21" converterId="0:143" />
               </Rectangle>
               <Fill name="Paint">
                 <SolidColor colorValue="FF5CBD68" name="Color" />
               </Fill>
             </Shape>
-            <Shape name="Power track" x="12.5" y="192" id="0:144">
-              <Rectangle name="Outline" width="5" height="288" cornerRadiusTL="3" id="0:145" />
+            <Shape name="Power track" x="4" y="192" id="0:144">
+              <Rectangle name="Outline" width="8" height="288" cornerRadiusTL="3" id="0:145" />
               <Fill name="Paint">
                 <SolidColor colorValue="FF2B3236" name="Color">
                   <DataBindContext sourcePathIds="1:1-1:30" propertyKey="118" converterId="0:147" />

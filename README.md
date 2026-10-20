@@ -24,6 +24,10 @@ Pure-black OLED background, Autopilot-active blue lanes, left turn intent and
 occupied blind spots. The left vehicle is red because the matching turn signal
 is active; the right vehicle remains grey.
 
+The power/recuperation bar sits flush with the left edge and uses a thicker
+18-pixel track at the 1080-unit design height. Physical cutouts and safe-area
+insets still depend on the phone and host app.
+
 ![Model Y Juniper Stealth Grey driving dashboard in dark mode](docs/images/model-y-juniper-stealth-grey/drive-dark.png)
 
 ### Driving — light mode
@@ -99,6 +103,7 @@ and [Galaxy Z Fold8 Ultra](https://www.samsung.com/ch_fr/smartphones/galaxy-z/ga
 - **Model Y Juniper Ultra Red** — [download dashboard](dashboard/model-y-juniper-ultra-red.riv).
 - **Model Y Legacy Deep Blue Metallic** — [download dashboard](dashboard/model-y-legacy-deep-blue-metallic.riv).
 - **Model Y Legacy Pearl White Multi-Coat** — [download dashboard](dashboard/model-y-legacy-pearl-white-multi-coat.riv).
+- **Model Y Legacy Midnight Silver Metallic** — [download dashboard](dashboard/model-y-legacy-midnight-silver-metallic.riv).
 - **Model 3 Highland Stealth Grey** — [download dashboard](dashboard/model-3-highland-stealth-grey.riv).
 - **Model 3 Highland Pearl White Multi-Coat** — [download dashboard](dashboard/model-3-highland-pearl-white-multi-coat.riv).
 - **Model 3 Highland Marine Blue** — [download dashboard](dashboard/model-3-highland-marine-blue.riv).
@@ -139,6 +144,18 @@ and blind-spot vehicles are unchanged. In the universal dashboard, set
 
 [Dark driving preview](docs/images/model-y-legacy-pearl-white-multi-coat/drive-dark.png) /
 [Light driving preview](docs/images/model-y-legacy-pearl-white-multi-coat/drive-light.png).
+
+### Model Y Legacy Midnight Silver Metallic
+
+Midnight Silver Metallic paint guided by the supplied reference, retaining the
+Legacy body, separate headlights/rear lamps and silver wheels. It uses the same
+enlarged Drive scale as the other Legacy colors. In the universal dashboard,
+set `vehicleDesign` to `model-y-legacy-midnight-silver-metallic`.
+
+![Midnight Silver Metallic Legacy Model Y parked dashboard](docs/images/model-y-legacy-midnight-silver-metallic/park-dark.png)
+
+[Dark driving preview](docs/images/model-y-legacy-midnight-silver-metallic/drive-dark.png) /
+[Light driving preview](docs/images/model-y-legacy-midnight-silver-metallic/drive-light.png).
 
 ### Additional Model 3 Highland colors
 
@@ -222,6 +239,7 @@ dashboard/
 ├── model-y-juniper-ultra-red.riv
 ├── model-y-legacy-deep-blue-metallic.riv
 ├── model-y-legacy-pearl-white-multi-coat.riv
+├── model-y-legacy-midnight-silver-metallic.riv
 ├── model-3-highland-pearl-white-multi-coat.riv
 ├── model-3-highland-marine-blue.riv
 ├── model-3-highland-diamond-black.riv

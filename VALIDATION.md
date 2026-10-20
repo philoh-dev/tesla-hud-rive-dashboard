@@ -44,6 +44,18 @@ validation is implied, and the existing unresolved issues below remain.
 
 ## Passing
 
+### Left-edge power/recuperation bar
+
+- Consumption, regeneration and track share an 8-unit width and center X=4,
+  placing their left edge at X=0 (18 pixels wide at the 1080-unit design height).
+  Height, vertical position, colors, telemetry bindings and Park visibility are
+  unchanged; speed text and the other instruments did not move.
+- All 17 exports were verified and rebuilt without errors/warnings. All 54
+  source tests pass, including the thicker, flush-left rail regression.
+- Native layout checks pass at 1440, 1800 and 2340 × 1080 in Park and Drive.
+  Public vehicle Drive screenshots were refreshed. Real camera-cutout clearance
+  still depends on physical device geometry and host safe-area handling.
+
 ### Model Y Legacy Pearl White Multi-Coat addition
 
 - Added Pearl White Park/Drive sprites using the built-in image generator,
@@ -63,7 +75,22 @@ validation is implied, and the existing unresolved issues below remain.
   is now 1,295,921 bytes. Both sets of documentation captures were refreshed,
   and all 54 source tests passed again. Park artwork and layout are unchanged.
 
-### Existing shared checks
+### Model Y Legacy Midnight Silver Metallic addition
+
+- Added reference-guided, built-in image-generated Park/Drive paint variants,
+  retaining transparent alpha, the 410 × 307 Park canvas and enlarged
+  122 × 136 Legacy Drive canvas. Existing vehicle artwork is unchanged.
+- Standalone and universal exports verify and compile without warnings/errors,
+  at 1,290,315 and 3,728,449 bytes respectively, both below the 5 MB limit.
+- All 54 source tests pass, including the new paint's asset paths, hashes,
+  PNG format/dimensions and shared Legacy Park ground outline.
+- Native universal checks pass for all 16 initial/live vehicle selections,
+  Park/Drive switching, fallbacks, light-theme comparisons including Midnight
+  Silver, and theme-aware Park-only ground shadows.
+- Dark Drive, light Drive and dark Park documentation captures were rendered
+  and visually inspected. No phone testing or performance claim is implied.
+
+### Previously recorded shared checks
 
 - Rive CLI 1.6.0 verification and compilation, no warnings/errors.
 - Optical alignment measured in the approved 1800×1080 dark preview at 130:

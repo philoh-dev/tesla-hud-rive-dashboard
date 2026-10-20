@@ -19,6 +19,7 @@ VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
             'model-3-highland-diamond-black', 'model-3-highland-ultra-red',
             'model-3-highland-quicksilver',
             'model-y-legacy-deep-blue-metallic', 'model-y-legacy-pearl-white-multi-coat',
+            'model-y-legacy-midnight-silver-metallic',
             'generic-vehicle')
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
@@ -361,11 +362,12 @@ class Scene:
                          fontSize=21.25,fontAssetId='2:902',familyName='Inter',styleName='Medium')
             self.paint(unit,'FFB8C1C5')
             self.el(speed,'TextValueRun',styleId=identity,text='\u2009'+label,name='Inline unit')
-        up = self.rect(cluster, "Consumption fill", 12.5,192,5,1,"FFB8C1C5",2,originY=1,light="FF2D3436")
+        # Keep the whole 8-unit rail flush with the artboard's left edge.
+        up = self.rect(cluster, "Consumption fill", 4,192,8,1,"FFB8C1C5",2,originY=1,light="FF2D3436")
         self.bind(up, "powerLevel", 21, self.formula("Power Up", FORMULAS["Power Up"]))
-        down = self.rect(cluster, "Recuperation fill",12.5,192,5,1,"FF5CBD68",2,originY=0)
+        down = self.rect(cluster, "Recuperation fill",4,192,8,1,"FF5CBD68",2,originY=0)
         self.bind(down,"powerLevel",21,self.formula("Power Down",FORMULAS["Power Down"]))
-        self.rect(cluster,"Power track",12.5,192,5,288,"FF2B3236",3,light="FFECF0F1")
+        self.rect(cluster,"Power track",4,192,8,288,"FF2B3236",3,light="FFECF0F1")
 
         center = self.layout(driving, "Road center", width=0, fill_h=True)
         scene = self.node(center, "Native 800 pixel scene", -900,0,scaleX=2.25,scaleY=2.25)
