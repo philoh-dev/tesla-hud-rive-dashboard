@@ -36,7 +36,7 @@ def main():
             for name,values in PREVIEWS:
                 arguments=[f'--data={key}={str(value).lower()}' for key,value in values.items()]
                 subprocess.run([cli,str(ROOT),f'--screenshot={output/(name+".png")}',
-                                '--viewport=1800x1080',*arguments,'--advance=3'],check=True)
+                                '--viewport=1800x1080',*arguments,'--advance=45'],check=True)
     finally:
         generate(DEFAULT_VEHICLE)
 

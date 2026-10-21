@@ -5,7 +5,8 @@ the Model Y Juniper Stealth Grey preview. This is an illustrative approximately
 five-degree adjustment, not a measured 3D rotation.
 
 The built-in image-generation tool was used for each vehicle/paint variant.
-Only Drive artwork changed; Park artwork and shared blind-spot cars did not.
+The initial rollout changed only Drive artwork. Later refinements to the shared
+blind-spot cars are described below; Park artwork keeps its existing view.
 PNG canvas dimensions are retained, including the larger Legacy canvases,
 except Marine Blue Highland: its old landscape canvas is normalized to the
 105 × 126 portrait canvas used by the other Highland colors.
@@ -40,3 +41,29 @@ five evenly spaced metallic letters `T E S L A` across the trunk between the
 rear lamps. The approved camera, body, paint and separate lamps are retained.
 Both corrections use the built-in image generator with transparent alpha and
 the same mechanically framed sprite dimensions.
+
+## Juniper Stealth Grey reference refinement
+
+The Stealth Grey Drive sprite was refined with the built-in image generator
+using the user's photo of the vehicle shown in Tesla software. The approved
+rear camera sits between the earlier overhead sprite and the first low rear
+preview. Its glass roof has smooth reflections; the bumper has no plate-holder
+outline. The center and outer brake segments are unlit while the thin red
+running-light strip remains visible.
+
+Final paint prompt: preserve the approved camera, geometry, glass, bumper and
+lamp state; match the painted body panels to the original Stealth Grey sprite's
+dark graphite metallic tone, including the pillars, mirrors and rear deck.
+The approved result is cropped to its transparent silhouette and fitted without
+stretching inside the existing 111 × 124 pixel canvas.
+
+## Matching blind-spot camera
+
+The built-in image generator adjusted the grey neighboring car to the refined
+Juniper camera elevation, preserving the generic vehicle design and slight
+inward lane perspective. The red warning variant uses the same view with red
+body paint and dark burgundy glazing. The final prompt preserves geometry,
+camera, framing, lamp shapes and transparency while changing only that warning
+color treatment. Both variants share one crop and are fitted without stretching
+inside 117 × 140 pixel canvases. The right-lane PNGs are exact horizontal mirrors
+of their left-lane counterparts.

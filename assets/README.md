@@ -6,7 +6,8 @@ PNG assets, three active Inter fonts and their font license.
 `generate.py` references their actual repository-relative paths.
 
 Drive artwork now follows the approved, slightly lower rear camera, retaining
-each vehicle design and paint. Park and shared blind-spot artwork are unchanged.
+each vehicle design and paint. Park artwork retains its existing view. Shared
+blind-spot cars follow the refined Juniper camera elevation.
 See [Drive camera and prompt specifications](DRIVE-ANGLE.md).
 
 - Vehicle images in `vehicle/model-y-juniper-stealth-grey/`: project-local
