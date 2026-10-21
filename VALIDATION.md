@@ -44,6 +44,29 @@ validation is implied, and the existing unresolved issues below remain.
 
 ## Passing
 
+### Lower Drive camera artwork — 21 October 2026
+
+- Follow-up detail correction: all three Legacy roof sprites now use smooth
+  panoramic glass without the distorted curved bands. All six Highland colors
+  have the spaced `T E S L A` trunk lettering restored. The same five targeted
+  asset/scene checks pass; no exports were rebuilt. Before-correction assets
+  are retained under ignored `build/drive-detail-fixes/originals/`.
+- Updated all 16 ego Drive PNGs using the approved slightly lower Juniper
+  camera as orientation reference. Asset hashes were refreshed. Park sprites,
+  shared artwork and all existing dashboard exports match their pre-update
+  checksums; no additional `.riv` files were rebuilt for this artwork change.
+- All source dimensions and RGBA transparency were retained, except the old
+  landscape Marine Blue Highland canvas was corrected to 105 × 126, matching
+  the other Highland colors. Legacy retains its larger Drive canvas.
+- Five targeted asset/scene checks passed (manifest hashes, per-vehicle scene
+  differences, RGBA dimensions and Legacy ground).
+  The complete layout suite was not claimed for the pending footer-bar draft.
+- All 16 designs rendered in both themes in isolated preview projects under
+  `build/drive-angle-rollout/previews/`. Sprite framing and representative
+  Highland/Legacy dashboard captures were visually inspected. Generation
+  prompts are summarized in `assets/DRIVE-ANGLE.md`; original sprites are
+  retained under ignored `build/drive-angle-rollout/originals/` for comparison.
+
 ### Left-edge power/recuperation bar
 
 - Consumption, regeneration and track share an 8-unit width and center X=4,

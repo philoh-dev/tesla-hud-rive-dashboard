@@ -1,5 +1,11 @@
 # Assets and provenance
 
+Drive-camera update: current Drive PNGs were edited with the built-in image
+generator to follow the approved lower-camera Juniper reference while retaining
+each vehicle's identity and paint. Park artwork and shared blind-spot cars are
+unchanged. See [camera prompt specifications](assets/DRIVE-ANGLE.md). Historical
+per-vehicle provenance below still describes the original artwork inputs.
+
 Model Y Stealth Grey vehicle PNGs are byte-for-byte copies of T Hud's existing, project-local
 generated artwork originally under the firmware's `assets/vehicles/prepared/`.
 They are bundled locally; no firmware checkout is required. See

@@ -123,8 +123,8 @@ FORMULAS = {
     "Park": PARK, "Driving": DRIVE, "Battery Percent": BATTERY,
     "Battery Visible": BATTERY_VISIBLE, "Road Rate": ROAD_RATE,
     "Road steering dead zone and clamp": ROAD_BEND,
-    "Power Up": "min(100,max(0,input))*1.44",
-    "Power Down": "min(100,max(0,0-input))*1.44",
+    "Power Up": "min(100,max(0,input))*4.5",
+    "Power Down": "min(100,max(0,0-input))*4.5",
     "Phone Battery Percent": "floor(min(100,max(0,input)))",
     "Phone Battery Known": "max(0,1+min(0,input))",
     "Odometer Km": "floor(max(0,input))",
@@ -325,6 +325,7 @@ class Scene:
                                         ('Inter-Medium.ttf','2:902','Medium')):
             self.el(self.document,"FontAsset",file='fonts/'+filename,name='Inter '+label,id=identity)
         self.el(self.document, "ComponentAsset", name="Road motion", id="4:4", artboardId="4:1")
+        self.el(self.document, "ComponentAsset", name="Footer power bar", id="6:3", artboardId="6:1")
         self.el(self.document, "DataConverterToString", decimals=0, round=True, name="Integer", id="2:1")
         self.el(self.document, "DataConverterToString", name="Boolean text", id="2:2")
         self.el(self.document, "DataConverterToNumber", name="Numeric boolean", id="2:4")
@@ -362,12 +363,6 @@ class Scene:
                          fontSize=21.25,fontAssetId='2:902',familyName='Inter',styleName='Medium')
             self.paint(unit,'FFB8C1C5')
             self.el(speed,'TextValueRun',styleId=identity,text='\u2009'+label,name='Inline unit')
-        # Keep the whole 8-unit rail flush with the artboard's left edge.
-        up = self.rect(cluster, "Consumption fill", 4,192,8,1,"FFB8C1C5",2,originY=1,light="FF2D3436")
-        self.bind(up, "powerLevel", 21, self.formula("Power Up", FORMULAS["Power Up"]))
-        down = self.rect(cluster, "Recuperation fill",4,192,8,1,"FF5CBD68",2,originY=0)
-        self.bind(down,"powerLevel",21,self.formula("Power Down",FORMULAS["Power Down"]))
-        self.rect(cluster,"Power track",4,192,8,288,"FF2B3236",3,light="FFECF0F1")
 
         center = self.layout(driving, "Road center", width=0, fill_h=True)
         scene = self.node(center, "Native 800 pixel scene", -900,0,scaleX=2.25,scaleY=2.25)
@@ -448,6 +443,16 @@ class Scene:
         footer = self.layout(root,"Invisible status region 20 percent",fill_h=True,fill_w=True,
                              flexBasis=0,flexBasisUnitsValue="points")
         footer.set('fractionalHeight','1')
+        # Percentage insets preserve a centered 50% span at every phone width.
+        # A separate artboard stretches horizontally while keeping 14.4px height.
+        power_slot=self.layout(footer,'Bottom power bar slot',width=50,height=14.4,
+                               widthUnitsValue='percent',
+                               positionTypeValue='absolute',
+                               positionLeft=25,positionLeftUnitsValue='percent',
+                               positionBottom=0,positionBottomUnitsValue='points')
+        power=self.el(power_slot,'NestedArtboardLeaf',name='Footer power and regeneration',
+                      id=self.ident(),artboardId='6:1',fit='fill')
+        self.opacity(power,'gear',f'1-({PARK})','Power bar outside Park')
         battery_col = self.layout(footer,"Battery left",fill_w=True,fill_h=True,flexBasis=0,flexBasisUnitsValue="points")
         bat = self.node(battery_col,"Known battery",54,81,scaleX=2.25,scaleY=2.25)
         self.opacity(bat,"fullPackEnergy",BATTERY_VISIBLE,"Battery Visible")
@@ -546,7 +551,10 @@ class Scene:
         for cue in direction_cues:
             self.direction_machine(main,machine,*cue)
         self.road_artboard()
+        self.power_artboard()
         add_park_ground(self,self.document)
+        from driving_scene import enhance_driving
+        enhance_driving(self,self.document,PROPERTIES)
         return self.document
 
     def number_condition(self,transition,prop,value,operator='equal'):
@@ -601,6 +609,18 @@ class Scene:
         for conv in converters:
             self.el(group,"DataConverterGroupItem",converterId=conv)
         return identity
+
+    def power_artboard(self):
+        board=self.el(self.document,'Artboard',name='Footer power bar',id='6:1',
+                      width=900,height=14.4,clip=True,styleId='6:2',
+                      viewModelId='1:1',viewModelInstanceId='1:2',isComponent=True)
+        self.el(board,'LayoutComponentStyle',name='Power bar layout',id='6:2')
+        power=self.rect(board,'Consumption fill',450,7.2,1,14.4,'FFB8C1C5',4.5,
+                        originX=1,light='FF2D3436')
+        self.bind(power,'powerLevel',20,self.formula('Power Up',FORMULAS['Power Up']))
+        regen=self.rect(board,'Recuperation fill',450,7.2,1,14.4,'FF5CBD68',4.5,originX=0)
+        self.bind(regen,'powerLevel',20,self.formula('Power Down',FORMULAS['Power Down']))
+        self.rect(board,'Power track',450,7.2,900,14.4,'FF2B3236',6.75,light='FFECF0F1')
 
     def road_artboard(self):
         road=self.el(self.document,"Artboard",name="Road motion",id="4:1",width=800,height=384,

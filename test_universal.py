@@ -27,7 +27,7 @@ class UniversalDashboardTest(unittest.TestCase):
         self.assertEqual(len(assets),len(VEHICLES)*2+5)
 
     def test_only_two_vehicle_selectors_share_the_gear_gates(self):
-        for role,y in (('park','384'),('ego','234')):
+        for role,y in (('park','384'),('ego','250.0')):
             solo=self.scene.find(f".//Solo[@name='Vehicle {role} selector']")
             self.assertEqual((solo.get('x'),solo.get('y')),('400',y))
             children=solo.findall('Image')

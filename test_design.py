@@ -216,14 +216,16 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(eval(FORMULAS['Phone Battery Percent'],{'__builtins__':{}},env),percent)
             self.assertEqual(eval(FORMULAS['Phone Battery Known'],{'__builtins__':{}},env),known)
 
-    def test_power_rail_is_thicker_and_flush_with_left_edge(self):
-        cluster=self.scene.find(".//Node[@name='Speed and power']")
+    def test_power_rail_uses_responsive_footer_artboard(self):
+        cluster=self.scene.find("Artboard[@name='Footer power bar']")
         for name in ('Consumption fill','Recuperation fill','Power track'):
             shape=cluster.find(f"Shape[@name='{name}']")
-            self.assertEqual(shape.get('x'),'4')
+            self.assertEqual(shape.get('x'),'450')
             rectangle=shape.find('Rectangle')
-            self.assertEqual(rectangle.get('width'),'8')
-            self.assertEqual(float(shape.get('x'))-float(rectangle.get('width'))/2,0)
+            self.assertEqual(rectangle.get('height'),'14.4')
+        slot=self.scene.find(".//LayoutComponent[@name='Bottom power bar slot']")
+        self.assertIsNotNone(slot)
+        self.assertEqual(slot.get('width'),'50')
 
     def test_car_and_phone_battery_percentages_have_matching_typography(self):
         for car_name,phone_name in (('Battery percentage','Phone battery percentage'),
@@ -341,9 +343,8 @@ class NewhavenDesignTest(unittest.TestCase):
 
     def test_no_vehicle_transition_or_intermediate_assets_are_shipped(self):
         main = self.scene.find("Artboard[@name='Newhaven']")
-        cue_ids={n.get('id') for n in main.iter('Node')
-                 if n.get('name') in ('Forward direction motion','Reverse direction motion')}
-        self.assertTrue(all(obj.get('objectId') in cue_ids for obj in main.iter('KeyedObject')))
+        animated_ids={n.get('id') for n in main.iter() if n.get('id')}
+        self.assertTrue(all(obj.get('objectId') in animated_ids for obj in main.iter('KeyedObject')))
         self.assertEqual(list(self.scene.iter('ListenerViewModelChange')),[])
         self.assertEqual(len(list(self.scene.iter('ImageAsset'))),len(ASSETS))
         self.assertFalse(any('turntable/' in a.get('file','') for a in self.scene.iter('ImageAsset')))
@@ -377,8 +378,8 @@ class NewhavenDesignTest(unittest.TestCase):
         converter = self.scene.find(f"DataConverterFormula[@id='{binding.get('converterId')}']")
         self.assertEqual(converter.get('name'),'Instruments outside Park')
         self.assertIsNotNone(cluster.find("Text[@name='Current speed']"))
-        for name in ('Consumption fill','Recuperation fill','Power track'):
-            self.assertIsNotNone(cluster.find(f"Shape[@name='{name}']"))
+        power=self.scene.find(".//NestedArtboardLeaf[@name='Footer power and regeneration']")
+        self.assertIsNotNone(power.find("DataBindContext[@propertyKey='18']"))
 
     def test_road_switches_immediately_but_retains_speed_driven_motion(self):
         road = self.scene.find(".//NestedArtboard[@name='Speed driven road']")
@@ -405,7 +406,7 @@ class NewhavenDesignTest(unittest.TestCase):
         road=self.scene.find("Artboard[@name='Road motion']")
         animation=road.find('LinearAnimation')
         self.assertEqual(animation.get('fps'),'60')
-        self.assertEqual(len(road.findall('.//Shape')),28)
+        self.assertEqual(len(road.findall('.//Shape')),42)
         clock=road.find("Node[@name='Road phase clock']")
         self.assertEqual(animation.find('KeyedObject').get('objectId'),clock.get('id'))
         keys=animation.findall("KeyedObject/KeyedProperty[@propertyKey='13']/KeyFrameDouble")
