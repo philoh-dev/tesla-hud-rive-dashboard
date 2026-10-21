@@ -31,11 +31,14 @@ class NewhavenDesignTest(unittest.TestCase):
                      'left red vehicle', 'left grey vehicle', 'right red vehicle', 'right grey vehicle'):
             self.assertIn(name, names)
 
-    def test_each_vehicle_changes_only_ego_assets_and_park_footprint(self):
-        expected=Scene().build()
+    def test_other_vehicles_keep_shared_assets_and_layout(self):
+        expected=Scene(VEHICLES[1]).build()
+        for asset in expected.iter('ImageAsset'):
+            if asset.get('name') in ('ego','park'):
+                asset.set('file',ASSETS[asset.get('name')])
         parent=expected.find(".//Node[@name='Native 800 pixel scene']")
         parent.remove(parent.find("Node[@name='Park ground']"))
-        for vehicle in VEHICLES:
+        for vehicle in VEHICLES[1:]:
             with self.subTest(vehicle=vehicle):
                 scene=Scene(vehicle).build()
                 assets={asset.get('name'):asset.get('file') for asset in scene.iter('ImageAsset')}
@@ -49,6 +52,21 @@ class NewhavenDesignTest(unittest.TestCase):
                 parent=scene.find(".//Node[@name='Native 800 pixel scene']")
                 parent.remove(parent.find("Node[@name='Park ground']"))
                 self.assertEqual(ET.tostring(scene),ET.tostring(expected))
+
+    def test_juniper_stealth_grey_uses_approved_layout(self):
+        native=self.scene.find(".//Node[@name='Native 800 pixel scene']")
+        for side,x in (('left',240),('right',560)):
+            car=native.find(f"Node[@name='{side} blind spot']")
+            self.assertEqual(float(car.get('x')),x)
+            self.assertEqual(float(car.get('y')),292)
+            for image in car.iter('Image'):
+                self.assertEqual(float(image.get('scaleX','1')),-1 if side=='right' else 1)
+        ego=native.find("Image[@name='Driving ego vehicle']")
+        self.assertAlmostEqual(float(ego.get('y')),234+50/2.25)
+        assets=vehicle_assets(VEHICLES[0])
+        for color in ('grey','red'):
+            self.assertEqual(assets['left_'+color],assets['right_'+color])
+            self.assertIn('model-y-juniper-stealth-grey/blind-spot-',assets['left_'+color])
 
     def test_unknown_vehicle_is_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):
@@ -416,7 +434,7 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(binding.get('sourcePathIds'),f"1:1-{IDS['_roadPhase']}")
         for vertex in road.iter('StraightVertex'):
             x,y=float(vertex.get('x')),float(vertex.get('y'))
-            self.assertAlmostEqual(abs(x-400),50+y*55/384)
+            self.assertAlmostEqual(abs(x-400),15.4+y*74.6/384)
 
     def test_steering_has_signed_dead_zone_and_bounded_monotonic_curve(self):
         self.assertEqual(PROPERTIES['egoSteeringAngle'],('Number',0))

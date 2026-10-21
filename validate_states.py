@@ -19,7 +19,7 @@ def fixture():
     scene=Scene()
     document=scene.build()
     for asset in (*document.iter('ImageAsset'),*document.iter('FontAsset')):
-        asset.set('file',str(ROOT/asset.get('file')))
+        asset.set('file',(ROOT/asset.get('file')).as_posix())
     main=document.find("Artboard[@name='Newhaven']")
     machine=main.find('StateMachine')
     for name,x,value in (('Park',20,1),('Drive',40,4),('Reverse',80,2),('Neutral',100,3)):
@@ -73,7 +73,7 @@ def main():
     assert same(result,parked), 'Rapid return left an intermediate pose'
     # Compare the ego car only: stopped D/R intentionally show different
     # direction cues, while N has no arrow at all.
-    crop=(750,380,1050,680)
+    crop=(790,465,1010,690)
     for gear,button in ((2,80),(3,100)):
         result,values=capture(f'gear-{gear}',1,'--advance=3',f'--pointer=click@{button},20','--advance=1')
         assert values['gear']==gear

@@ -15,7 +15,7 @@ def main():
     scene=Scene()
     document=scene.build()
     for asset in (*document.iter('ImageAsset'),*document.iter('FontAsset')):
-        asset.set('file',str(ROOT/asset.get('file')))
+        asset.set('file',(ROOT/asset.get('file')).as_posix())
     board=document.find("Artboard[@name='Newhaven']")
     machine=board.find('StateMachine')
     for x,name,value,kind,key in ((20,'showPhoneBattery',False,'Boolean',634),
@@ -55,7 +55,8 @@ def main():
             raise RuntimeError(result.stdout)
         return Image.open(path).convert('RGB')
 
-    phone_box=(1040,900,1320,1080)
+    # Exclude the bottom power bar, which ends at x=1080 at this viewport.
+    phone_box=(1040,900,1320,1065)
     car_box=(45,900,350,1080)
     odo_box=(324,930,640,1020)
     def same(a,b):
@@ -64,7 +65,7 @@ def main():
     for dark in (True,False):
         normal=capture('normal',dark)
         hidden=capture('hidden',dark,78,False)
-        blank=Image.new('RGB',(280,180),(0,0,0) if dark else (255,255,255))
+        blank=Image.new('RGB',(280,165),(0,0,0) if dark else (255,255,255))
         assert same(hidden.crop(phone_box),blank), 'Phone preference did not hide the whole widget'
         assert not same(normal.crop(phone_box),blank), 'Phone widget is missing'
         assert same(normal.crop(car_box),hidden.crop(car_box)), 'Phone setting changed the car widget'

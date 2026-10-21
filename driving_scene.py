@@ -58,8 +58,8 @@ def enhance_driving(scene, document, properties):
             if binding.get('propertyKey')=='18':
                 group.remove(binding)
         # Adjacent-lane centers diverge with depth at twice the lane-border slope.
-        # Match the road's 55/384 perspective rather than rising vertically.
-        entry_x=(-1 if side=='left' else 1)*2*55/384*160
+        # Match this design's road perspective rather than rising vertically.
+        entry_x=(-1 if side=='left' else 1)*2*scene.road_spread/384*160
         motion=scene.node(group,side+' blind spot arrival',entry_x,160,opacity=0)
         motions[side]=motion
         for image in list(group.findall('Image')):

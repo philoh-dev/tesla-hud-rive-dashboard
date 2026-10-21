@@ -1,7 +1,7 @@
 import unittest
 import xml.etree.ElementTree as ET
 
-from generate import VEHICLES, Scene, vehicle_assets, IDS
+from generate import VEHICLES, Scene, vehicle_assets, IDS, ASSETS
 from universal import (UniversalScene, VEHICLE_PROPERTY, VEHICLE_PROPERTY_ID,
                        FALLBACK_VEHICLE)
 from park_ground import park_wheel_contacts, park_ground_outline
@@ -21,7 +21,11 @@ class UniversalDashboardTest(unittest.TestCase):
 
     def test_every_vehicle_is_embedded_once_and_shared_assets_are_not_duplicated(self):
         assets=list(self.scene.iter('ImageAsset'))
-        expected={path for vehicle in VEHICLES for path in vehicle_assets(vehicle).values()}
+        # Universal keeps the shared neighboring cars; this vehicle-specific
+        # update changes only the dedicated Juniper Stealth Grey dashboard.
+        expected={path for vehicle in VEHICLES for role,path in vehicle_assets(vehicle).items()
+                  if role in ('ego','park')}
+        expected.update(path for role,path in ASSETS.items() if role not in ('ego','park'))
         self.assertEqual({asset.get('file') for asset in assets},expected)
         self.assertEqual(len(assets),len(expected))
         self.assertEqual(len(assets),len(VEHICLES)*2+5)

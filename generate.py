@@ -38,8 +38,13 @@ IMAGE_IDS = {name: f"5:{index+1}" for index, name in enumerate(ASSETS)}
 def vehicle_assets(vehicle=DEFAULT_VEHICLE):
     if vehicle not in VEHICLES:
         raise ValueError(f'Unsupported vehicle: {vehicle}')
-    return dict(ASSETS, ego=f'assets/vehicle/{vehicle}/drive.png',
-                park=f'assets/vehicle/{vehicle}/park.png')
+    assets = dict(ASSETS, ego=f'assets/vehicle/{vehicle}/drive.png',
+                  park=f'assets/vehicle/{vehicle}/park.png')
+    if vehicle == DEFAULT_VEHICLE:
+        for side in ('left', 'right'):
+            assets[side+'_grey'] = f'assets/vehicle/{vehicle}/blind-spot-grey.png'
+            assets[side+'_red'] = f'assets/vehicle/{vehicle}/blind-spot-red.png'
+    return assets
 
 
 PROPERTIES = {
@@ -141,6 +146,10 @@ for side in ("left", "right"):
 
 class Scene:
     def __init__(self, vehicle=DEFAULT_VEHICLE):
+        self.approved_layout = vehicle == DEFAULT_VEHICLE
+        # Reduce the previous 44-unit top gap by 30%, retaining 180 at bottom.
+        self.road_top = 15.4 if self.approved_layout else 50
+        self.road_spread = 74.6 if self.approved_layout else 55
         self.assets = vehicle_assets(vehicle)
         self.document = ET.Element("Rive", version="1", kind="fragment")
         self.serial = 100
@@ -366,16 +375,24 @@ class Scene:
 
         center = self.layout(driving, "Road center", width=0, fill_h=True)
         scene = self.node(center, "Native 800 pixel scene", -900,0,scaleX=2.25,scaleY=2.25)
-        for side,x in (("left",200),("right",600)):
-            car_group = self.node(scene,side+" blind spot",x,292)
+        for side,x in (("left",240 if self.approved_layout else 200),
+                       ("right",560 if self.approved_layout else 600)):
+            car_group = self.node(scene,side+" blind spot",x,276 if self.approved_layout else 292)
             self.opacity(car_group,side+"BlindSpot",FORMULAS[side+" Occupied"],side+" Occupied")
             warning = self.image(car_group,side+" red vehicle",side+"_red",0,0)
+            if self.approved_layout and side == 'right':
+                warning.set('scaleX','-1')
             self.opacity(warning,side+"Blinker",FORMULAS[side+" Warning"],side+" Warning")
-            self.image(car_group,side+" grey vehicle",side+"_grey",0,0)
+            neutral = self.image(car_group,side+" grey vehicle",side+"_grey",0,0)
+            if self.approved_layout and side == 'right':
+                neutral.set('scaleX','-1')
         park = self.image(scene,"Park front three-quarter vehicle","park",400,384)
         park.set("originY","1")
         self.opacity(park,"gear",PARK,"Park vehicle visible")
-        ego = self.image(scene,"Driving ego vehicle","ego",400,234)
+        # enhance_driving adds 16 scene units; match the approved preview's
+        # 234-unit center plus 50 output pixels at the 2.25 design scale.
+        ego_y = 234 + 50/2.25 - 16 if self.approved_layout else 234
+        ego = self.image(scene,"Driving ego vehicle","ego",400,ego_y)
         self.opacity(ego,"gear",f"1-({PARK})","Driving vehicle visible")
         # A gear-gated wrapper prevents a launch cue lingering after a shift.
         # The inner node's motion/opacity belong exclusively to its timeline.
@@ -401,7 +418,20 @@ class Scene:
         # default state machine. Explicitly start playback and bind its speed.
         travel=self.el(road,"NestedSimpleAnimation",name="Speed driven lane travel",
                        animationId="4:3",isPlaying=True)
-        self.bind(travel,"egoSpeed",199,self.formula("Road Rate",ROAD_RATE))
+        if self.approved_layout:
+            # Convert the units flag at the binding boundary. A Boolean bound
+            # inside a numeric formula token can use the wrong initial value
+            # in the Windows renderer, making metric road travel too fast.
+            rate = self.formula('Road Rate',ROAD_RATE.replace('isImperial','input'))
+            # Keep this converter pipeline independent: playback rate must not
+            # share mutable conversion state with visibility/theme bindings.
+            units_text = self.ident()
+            self.el(self.document,'DataConverterToString',id=units_text,name='Road units Boolean text')
+            units_number = self.ident()
+            self.el(self.document,'DataConverterToNumber',id=units_number,name='Road units numeric Boolean')
+            self.bind(travel,'isImperial',199,self.chain('Road rate typed units',units_text,units_number,rate))
+        else:
+            self.bind(travel,"egoSpeed",199,self.formula("Road Rate",ROAD_RATE))
         self.opacity(road,"gear",f"1-({PARK})","Road outside Park")
 
         right = self.layout(driving,"Right edge",fill_w=True,fill_h=True,layoutAlignmentType="topRight",
@@ -654,14 +684,20 @@ class Scene:
                     # Short polyline subdivisions follow the quadratic bend
                     # smoothly even on the largest nearby dash. At zero steer
                     # all points lie on the original straight boundary.
-                    points=[(400+side*(50+(y+(bottom-y)*t)*55/384),y+(bottom-y)*t)
+                    points=[(400+side*(self.road_top+(y+(bottom-y)*t)*self.road_spread/384),y+(bottom-y)*t)
                             for t in (0,.25,.5,.75,1)]
-                    vertices=self.polygon(group,f"Lane {label} {side} {row}",points,color,row+1,False,
+                    width = row+1
+                    if self.approved_layout:
+                        width *= min(1.0, (width/6.0)**.85)
+                    vertices=self.polygon(group,f"Lane {label} {side} {row}",points,color,width,False,
                                           light="FFECF0F1" if label=="Neutral lanes" else None)
                     stroke=group[-1].find('Stroke')
                     stroke.set('id',self.ident())
+                    width_expression = f'{row+1}+input'
+                    if self.approved_layout:
+                        width_expression = f'({width_expression})*min(1,pow(({width_expression})/6,0.85))'
                     self.bind(stroke,'_roadPhase',47,self.formula(
-                        f'Road dash width {row}',f'{row+1}+input'))
+                        f'Road dash width {row}',width_expression))
                     for index, vertex in enumerate(vertices):
                         vertex.set('radius','0')
                         t=index/(len(vertices)-1)
@@ -675,7 +711,7 @@ class Scene:
                         bend=f'{ROAD_BEND_PIXELS}*_roadBend*pow(max(0,1-({moving_y})/{ROAD_BEND_ANCHOR}),2)'
                         self.bind(vertex,'_roadPhase',24,self.formula(
                             f'Road dash x {side} {row} {index}',
-                            f'400+({side})*(50+({moving_y})*55/384)+({bend})'))
+                            f'400+({side})*({self.road_top}+({moving_y})*{self.road_spread}/384)+({bend})'))
         animation=self.el(road,"LinearAnimation",name="One 12 metre road cycle",id="4:3",duration=60,fps=60,loopValue="loop")
         obj=self.el(animation,'KeyedObject',objectId=phase.get('id'))
         prop=self.el(obj,'KeyedProperty',propertyKey=13)

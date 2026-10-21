@@ -27,7 +27,7 @@ def main():
         fixture.mkdir(exist_ok=True)
         document=Scene().build()
         for asset in (*document.iter('ImageAsset'),*document.iter('FontAsset')):
-            asset.set('file',str(ROOT/asset.get('file')))
+            asset.set('file',(ROOT/asset.get('file')).as_posix())
         instance=document.find('ViewModel/ViewModelInstance')
         values=dict(egoSpeed=speed,gear=gear,isImperial=imperial,adasOn=False,
                     leftBlinker=0,rightBlinker=0,leftBlindSpot=0,rightBlindSpot=0)

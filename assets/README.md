@@ -39,8 +39,13 @@ See [Drive camera and prompt specifications](DRIVE-ANGLE.md).
 - Vehicle images in `vehicle/model-y-juniper-quicksilver/` and
   `vehicle/model-y-juniper-ultra-red/`: generated Quicksilver and Ultra Red paint
   variants, guided by the user's paint references.
-- Blind-spot vehicles: shared directly under `assets/` for every ego vehicle
-  design. Adjacent grey/red cars are exact mirrored pairs.
+- Blind-spot vehicles: shared directly under `assets/` except for the dedicated
+  Model Y Juniper Stealth Grey dashboard. Its `blind-spot-grey.png` and
+  `blind-spot-red.png` use the approved minimalist silver silhouette and matching
+  red warning variant, generated from the user-supplied reference. The warning
+  variant tints every surface red, including darker crimson glass, burgundy
+  tires and red bumper trim, while retaining tonal contrast. Both sides
+  share these sprites and mirror them in Rive. Original shared assets are retained.
 - Autopilot badge: project-local geometric artwork, not an enlarged manual
   bitmap. The blue badge is `#0071ff` with a white steering-wheel symbol.
 - Fonts: Inter Regular/Medium/SemiBold; see `fonts/Inter-OFL.txt`.

@@ -41,6 +41,8 @@
     "fonts/Inter-Regular.ttf": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
     "fonts/Inter-Medium.ttf": "8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63",
     "fonts/Inter-SemiBold.ttf": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
-    "fonts/Inter-OFL.txt": "ba70f4c49083f5644d7c8309ccc63c5cb261cf7894e638a69eb3b4c8303bcc1e"
+    "fonts/Inter-OFL.txt": "ba70f4c49083f5644d7c8309ccc63c5cb261cf7894e638a69eb3b4c8303bcc1e",
+    "assets/vehicle/model-y-juniper-stealth-grey/blind-spot-grey.png": "12925de225982d286f0a468b082c3e0a94366df108e9d9532dd57625d336bcfc",
+    "assets/vehicle/model-y-juniper-stealth-grey/blind-spot-red.png": "6725fa53f407523a7ddf7385da6b6872891843af514d3263c8231e72a83ba619"
   }
 }
