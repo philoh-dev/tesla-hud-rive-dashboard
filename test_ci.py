@@ -1,6 +1,7 @@
 """Checksum installer safety checks, with no real network or CLI dependency."""
 import hashlib
 import io
+import os
 from pathlib import Path
 import tarfile
 import tempfile
@@ -52,9 +53,13 @@ class CliInstallerTest(unittest.TestCase):
     def test_installs_only_verified_executable(self):
         with tempfile.TemporaryDirectory() as directory:
             destination=Path(directory)/'bin'/'rive'
-            self.run_install(self.archive(),destination)
+            original_chmod = Path.chmod
+            with patch.object(Path, 'chmod', autospec=True, side_effect=original_chmod) as chmod:
+                self.run_install(self.archive(),destination)
+            chmod.assert_called_once_with(destination,0o755)
             self.assertEqual(destination.read_bytes(),b'rive')
-            self.assertEqual(destination.stat().st_mode&0o777,0o755)
+            if os.name != 'nt':
+                self.assertEqual(destination.stat().st_mode&0o777,0o755)
             self.assertEqual(list(destination.parent.iterdir()),[destination])
 
     def test_rejects_checksum_mismatch_before_writing(self):

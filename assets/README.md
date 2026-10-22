@@ -39,8 +39,12 @@ See [Drive camera and prompt specifications](DRIVE-ANGLE.md).
 - Vehicle images in `vehicle/model-y-juniper-quicksilver/` and
   `vehicle/model-y-juniper-ultra-red/`: generated Quicksilver and Ultra Red paint
   variants, guided by the user's paint references.
-- Blind-spot vehicles: shared directly under `assets/` except for the dedicated
-  Model Y Juniper Stealth Grey dashboard. Its `blind-spot-grey.png` and
+- All five additional Juniper paints now use Park and Drive edits of the current
+  Stealth Grey templates, preserving their paint identities. Their transparent
+  canvases and occupied bounds follow Stealth Grey; see `DRIVE-ANGLE.md` and
+  each paint directory's prompt specifications. Stealth Grey PNGs are unchanged.
+- Blind-spot vehicles: shared directly under `assets/` except for the Model Y Juniper
+  dashboards. All Juniper paints share the Stealth Grey template assets; its `blind-spot-grey.png` and
   `blind-spot-red.png` use the approved minimalist silver silhouette and matching
   red warning variant, generated from the user-supplied reference. The warning
   variant tints every surface red, including darker crimson glass, burgundy

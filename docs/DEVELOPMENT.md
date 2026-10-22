@@ -26,9 +26,10 @@ Use `--vehicle model-3-highland-stealth-grey` with `build.py` or
 `--vehicle model-y-juniper-marine-blue` for Marine Blue. Quicksilver and Ultra Red
 use `--vehicle model-y-juniper-quicksilver` and
 `--vehicle model-y-juniper-ultra-red`. Without a flag, both scripts
-process every entry in `generate.VEHICLES`. Vehicle selection changes only
-the Park/Drive image paths; all bindings, layout and blind-spot assets are
-shared. Both scripts restore canonical Model Y `scene.rml` in a `finally`
+process every entry in `generate.VEHICLES`. All Model Y Juniper paints use the Stealth Grey template layout, road
+geometry, road playback bindings and mirrored blind-spot sprites, retaining
+their own Park/Drive artwork. Other vehicle families retain their existing
+layout and shared blind-spot assets. Both scripts restore canonical Model Y `scene.rml` in a `finally`
 block, so build order does not change the committed default source.
 
 The pre-Juniper Model Y in Deep Blue Metallic uses
@@ -42,7 +43,7 @@ Highland paint variants use the same flags with IDs
 `model-3-highland-quicksilver`.
 
 The internal artboard is currently named `Newhaven` (see `rive.yaml`). Its
-1800 × 1080 dimensions are authoring coordinates, not a fixed output resolution.
+1800 Ã— 1080 dimensions are authoring coordinates, not a fixed output resolution.
 DashPilot's normalized 1080-unit height preserves artwork size while Layout fit
 reflows the width. Main/status regions use a 4:1 height split. Speed, power and
 battery stay left; speed limit and gear stay right; road, blind-spot vehicles
@@ -103,8 +104,8 @@ decode CAN frames. Speed and speed limit arrive in the selected display units.
 Road animation converts mph to physical km/h internally.
 
 - `egoSteeringAngle` (Number): steering-wheel degrees, negative left and
-  positive right. The road ignores the central ±2°, reaches its bounded bend
-  at ±90°, and smooths changes over 0.12 seconds with a native Rive converter.
+  positive right. The road ignores the central Â±2Â°, reaches its bounded bend
+  at Â±90Â°, and smooths changes over 0.12 seconds with a native Rive converter.
   Distant lane markings follow a quadratic curve; the near road, ego car,
   blind-spot vehicles and instruments stay anchored. This is a steering-based
   illustration, not detected road geometry or a predicted driving path.
@@ -120,7 +121,7 @@ Road animation converts mph to physical km/h internally.
 - Blind-spot vehicles are grey for occupancy and red for matching turn intent,
   including the blink's dark phase.
 - `adasOn` (Boolean): blue road lines and Autopilot badge. Both use the flat
-  Boolean → string → number converter from DashPilot's reference dashboard,
+  Boolean â†’ string â†’ number converter from DashPilot's reference dashboard,
   without wrapping it in another group or an identity formula. Runtime checks
   cover initial off/on, engagement, disengagement and re-engagement in both themes.
   This verifies rendering when the host supplies the flag, not live CAN delivery.
@@ -131,7 +132,7 @@ Road animation converts mph to physical km/h internally.
   Its value uses Inter Regular, matching current speed. Labels use Inter Medium;
   speed-limit digits and the MAX caption use Inter SemiBold.
   Like DashPilot's `dash_demo.riv`, a direct native range mapper clamps the value
-  to 0–1 for opacity, without a formula or visibility state-machine transitions.
+  to 0â€“1 for opacity, without a formula or visibility state-machine transitions.
   `adasOn` changes only the MAX caption color: blue when true, muted when false.
   Checks include rendering with both assist flags off and with an idle-only state
   machine, without any assist visibility transitions.
@@ -140,7 +141,7 @@ Road animation converts mph to physical km/h internally.
 - `darkMode`: live theme selection, default dark. `darkModeBackgroundGray` is
   exposed for compatibility but deliberately ignored to keep OLED black.
 - `dataSourceType`: source identity, not a BLE connection-health indicator.
-- `phoneBattery` (Number): phone charge percentage, clamped to 0–100 and
+- `phoneBattery` (Number): phone charge percentage, clamped to 0â€“100 and
   floored for display. Zero is valid; negative/unavailable values hide the
   entire phone widget. `showPhoneBattery` (Boolean) independently controls
   its visibility using a flat Boolean binding. The car widget retains
@@ -155,7 +156,7 @@ Road animation converts mph to physical km/h internally.
   The inline km suffix has lower contrast in both themes. Negative/unavailable
   values hide the reading. The host's imperial odometer is converted back using
   its `0.621371` factor before flooring; this readout deliberately remains km.
-  Separate metric/imperial branches and 1–4-group text runs avoid scripts and
+  Separate metric/imperial branches and 1â€“4-group text runs avoid scripts and
   provide live visibility/format changes without a host-side formatted string.
 
 ### Android system-theme limitation
@@ -183,8 +184,8 @@ from 30% opacity over 0.4 seconds, resetting when stopped. The static Park car
 does not rotate or animate.
 
 Turn signals are original vector paths generated by `turn_signal_points` in
-`generate.py`, not PNG assets. Their 32 × 36 native-pixel outline has a
-9-pixel-long, 14-pixel-thick shaft and a larger 23 × 36 arrowhead (previously 17 × 30).
+`generate.py`, not PNG assets. Their 32 Ã— 36 native-pixel outline has a
+9-pixel-long, 14-pixel-thick shaft and a larger 23 Ã— 36 arrowhead (previously 17 Ã— 30).
 They retain mirrored geometry and existing off/50%-opacity/100%-opacity bindings.
 
 ## GitHub Actions
@@ -199,3 +200,38 @@ CLI archive SHA-256 verification is implemented in
 [ci/install_rive_cli.py](../ci/install_rive_cli.py). There is no publishing,
 login, remote creation or automatic commit. Portable CI does not run the GPU
 checks and does not clear known runtime failures or certify phone performance.
+
+### MYJ SG reviewed road projection
+
+`python build.py --vehicle model-y-juniper-stealth-grey` includes the reviewed low-angle road and adjacent vehicles through `myj_projection.py`. Adjacent vehicles stay at fixed projected depth, closer to the inner boundaries; detection changes only fade opacity over eight frames. The road keeps its speed and steering bindings. Other designs retain their existing geometry. Sprite contact metrics are baked from the approved alpha silhouette, keeping builds stdlib-only.
+
+### Curved road and angle-specific vehicle views
+
+MYJ SG projects a smooth ground-space arc before drawing the lanes:
+`x(d) = bend * (heading*d + 0.5*acceleration*d*d/(1+max(0,d)/depthScale))`.
+The acceleration coefficient is 0.0024. The horizon shifts in the turn direction,
+up to 20% of the native canvas width. Inner and outer boundaries and adjacent
+vehicle anchors use the same path and unit-normal lane offsets. The analytic
+slope keeps curvature and heading continuous toward the horizon.
+
+`vehicle_angles.py` selects actual angle-specific sprites after projection;
+vehicle images are never rotated or opacity-crossfaded. The approved ego view
+is `ego-back-left-middle.png`, mirrored for the opposite turn. Its angle lies
+between the straight rear view and the original angled reference. Adjacent
+vehicles use narrower/wider inner-flank views. Five additional PNGs and baked
+`view-angles/geometry.json` measurements keep builds stdlib-only. Ground shadows
+retain their flat-road orientation. The default MYJ SG export is about 4.40 MB.
+
+Build with `python build.py --vehicle model-y-juniper-stealth-grey`.
+
+### Asset-preserving road texture dynamics
+
+`road_dynamics.py` adds speed-scaled sine vibration only to the two MYJ SG blind-spot vehicle bodies, capped at 0.5 output pixels at the 1800x1080 design viewport. The projected depth scale is compensated so the amplitude stays consistent through curves. Frequency is four cycles per 12 m of road travel. Ego body and all contact shadows stay steady. Effects return to baseline at zero speed or outside Drive/Reverse. Typed units conversion matches the existing metric/imperial road clock; all lane dashes share that clock. No vehicle artwork is modified.
+
+### Exclusive angle poses (overlap fix)
+
+`vehicle_angles.py` now puts each vehicle's three views inside a native Solo. A state-machine layer selects a child with a held ID keyframe and zero-duration transitions, guaranteeing only one silhouette is rendered. Angled poses use raw `egoSteeringAngle` only above +50 or below -50 degrees; the inclusive [-50, 50] range selects the straight view. Direct opposite-turn selection is supported. Parent gear/occupancy/warning gates, curved anchors and road-texture vibration are retained. Regression coverage checks mutually exclusive transition conditions, exact steering thresholds and absence of per-pose opacity blending.
+
+Ego angle sprites match the straight rear view's 875-source-pixel opaque body height with uniform scaling, while retaining the same rear tire baseline. This avoids the previous width-only normalization shrinking the angled body vertically.
+
+The MYJ SG ego body and contact shadow sit 20% of the visible ego body height lower (about 45.4 pixels at 1800x1080). Road projection and adjacent vehicle anchors retain their existing calibration via ROAD_CONTACT_Y. Both ego pose variants share this offset.

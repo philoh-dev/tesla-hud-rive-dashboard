@@ -62,6 +62,10 @@ class UniversalScene(Scene):
                     continue
                 attributes=dict(original.attrib,id=self.ident(),name=f'{vehicle} {role}',
                                 assetId=image_ids[vehicle][role])
+                if vehicle=='model-y-juniper-stealth-grey' and role=='ego':
+                    from myj_projection import EGO_CHASE_SCALE, EGO_CHASE_Y
+                    attributes.update(scaleX=str(EGO_CHASE_SCALE),scaleY=str(EGO_CHASE_SCALE),
+                                      y=str(EGO_CHASE_Y-(234+50/2.25)))
                 child=self.el(solo,'Image',**attributes)
                 children[vehicle]=child.get('id')
             selections[role]=(solo,children)

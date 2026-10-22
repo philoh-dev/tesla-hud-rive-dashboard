@@ -67,3 +67,17 @@ camera, framing, lamp shapes and transparency while changing only that warning
 color treatment. Both variants share one crop and are fitted without stretching
 inside 117 Ã— 140 pixel canvases. The right-lane PNGs are exact horizontal mirrors
 of their left-lane counterparts.
+
+## All Juniper paints aligned to the current Stealth Grey template
+
+White Multi-Coat, Diamond Black, Marine Blue, Quicksilver and Ultra Red Park
+and Drive PNGs were regenerated from the current Stealth Grey view templates,
+using their previous images only as paint references. Both cameras, dark glass,
+wheels and body geometry follow Stealth Grey. Drive views retain its smooth
+roof, bumper without a plate-holder outline, thin red running-light strip and
+unlit center/outer brake segments. Each generated silhouette is fitted without
+stretching into the corresponding Stealth Grey alpha bounds on a 410 × 307
+Park canvas or 111 × 124 Drive canvas. The built-in image generator supplied
+transparent alpha; mechanical framing preserves it. Stealth Grey PNGs and all
+compiled `.riv` exports are unchanged. Paint-specific READMEs record the final
+prompt set.

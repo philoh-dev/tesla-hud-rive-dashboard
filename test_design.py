@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 from generate import (ASSETS, ROOT, Scene, ROAD_RATE, ROAD_BEND, ROAD_BEND_ANCHOR,
                       ROAD_BEND_PIXELS, ROAD_STEERING_SMOOTHING, PROPERTIES, IDS,
-                      VEHICLES, vehicle_assets, turn_signal_points, FORMULAS)
+                      VEHICLES, JUNIPER_VEHICLES, vehicle_assets, turn_signal_points, FORMULAS)
 
 
 class NewhavenDesignTest(unittest.TestCase):
@@ -18,6 +18,8 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_bundled_assets_match_original_source_checksums(self):
         manifest=json.loads((ROOT/'assets/manifest.json').read_text())
         expected={path for vehicle in VEHICLES for path in vehicle_assets(vehicle).values()}
+        from vehicle_angles import POSE_ASSETS
+        expected.update(POSE_ASSETS.values())
         expected.update(f'fonts/{name}' for name in ('Inter-Regular.ttf','Inter-Medium.ttf',
                                                     'Inter-SemiBold.ttf','Inter-OFL.txt'))
         self.assertEqual(set(manifest['sha256']),expected)
@@ -38,7 +40,7 @@ class NewhavenDesignTest(unittest.TestCase):
                 asset.set('file',ASSETS[asset.get('name')])
         parent=expected.find(".//Node[@name='Native 800 pixel scene']")
         parent.remove(parent.find("Node[@name='Park ground']"))
-        for vehicle in VEHICLES[1:]:
+        for vehicle in (v for v in VEHICLES if v not in JUNIPER_VEHICLES):
             with self.subTest(vehicle=vehicle):
                 scene=Scene(vehicle).build()
                 assets={asset.get('name'):asset.get('file') for asset in scene.iter('ImageAsset')}
@@ -60,13 +62,37 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(float(car.get('x')),x)
             self.assertEqual(float(car.get('y')),292)
             for image in car.iter('Image'):
-                self.assertEqual(float(image.get('scaleX','1')),-1 if side=='right' else 1)
-        ego=native.find("Image[@name='Driving ego vehicle']")
-        self.assertAlmostEqual(float(ego.get('y')),234+50/2.25)
+                self.assertGreater(float(image.get('scaleX','1')),0)
+                self.assertEqual(float(image.get('rotation','0')),0)
+            placement=car.find(f".//Node[@name='{side} projected lane placement']")
+            self.assertGreater(float(placement.get('scaleY')),0)
+            self.assertEqual(math.copysign(1,float(placement.get('scaleX'))),-1 if side=='right' else 1)
+        ego=native.find("Node[@name='Driving ego vehicle view selector']")
+        from myj_projection import EGO_CHASE_Y, EGO_CHASE_SCALE, CONTACT_Y
+        self.assertEqual(float(ego.get('x')),400)
+        self.assertAlmostEqual(float(ego.get('y')),EGO_CHASE_Y)
+        self.assertAlmostEqual(float(ego.get('scaleX')),EGO_CHASE_SCALE)
+        self.assertAlmostEqual(float(ego.get('y'))+(1003-599.5)*EGO_CHASE_SCALE,CONTACT_Y)
         assets=vehicle_assets(VEHICLES[0])
         for color in ('grey','red'):
             self.assertEqual(assets['left_'+color],assets['right_'+color])
             self.assertIn('model-y-juniper-stealth-grey/blind-spot-',assets['left_'+color])
+
+    def test_other_juniper_variants_retain_their_existing_template(self):
+        def template(vehicle):
+            scene = Scene(vehicle).build()
+            for asset in scene.iter('ImageAsset'):
+                if asset.get('name') in ('ego', 'park'):
+                    asset.set('file', ASSETS[asset.get('name')])
+            native = scene.find(".//Node[@name='Native 800 pixel scene']")
+            native.remove(native.find("Node[@name='Park ground']"))
+            return ET.tostring(scene)
+        expected = template('model-y-juniper-white-multi-coat')
+        for vehicle in (v for v in JUNIPER_VEHICLES if v != VEHICLES[0]):
+            with self.subTest(vehicle=vehicle):
+                self.assertEqual(template(vehicle), expected)
+                self.assertEqual(vehicle_assets(vehicle)['ego'], f'assets/vehicle/{vehicle}/drive.png')
+                self.assertEqual(vehicle_assets(vehicle)['park'], f'assets/vehicle/{vehicle}/park.png')
 
     def test_unknown_vehicle_is_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):
@@ -364,7 +390,8 @@ class NewhavenDesignTest(unittest.TestCase):
         animated_ids={n.get('id') for n in main.iter() if n.get('id')}
         self.assertTrue(all(obj.get('objectId') in animated_ids for obj in main.iter('KeyedObject')))
         self.assertEqual(list(self.scene.iter('ListenerViewModelChange')),[])
-        self.assertEqual(len(list(self.scene.iter('ImageAsset'))),len(ASSETS))
+        from vehicle_angles import POSE_ASSETS
+        self.assertEqual(len(list(self.scene.iter('ImageAsset'))),len(ASSETS)+len(POSE_ASSETS))
         self.assertFalse(any('turntable/' in a.get('file','') for a in self.scene.iter('ImageAsset')))
         self.assertFalse((ROOT/'assets/turntable').exists())
         self.assertFalse((ROOT/'prepare_turntable.py').exists())
@@ -382,6 +409,8 @@ class NewhavenDesignTest(unittest.TestCase):
         for name,formula in (('Park front three-quarter vehicle','Park vehicle visible'),
                              ('Driving ego vehicle','Driving vehicle visible')):
             image=self.scene.find(f".//Image[@name='{name}']")
+            if name=='Driving ego vehicle':
+                image=self.scene.find(".//Node[@name='Driving ego vehicle view selector']")
             binding=image.find('DataBindContext')
             self.assertEqual(binding.get('propertyKey'),'18')
             converter=self.scene.find(f"DataConverterFormula[@id='{binding.get('converterId')}']")
@@ -424,7 +453,7 @@ class NewhavenDesignTest(unittest.TestCase):
         road=self.scene.find("Artboard[@name='Road motion']")
         animation=road.find('LinearAnimation')
         self.assertEqual(animation.get('fps'),'60')
-        self.assertEqual(len(road.findall('.//Shape')),42)
+        self.assertEqual(len(road.findall('.//Shape')),128)
         clock=road.find("Node[@name='Road phase clock']")
         self.assertEqual(animation.find('KeyedObject').get('objectId'),clock.get('id'))
         keys=animation.findall("KeyedObject/KeyedProperty[@propertyKey='13']/KeyFrameDouble")
@@ -432,9 +461,16 @@ class NewhavenDesignTest(unittest.TestCase):
         for stroke in road.iter('Stroke'):
             binding=stroke.find("DataBindContext[@propertyKey='47']")
             self.assertEqual(binding.get('sourcePathIds'),f"1:1-{IDS['_roadPhase']}")
-        for vertex in road.iter('StraightVertex'):
-            x,y=float(vertex.get('x')),float(vertex.get('y'))
-            self.assertAlmostEqual(abs(x-400),15.4+y*74.6/384)
+        from myj_projection import HORIZON, FOCAL, DEPTH_SCALE, PAINT_LENGTH, FAR_Z
+        for shape in road.iter('Shape'):
+            vertices=shape.findall('PointsPath/StraightVertex')
+            self.assertEqual(len(vertices),4)
+            near,far=vertices[:2]
+            zn=DEPTH_SCALE/(float(near.get('y'))-HORIZON)
+            zf=DEPTH_SCALE/(float(far.get('y'))-HORIZON)
+            self.assertAlmostEqual(zf-zn,min(PAINT_LENGTH,FAR_Z-zn))
+            self.assertAlmostEqual((float(near.get('x'))-400)*zn/FOCAL,
+                                   (float(far.get('x'))-400)*zf/FOCAL)
 
     def test_steering_has_signed_dead_zone_and_bounded_monotonic_curve(self):
         self.assertEqual(PROPERTIES['egoSteeringAngle'],('Number',0))
@@ -469,7 +505,7 @@ class NewhavenDesignTest(unittest.TestCase):
         road=self.scene.find("Artboard[@name='Road motion']")
         for shape in road.iter('Shape'):
             vertices=shape.findall('PointsPath/StraightVertex')
-            self.assertEqual(len(vertices),5)
+            self.assertEqual(len(vertices),4)
             for vertex in vertices:
                 self.assertEqual(vertex.get('radius'),'0')
                 self.assertEqual({b.get('propertyKey') for b in vertex.findall('DataBindContext')},
@@ -483,6 +519,238 @@ class NewhavenDesignTest(unittest.TestCase):
     def test_rejected_motion_interpolation_is_not_shipped(self):
         motion = [a for a in self.scene.iter('ImageAsset') if '/motion/' in a.get('file','')]
         self.assertEqual(motion,[])
+
+    def test_projected_blind_spots_have_no_fabricated_relative_motion(self):
+        main=self.scene.find("Artboard[@name='Newhaven']")
+        from myj_projection import ADJACENT_CONTACT_Y, CONTACT_Y, ADJACENT_LATERAL_OFFSET
+        self.assertGreater(ADJACENT_CONTACT_Y, CONTACT_Y)
+        self.assertEqual(ADJACENT_LATERAL_OFFSET,3.2)
+        for side in ('left','right'):
+            self.assertIsNone(main.find(f"StateMachine/StateMachineLayer[@name='{side} independent car motion']"))
+            arrival=main.find(f".//Node[@name='{side} blind spot arrival']")
+            self.assertEqual((arrival.get('x'),arrival.get('y')),('0','0'))
+            for state in ('hidden','visible','exiting'):
+                animation=main.find(f"LinearAnimation[@name='{side} arrival {state}']")
+                self.assertEqual({p.get('propertyKey') for p in animation.iter('KeyedProperty')},{'18'})
+            placement=arrival.find(f".//Node[@name='{side} projected lane placement']")
+            self.assertIsNotNone(placement.find(f"Node[@name='{side} attached tire and chassis occlusion']"))
+        ground=main.find(".//Node[@name='Driving tire and chassis contact']")
+        self.assertIsNotNone(ground.find("DataBindContext[@propertyKey='18']"))
+
+    def test_outer_boundaries_follow_each_sides_blind_spot_visibility(self):
+        road=self.scene.find("Artboard[@name='Road motion']")
+        for side in ('left','right'):
+            boundary=road.find(f".//Node[@name='{side} occupied outer boundary']")
+            self.assertEqual(len(boundary.findall('Shape')),16)
+            binding=boundary.find("DataBindContext[@propertyKey='18']")
+            self.assertEqual(binding.get('sourcePathIds'),f"1:1-{IDS[side+'BlindSpot']}")
+            expression=FORMULAS[side+' Occupied']
+            for occupied,monitor,blinker,gear,expected in (
+                (0,True,0,4,0),(1,True,0,4,1),(1,False,0,4,0),
+                (1,False,2,4,1),(1,True,0,1,0)):
+                values=dict(min=min,max=max,sqrt=math.sqrt,pow=pow,gear=gear,alwaysOnBlindSpotMonitor=monitor)
+                values.update({side+'BlindSpot':occupied,side+'Blinker':blinker})
+                self.assertEqual(eval(expression,{'__builtins__':{}},values),expected)
+
+    def test_adjacent_rear_contacts_and_inner_flanks_are_mirrored_about_vanishing_point(self):
+        from myj_projection import FOCAL, LANE_WIDTH, CONTACT_Z, ADJACENT_LATERAL_OFFSET, ADJACENT_Z
+        self.assertAlmostEqual(FOCAL*LANE_WIDTH/CONTACT_Z/109,1.7)
+        native=self.scene.find(".//Node[@name='Native 800 pixel scene']")
+        rear_x=(-80.41935483870968+47.44736842105263)/2
+        contacts=[]
+        for side,sign in (('left',-1),('right',1)):
+            car=native.find(f"Node[@name='{side} blind spot']")
+            placement=car.find(f".//Node[@name='{side} projected lane placement']")
+            scale=float(placement.get('scaleX'))
+            contact=float(car.get('x'))+float(placement.get('x'))+rear_x*scale
+            self.assertAlmostEqual(contact,400+sign*FOCAL*ADJACENT_LATERAL_OFFSET/ADJACENT_Z)
+            contacts.append(contact)
+            self.assertEqual(math.copysign(1,scale),-sign)
+            self.assertEqual(float(placement.find('Node').get('scaleX','1')),1)
+        self.assertAlmostEqual(sum(contacts),800)
+
+    def test_ground_curvature_is_continuous_and_moves_the_distant_vanishing_point(self):
+        from myj_projection import (ground_curve,ground_curve_expression,CONTACT_Z,FOCAL,
+                                    CURVE_HEADING,CURVE_ACCELERATION,CURVE_TRANSITION)
+        limit=FOCAL*(CURVE_HEADING+.5*CURVE_ACCELERATION*CURVE_TRANSITION)
+        self.assertGreater(limit,0)
+        for bend in (-1,-.5,0,.5,1):
+            self.assertEqual(ground_curve(CONTACT_Z,bend),0)
+            for z in (6,CONTACT_Z,30,CONTACT_Z+CURVE_TRANSITION,186,1e8):
+                expression=ground_curve_expression(str(z),'input')
+                self.assertAlmostEqual(eval(expression,{'__builtins__':{}},
+                                            dict(input=bend,min=min,max=max,pow=pow)),
+                                       ground_curve(z,bend))
+                self.assertAlmostEqual(ground_curve(z,-bend),-ground_curve(z,bend))
+            join=CONTACT_Z+CURVE_TRANSITION
+            eps=1e-5
+            before=(ground_curve(join,bend)-ground_curve(join-eps,bend))/eps
+            after=(ground_curve(join+eps,bend)-ground_curve(join,bend))/eps
+            self.assertAlmostEqual(before,after,places=7)
+            self.assertAlmostEqual(FOCAL*ground_curve(1e8,bend)/1e8,bend*limit,places=3)
+
+    def test_curved_vehicle_anchors_replace_legacy_screen_translation(self):
+        native=self.scene.find(".//Node[@name='Native 800 pixel scene']")
+        for side in ('left','right'):
+            car=native.find(f"Node[@name='{side} blind spot']")
+            self.assertIsNone(car.find("DataBindContext[@propertyKey='13']"))
+            placement=car.find(f".//Node[@name='{side} projected lane placement']")
+            self.assertIsNotNone(placement.find("DataBindContext[@propertyKey='13']"))
+            for image in car.iter('Image'):
+                self.assertIsNone(image.find("DataBindContext[@propertyKey='15']"))
+                self.assertEqual(image.get('rotation'),'0')
+        road=native.find("NestedArtboard[@name='Speed driven road']")
+        self.assertIsNone(road.find("DataBindContext[@propertyKey='13']"))
+        ego=native.find("Node[@name='Driving ego vehicle view selector']")
+        self.assertEqual(len(ego.findall('Solo/Image')),3)
+        for image in ego.findall('Solo/Image'):
+            self.assertIsNone(image.find("DataBindContext[@propertyKey='15']"))
+
+    def test_vehicle_shadows_share_heading_and_adjacent_lane_radii_are_mirrored(self):
+        from myj_projection import lane_frame_expressions,ADJACENT_Z,ADJACENT_LATERAL_OFFSET
+        def evaluate(expression,bend):
+            return eval(expression,{'__builtins__':{}},
+                        dict(input=bend,min=min,max=max,pow=pow,sqrt=math.sqrt))
+        left=lane_frame_expressions(str(ADJACENT_Z),-ADJACENT_LATERAL_OFFSET,'input')
+        right=lane_frame_expressions(str(ADJACENT_Z),ADJACENT_LATERAL_OFFSET,'input')
+        for bend in (-1,-.5,0,.5,1):
+            self.assertAlmostEqual(evaluate(left[0],bend),-evaluate(right[0],-bend))
+            self.assertAlmostEqual(evaluate(left[1],bend),evaluate(right[1],-bend))
+            self.assertGreater(evaluate(left[1],bend),0)
+        self.assertNotEqual(evaluate(left[1],1),evaluate(right[1],1))
+        native=self.scene.find(".//Node[@name='Native 800 pixel scene']")
+        shadows=[n for n in native.iter('Node') if n.get('name')=='Driving tire and chassis contact'
+                 or 'attached tire and chassis occlusion' in n.get('name','')]
+        self.assertEqual(len(shadows),3)
+        for shadow in shadows:
+            self.assertEqual(float(shadow.get('rotation','0')),0)
+            self.assertIsNone(shadow.find("DataBindContext[@propertyKey='15']"))
+        selectors=[n for n in native.iter('Node') if n.get('name','').endswith(' view selector')]
+        self.assertEqual(len(selectors),5)
+        for selector in selectors:
+            images=selector.findall('Solo/Image')
+            self.assertEqual(len(images),3)
+            for image in images:
+                self.assertEqual(float(image.get('rotation','0')),0)
+                self.assertIsNone(image.find("DataBindContext[@propertyKey='15']"))
+                self.assertIsNone(image.find("DataBindContext[@propertyKey='18']"))
+        ego=native.find("Node[@name='Driving ego vehicle view selector']")
+        positive=ego.find("Solo/Image[@name='Driving ego vehicle actual angle 1']")
+        negative=ego.find("Solo/Image[@name='Driving ego vehicle actual angle -1']")
+        self.assertLess(float(positive.get('scaleX')),0)
+        self.assertGreater(float(negative.get('scaleX')),0)
+        from vehicle_angles import EGO_BODY_HEIGHT,ASSET_DIR
+        geometry=json.loads((ROOT/ASSET_DIR/'geometry.json').read_text())['ego']
+        (_,height),box,_=geometry
+        self.assertEqual(EGO_BODY_HEIGHT,875)
+        for image in (positive,negative):
+            scale=float(image.get('scaleY'))
+            self.assertAlmostEqual((box[3]-box[1])*scale,EGO_BODY_HEIGHT)
+            self.assertAlmostEqual(float(image.get('y'))+(box[3]-1-height/2)*scale,403.5)
+            self.assertAlmostEqual(abs(float(image.get('scaleX'))),scale)
+
+
+    def test_horizon_tracks_turn_direction_without_a_far_field_trajectory_switch(self):
+        from myj_projection import (ground_curve,ground_slope_expression,vanishing_point_x,
+                                    CONTACT_Z,FOCAL,CURVE_TRANSITION)
+        for bend in (-1,-.5,.5,1):
+            self.assertGreater((vanishing_point_x(bend)-400)*bend,0)
+            samples=[CONTACT_Z+i*2 for i in range(300)]
+            signed=[FOCAL*ground_curve(z,bend)/z*bend for z in samples]
+            self.assertEqual(signed,sorted(signed))
+            self.assertTrue(all(x<=(vanishing_point_x(bend)-400)*bend for x in signed))
+            for z in (6,CONTACT_Z,CONTACT_Z+CURVE_TRANSITION,186,600):
+                eps=1e-4
+                derivative=(ground_curve(z+eps,bend)-ground_curve(z-eps,bend))/(2*eps)
+                analytic=eval(ground_slope_expression(str(z),'input'),
+                              {'__builtins__':{}},dict(input=bend,max=max,pow=pow))
+                self.assertAlmostEqual(derivative,analytic,places=6)
+            join=CONTACT_Z+CURVE_TRANSITION
+            def curvature(z):
+                h=.01
+                return (ground_curve(z+h,bend)-2*ground_curve(z,bend)+ground_curve(z-h,bend))/(h*h)
+            self.assertAlmostEqual(curvature(join-.01),curvature(join+.01),places=6)
+
+    def test_amplified_curve_has_twenty_percent_horizon_range_and_five_degree_ego_heading(self):
+        from myj_projection import (vanishing_point_x,lane_heading_expression,CONTACT_Z,
+                                    CURVE_ACCELERATION,MAX_VEHICLE_HEADING)
+        self.assertEqual(CURVE_ACCELERATION,.0024)
+        for bend in (-1,0,1):
+            self.assertAlmostEqual(vanishing_point_x(bend),400+160*bend)
+            expression=lane_heading_expression(CONTACT_Z,0)
+            heading=eval(expression,{'__builtins__':{}},dict(input=bend,min=min,max=max,pow=pow))
+            self.assertAlmostEqual(math.degrees(heading),5*bend)
+            self.assertLessEqual(abs(heading),MAX_VEHICLE_HEADING)
+
+    def test_road_texture_motion_is_bounded_and_settles_at_rest(self):
+        from road_dynamics import dynamics_expressions,DESIGN_SCALE
+        from myj_projection import EGO_CHASE_Y
+        expressions=dynamics_expressions(EGO_CHASE_Y)
+        def values(speed,phase,gear=4,imperial=0):
+            variables=dict(egoSpeed=speed,_roadPhase=phase,gear=gear,input=imperial,
+                           min=min,max=max,pow=pow,sqrt=math.sqrt,sin=math.sin)
+            return {k:eval(v,{'__builtins__':{}},variables) for k,v in expressions.items()}
+        for speed in (0,25,100,200):
+            for gear in (1,2,3,4):
+                for step in range(61):
+                    v=values(speed,step/60,gear)
+                    self.assertLessEqual(abs((v['body_y']-EGO_CHASE_Y)*DESIGN_SCALE),.5+1e-9)
+                    if speed==0 or gear in (1,3):
+                        self.assertEqual(v,dict(body_y=EGO_CHASE_Y))
+        for phase in (0,.13,.27,.81,1):
+            a,b=values(60,phase,imperial=1),values(60*1.609344,phase)
+            for key in a:
+                self.assertAlmostEqual(a[key],b[key])
+        a,b=values(100,0),values(100,1)
+        for key in a:
+            self.assertAlmostEqual(a[key],b[key])
+        native=self.scene.find(".//Node[@name='Native 800 pixel scene']")
+        ego=native.find("Node[@name='Driving ego vehicle view selector']")
+        self.assertIsNone(ego.find("DataBindContext[@propertyKey='14']"))
+        self.assertIsNone(native.find(".//Node[@name='Ground anchored tire pressure']"))
+        for side in ('left','right'):
+            vibration=native.find(f".//Node[@name='{side} road vibration']")
+            self.assertIsNotNone(vibration.find("DataBindContext[@propertyKey='14']"))
+            self.assertEqual(len(vibration.findall('Node')),2)
+            self.assertTrue(all(n.get('name','').endswith(' vehicle view selector') for n in vibration.findall('Node')))
+    def test_pose_selection_is_exclusive_above_50_degrees_with_zero_crossfade(self):
+        from vehicle_angles import select_pose
+        main=self.scene.find("Artboard[@name='Newhaven']")
+        solos=[s for s in main.iter('Solo') if s.get('name','').endswith(' exclusive poses')]
+        self.assertEqual(len(solos),5)
+        layers=[l for l in main.findall('StateMachine/StateMachineLayer')
+                if l.get('name','').endswith(' exclusive pose')]
+        self.assertEqual(len(layers),5)
+        animations={a.get('id'):a for a in main.findall('LinearAnimation')}
+        operators={'greaterThanOrEqual':lambda x,y:x>=y,'greaterThan':lambda x,y:x>y,
+                   'lessThanOrEqual':lambda x,y:x<=y,'lessThan':lambda x,y:x<y}
+        all_pose_ids={im.get('id') for solo in solos for im in solo.findall('Image')}
+        for solo in solos:
+            self.assertEqual(len(solo.findall('Image')),3)
+            self.assertIn(solo.get('activeComponentId'),{im.get('id') for im in solo.findall('Image')})
+            self.assertTrue(all(im.find("DataBindContext[@propertyKey='18']") is None for im in solo.findall('Image')))
+        for layer in layers:
+            states=layer.findall('AnimationState')
+            pose={state.get('id'):int(animations[state.get('animationId')].get('name').split()[-1]) for state in states}
+            for state in states:
+                animation=animations[state.get('animationId')]
+                prop=animation.find('KeyedObject/KeyedProperty')
+                self.assertEqual(prop.get('propertyKey'),'296')
+                self.assertIn(prop.find('KeyFrameId').get('value'),all_pose_ids)
+                for bend in (-90,-50.001,-50,-49.999,0,49.999,50,50.001,90):
+                    targets=[]
+                    for transition in state.findall('StateTransition'):
+                        self.assertEqual(float(transition.get('duration')),0)
+                        conditions=transition.findall('TransitionViewModelCondition')
+                        if all(operators[c.get('opValue')](bend,float(c.find('TransitionValueNumberComparator').get('value'))) for c in conditions):
+                            targets.append(pose[transition.get('stateToId')])
+                    self.assertLessEqual(len(targets),1)
+                    current=pose[state.get('id')]
+                    self.assertEqual(targets[0] if targets else current,select_pose(current,bend))
+        pose=0
+        for bend,expected in ((49,0),(50,0),(50.001,1),(60,1),(50,0),(-50,0),(-50.001,-1),(-60,-1),(-50,0),(90,1),(-90,-1)):
+            pose=select_pose(pose,bend)
+            self.assertEqual(pose,expected)
 
 
 if __name__ == '__main__':

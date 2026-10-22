@@ -1,0 +1,50 @@
+{
+  "ego-back-left.png": {
+    "size": [
+      440,
+      369
+    ],
+    "bytes": 206277,
+    "sha256": "b6dccefe414242444622801a66600c4207789998ef42a4ddfb0a4217415c6526"
+  },
+  "grey-narrow.png": {
+    "size": [
+      440,
+      319
+    ],
+    "bytes": 146876,
+    "sha256": "8e3d73b3c581d3edd07da47bdf830782effe5cfaa5d389ed441ac932cba03590"
+  },
+  "grey-wide.png": {
+    "size": [
+      440,
+      280
+    ],
+    "bytes": 130271,
+    "sha256": "5db9643741b5f63b938062320b9f9d8b8d005ad8aa6d04cb0ebe1b6d5cd3fe30"
+  },
+  "red-narrow.png": {
+    "size": [
+      440,
+      320
+    ],
+    "bytes": 140104,
+    "sha256": "7b3df8a6a6f512260453b85c73ae76ef6788dbb7284bdb16d05094654730d031"
+  },
+  "red-wide.png": {
+    "size": [
+      440,
+      281
+    ],
+    "bytes": 125421,
+    "sha256": "dfda33ef64eeb313afd81760568f4f2667dfdc26307f33269dd37a63c3813838"
+  },
+  "ego-back-left-middle.png": {
+    "size": [
+      440,
+      389
+    ],
+    "bytes": 206897,
+    "sha256": "b154fb91eadae956c02b0bb27bf5cc86c40b6fa601c0955915c37dbffca8fe9a"
+  }
+}

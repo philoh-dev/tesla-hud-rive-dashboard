@@ -1,23 +1,28 @@
 # Model Y Juniper â€” Marine Blue
 
-Built-in image-generator paint edits of the existing Stealth Grey Juniper
-sprites. The user's Marine Blue Juniper reference supplies the paint color
-only. Alpha is preserved and outputs are mechanically downscaled for the
-shared dashboard. Blind-spot cars remain shared and unchanged.
+Updated with the built-in image generator using the current Model Y Juniper
+Stealth Grey images as the geometry, camera and styling templates. The previous
+marine-blue images supply paint color only. Stealth Grey assets are unchanged.
 
 ## Final prompt specifications
 
-- `park.png`: Recolor only painted body and mirror caps to deep rich Marine
-  Blue metallic, with restrained blue highlights and dark navy shadows; no
-  cyan, purple or electric-blue shift. Lock the original elevated front-left
-  three-quarter camera, proportions, silhouette, multispoke rims/tires, dark
-  glass roof/windows, black trim/intakes and thin full-width front light bar.
-  Reference supplies paint only, not camera or wheels. Whole car, small
-  transparent margin, no clipping, floor, shadow, environment or annotations.
-- `drive.png`: Same Marine Blue paint-only edit, retaining the original
-  centered elevated rear camera, zero yaw, symmetry, proportions, silhouette,
-  glazing, mirror positions, rims/tires, black lower bumper and full-width red
-  Juniper light bar. Do not copy the reference's side angle. Entire car,
-  transparent alpha, small margin, no shadow, environment or watermark.
+- `park.png`: Recolor only the Stealth Grey template's painted body panels,
+  pillars and mirror caps to marine-blue. Preserve its elevated front-left
+  three-quarter view, body proportions, multispoke wheels, tires, dark glass
+  roof, black trim, thin front light bar, reflections and panel details.
+- `drive.png`: Apply the same paint to the current Stealth Grey rear template.
+  Preserve its centered elevated camera, zero yaw and symmetry, smooth dark
+  roof reflections, proportions, mirrors, wheels and black trim. Keep the
+  bumper without a plate-holder outline and the thin red running-light strip;
+  the center and outer brake segments remain unlit. Do not copy the older
+  paint reference's higher camera or brighter brake lamps.
 
-These are illustrative dashboard sprites, not official Tesla renders.
+Both prompts require one whole isolated car with both mirrors, genuine
+transparent alpha, a small transparent margin, no clipping, no floor, ground
+shadow, environment, labels or watermark. Generated silhouettes are fitted
+without stretching to the Stealth Grey template's occupied bounds and canvas:
+410 × 307 pixels for Park and 111 × 124 pixels for Drive.
+
+All Juniper dashboards share the Stealth Grey blind-spot sprites through the
+source asset mapping. Source PNG changes do not rebuild compiled `.riv` files.
+These are illustrative dashboard sprites, not official Tesla artwork.

@@ -1,23 +1,28 @@
 # Model Y Juniper â€” White Multi-Coat
 
-Built-in image-generator edits of the existing Stealth Grey Juniper sprites.
-The user's white Juniper front/rear images supply paint references only.
-Transparent alpha is preserved, and the results are mechanically downscaled
-for use in the shared dashboard. Blind-spot cars remain shared and unchanged.
+Updated with the built-in image generator using the current Model Y Juniper
+Stealth Grey images as the geometry, camera and styling templates. The previous
+white-multi-coat images supply paint color only. Stealth Grey assets are unchanged.
 
 ## Final prompt specifications
 
-- `park.png`: Recolor only the existing Juniper Park sprite's painted body and
-  mirror caps to glossy pearl White Multi-Coat. Preserve the elevated front-left
-  three-quarter camera (nose lower left, rear upper right), silhouette, proportions,
-  existing wheel spokes, black trim/intakes, dark glass and thin full-width front
-  light bar. Use the white front reference for paint only, not camera or wheels.
-  Whole isolated vehicle, small transparent margin, no floor, shadow or labels.
-- `drive.png`: Recolor only the existing Juniper Drive sprite's painted metal
-  and mirror caps to glossy pearl White Multi-Coat. Preserve its centered elevated
-  rear camera with no yaw, symmetry, roof/glazing, rear full-width red light bar,
-  dark lower bumper, tires, wheels and proportions. Use the white rear reference
-  for paint only, not its side angle. Whole car including mirrors, transparent
-  background, no environment, ground shadow or annotations.
+- `park.png`: Recolor only the Stealth Grey template's painted body panels,
+  pillars and mirror caps to white-multi-coat. Preserve its elevated front-left
+  three-quarter view, body proportions, multispoke wheels, tires, dark glass
+  roof, black trim, thin front light bar, reflections and panel details.
+- `drive.png`: Apply the same paint to the current Stealth Grey rear template.
+  Preserve its centered elevated camera, zero yaw and symmetry, smooth dark
+  roof reflections, proportions, mirrors, wheels and black trim. Keep the
+  bumper without a plate-holder outline and the thin red running-light strip;
+  the center and outer brake segments remain unlit. Do not copy the older
+  paint reference's higher camera or brighter brake lamps.
 
-These are illustrative dashboard sprites, not official Tesla renders.
+Both prompts require one whole isolated car with both mirrors, genuine
+transparent alpha, a small transparent margin, no clipping, no floor, ground
+shadow, environment, labels or watermark. Generated silhouettes are fitted
+without stretching to the Stealth Grey template's occupied bounds and canvas:
+410 × 307 pixels for Park and 111 × 124 pixels for Drive.
+
+All Juniper dashboards share the Stealth Grey blind-spot sprites through the
+source asset mapping. Source PNG changes do not rebuild compiled `.riv` files.
+These are illustrative dashboard sprites, not official Tesla artwork.

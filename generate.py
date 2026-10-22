@@ -21,6 +21,7 @@ VEHICLES = (DEFAULT_VEHICLE, 'model-3-highland-stealth-grey',
             'model-y-legacy-deep-blue-metallic', 'model-y-legacy-pearl-white-multi-coat',
             'model-y-legacy-midnight-silver-metallic',
             'generic-vehicle')
+JUNIPER_VEHICLES = tuple(vehicle for vehicle in VEHICLES if vehicle.startswith('model-y-juniper-'))
 VEHICLE_ASSET_DIR = f'assets/vehicle/{DEFAULT_VEHICLE}'
 # Repository-relative assets; blind-spot cars and indicators are shared.
 ASSETS = {
@@ -40,10 +41,15 @@ def vehicle_assets(vehicle=DEFAULT_VEHICLE):
         raise ValueError(f'Unsupported vehicle: {vehicle}')
     assets = dict(ASSETS, ego=f'assets/vehicle/{vehicle}/drive.png',
                   park=f'assets/vehicle/{vehicle}/park.png')
-    if vehicle == DEFAULT_VEHICLE:
+    if vehicle in JUNIPER_VEHICLES:
         for side in ('left', 'right'):
-            assets[side+'_grey'] = f'assets/vehicle/{vehicle}/blind-spot-grey.png'
-            assets[side+'_red'] = f'assets/vehicle/{vehicle}/blind-spot-red.png'
+            assets[side+'_grey'] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-grey.png'
+            assets[side+'_red'] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-red.png'
+    if vehicle == DEFAULT_VEHICLE:
+        assets['ego'] = f'assets/vehicle/{DEFAULT_VEHICLE}/drive-chase.png'
+        for side in ('left', 'right'):
+            for color in ('grey', 'red'):
+                assets[side+'_'+color] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-projected-{color}.png'
     return assets
 
 
@@ -146,7 +152,8 @@ for side in ("left", "right"):
 
 class Scene:
     def __init__(self, vehicle=DEFAULT_VEHICLE):
-        self.approved_layout = vehicle == DEFAULT_VEHICLE
+        self.projected_driving = vehicle == DEFAULT_VEHICLE
+        self.approved_layout = vehicle in JUNIPER_VEHICLES
         # Reduce the previous 44-unit top gap by 30%, retaining 180 at bottom.
         self.road_top = 15.4 if self.approved_layout else 50
         self.road_spread = 74.6 if self.approved_layout else 55
@@ -203,7 +210,8 @@ class Scene:
             self.el(parent, "FormulaTokenParenthesisClose")
         elif isinstance(node, ast.Call):
             self.el(parent, "FormulaTokenFunction", functionType={
-                "min": 0, "max": 1, "round": 2, "floor": 4, "sqrt": 5, "pow": 6}[node.func.id])
+                "min": 0, "max": 1, "round": 2, "floor": 4, "sqrt": 5, "pow": 6,
+                "cos": 9, "sin": 10}[node.func.id])
             for index, arg in enumerate(node.args):
                 if index:
                     self.el(parent, "FormulaTokenArgumentSeparator")
@@ -585,6 +593,13 @@ class Scene:
         add_park_ground(self,self.document)
         from driving_scene import enhance_driving
         enhance_driving(self,self.document,PROPERTIES)
+        if self.projected_driving:
+            from myj_projection import apply_projection
+            apply_projection(self,self.document)
+            from vehicle_angles import apply_angle_sprites
+            apply_angle_sprites(self,self.document)
+            from road_dynamics import add_dynamics
+            add_dynamics(self,self.document)
         return self.document
 
     def number_condition(self,transition,prop,value,operator='equal'):
