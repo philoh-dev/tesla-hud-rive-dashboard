@@ -235,3 +235,13 @@ Build with `python build.py --vehicle model-y-juniper-stealth-grey`.
 Ego angle sprites match the straight rear view's 875-source-pixel opaque body height with uniform scaling, while retaining the same rear tire baseline. This avoids the previous width-only normalization shrinking the angled body vertically.
 
 The MYJ SG ego body and contact shadow sit 20% of the visible ego body height lower (about 45.4 pixels at 1800x1080). Road projection and adjacent vehicle anchors retain their existing calibration via ROAD_CONTACT_Y. Both ego pose variants share this offset.
+
+### Compact export packaging
+
+`build.py` compiles an isolated `build/compact-export` project prepared by
+`optimize_export.py`. It embeds committed Inter font subsets and a 640x585 ego
+image from `assets/optimized`, while leaving editable source assets and canonical
+`scene.rml` intact. Image scale compensation preserves the original displayed
+dimensions, position and contact baseline, including the universal dashboard.
+The MYJ SG output is 2,697,844 bytes, down 38.7% from 4,404,728 bytes. See
+`assets/optimized/README.md` for coverage, licenses and derivative regeneration.

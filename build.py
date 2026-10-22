@@ -8,6 +8,7 @@ import subprocess
 
 from generate import ROOT, generate, VEHICLES, DEFAULT_VEHICLE
 from universal import UNIVERSAL_TARGET, generate_universal
+from optimize_export import prepare_export
 
 OUTPUT = ROOT / 'dashboard' / 'model-y-juniper-stealth-grey.riv'
 
@@ -29,9 +30,10 @@ def main():
                 generate_universal()
             else:
                 generate(vehicle)
-            subprocess.run([cli, str(ROOT), '--verify'], check=True)
-            subprocess.run([cli, str(ROOT), '--once'], check=True)
-            result = ROOT / 'build' / 'thud_dashboard.riv'
+            project = prepare_export()
+            subprocess.run([cli, str(project), '--verify'], check=True)
+            subprocess.run([cli, str(project), '--once'], check=True)
+            result = project / 'build' / 'thud_dashboard.riv'
             if result.stat().st_size > 5_000_000:
                 raise SystemExit(f'{vehicle} dashboard exceeds the contest 5 MB limit.')
             output = ROOT / 'dashboard' / f'{vehicle}.riv'

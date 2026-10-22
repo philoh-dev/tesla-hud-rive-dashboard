@@ -1,0 +1,18 @@
+{
+  "drive-chase.png": {
+    "bytes": 261020,
+    "sha256": "5b4296c342e8115551b7df49da6368a85b9fe26325071bb1e2f3b04e68b33020"
+  },
+  "Inter-Medium.ttf": {
+    "bytes": 55116,
+    "sha256": "a16b928bc32c35816b9ee86dd5505d0205452d5e6516c8be66b147ae79cbc8eb"
+  },
+  "Inter-Regular.ttf": {
+    "bytes": 55064,
+    "sha256": "9e2f818a4fe6e8a161c97444f75d5110722b20df16db2df5703092d375e1cf8f"
+  },
+  "Inter-SemiBold.ttf": {
+    "bytes": 55220,
+    "sha256": "7b358c4cbeef5676a0f52575db148e76bfdb53b3b5f9a897d82bc5d943ab2399"
+  }
+}
