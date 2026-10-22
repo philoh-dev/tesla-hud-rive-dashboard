@@ -19,7 +19,9 @@ class NewhavenDesignTest(unittest.TestCase):
         manifest=json.loads((ROOT/'assets/manifest.json').read_text())
         expected={path for vehicle in VEHICLES for path in vehicle_assets(vehicle).values()}
         from vehicle_angles import POSE_ASSETS
+        from juniper_variants import PROJECTED_JUNIPERS
         expected.update(POSE_ASSETS.values())
+        expected.update(f'assets/vehicle/{v}/view-angles/ego-back-left-middle.png' for v in PROJECTED_JUNIPERS if v!=VEHICLES[0])
         expected.update(f'fonts/{name}' for name in ('Inter-Regular.ttf','Inter-Medium.ttf',
                                                     'Inter-SemiBold.ttf','Inter-OFL.txt'))
         self.assertEqual(set(manifest['sha256']),expected)
@@ -78,21 +80,22 @@ class NewhavenDesignTest(unittest.TestCase):
             self.assertEqual(assets['left_'+color],assets['right_'+color])
             self.assertIn('model-y-juniper-stealth-grey/blind-spot-',assets['left_'+color])
 
-    def test_other_juniper_variants_retain_their_existing_template(self):
+    def test_juniper_variants_share_the_approved_scene(self):
+        from juniper_variants import PROJECTED_JUNIPERS
         def template(vehicle):
-            scene = Scene(vehicle).build()
+            scene=Scene(vehicle).build()
             for asset in scene.iter('ImageAsset'):
-                if asset.get('name') in ('ego', 'park'):
-                    asset.set('file', ASSETS[asset.get('name')])
-            native = scene.find(".//Node[@name='Native 800 pixel scene']")
+                if asset.get('name') in ('ego','park','Angle ego'):
+                    asset.set('file',asset.get('name'))
+            native=scene.find(".//Node[@name='Native 800 pixel scene']")
             native.remove(native.find("Node[@name='Park ground']"))
             return ET.tostring(scene)
-        expected = template('model-y-juniper-white-multi-coat')
-        for vehicle in (v for v in JUNIPER_VEHICLES if v != VEHICLES[0]):
+        expected=template(VEHICLES[0])
+        for vehicle in PROJECTED_JUNIPERS:
             with self.subTest(vehicle=vehicle):
-                self.assertEqual(template(vehicle), expected)
-                self.assertEqual(vehicle_assets(vehicle)['ego'], f'assets/vehicle/{vehicle}/drive.png')
-                self.assertEqual(vehicle_assets(vehicle)['park'], f'assets/vehicle/{vehicle}/park.png')
+                self.assertEqual(template(vehicle),expected)
+                self.assertEqual(vehicle_assets(vehicle)['ego'],f'assets/vehicle/{vehicle}/drive-chase.png')
+                self.assertEqual(vehicle_assets(vehicle)['park'],f'assets/vehicle/{vehicle}/park.png')
 
     def test_unknown_vehicle_is_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unsupported vehicle'):

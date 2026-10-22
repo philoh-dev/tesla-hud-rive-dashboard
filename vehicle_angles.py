@@ -57,7 +57,10 @@ def pose_machine(scene,doc,solo,poses,label):
                 scene.el(condition,'TransitionValueNumberComparator',value=value)
 
 def apply_angle_sprites(scene,doc):
-    poses=POSE_ASSETS
+    poses=dict(POSE_ASSETS)
+    vehicle=scene.assets['ego'].split('/')[-2]
+    if vehicle!='model-y-juniper-stealth-grey':
+        poses['ego']=f'assets/vehicle/{vehicle}/view-angles/ego-back-left-middle.png'
     geometry=json.loads((ROOT/ASSET_DIR/'geometry.json').read_text(encoding='utf-8'))
     native=doc.find(".//Node[@name='Native 800 pixel scene']")
     asset_ids={}

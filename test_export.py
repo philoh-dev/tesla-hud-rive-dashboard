@@ -6,6 +6,7 @@ import unittest
 from generate import ROOT, Scene
 from optimize_export import compact_document
 from universal import UniversalScene
+from juniper_variants import PROJECTED_JUNIPERS
 
 
 class CompactExportTest(unittest.TestCase):
@@ -19,7 +20,7 @@ class CompactExportTest(unittest.TestCase):
                 self.assertIn(b'tnum', data, 'Keep the dashboard tabular-number feature')
 
     def test_packaging_preserves_image_dimensions_and_bindings(self):
-        for scene in (Scene(), UniversalScene()):
+        for scene in (*(Scene(v) for v in PROJECTED_JUNIPERS), UniversalScene()):
             doc = scene.build()
             images = {i.get('id'): dict(i.attrib) for i in doc.iter('Image')}
             bindings = [dict(b.attrib) for b in doc.iter('DataBindContext')]

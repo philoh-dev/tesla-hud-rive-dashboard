@@ -8,6 +8,7 @@ import ast
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from park_ground import add_park_ground
+from juniper_variants import PROJECTED_JUNIPERS
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_VEHICLE = 'model-y-juniper-stealth-grey'
@@ -45,8 +46,8 @@ def vehicle_assets(vehicle=DEFAULT_VEHICLE):
         for side in ('left', 'right'):
             assets[side+'_grey'] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-grey.png'
             assets[side+'_red'] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-red.png'
-    if vehicle == DEFAULT_VEHICLE:
-        assets['ego'] = f'assets/vehicle/{DEFAULT_VEHICLE}/drive-chase.png'
+    if vehicle in PROJECTED_JUNIPERS:
+        assets['ego'] = f'assets/vehicle/{vehicle}/drive-chase.png'
         for side in ('left', 'right'):
             for color in ('grey', 'red'):
                 assets[side+'_'+color] = f'assets/vehicle/{DEFAULT_VEHICLE}/blind-spot-projected-{color}.png'
@@ -152,7 +153,7 @@ for side in ("left", "right"):
 
 class Scene:
     def __init__(self, vehicle=DEFAULT_VEHICLE):
-        self.projected_driving = vehicle == DEFAULT_VEHICLE
+        self.projected_driving = vehicle in PROJECTED_JUNIPERS
         self.approved_layout = vehicle in JUNIPER_VEHICLES
         # Reduce the previous 44-unit top gap by 30%, retaining 180 at bottom.
         self.road_top = 15.4 if self.approved_layout else 50

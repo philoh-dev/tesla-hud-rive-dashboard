@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 
 from generate import ROOT, Scene, VEHICLES, IMAGE_IDS, vehicle_assets
 from park_ground import add_park_ground
+from juniper_variants import PROJECTED_JUNIPERS
 
 UNIVERSAL_TARGET='universal-dashboard'
 VEHICLE_PROPERTY='vehicleDesign'
@@ -62,7 +63,7 @@ class UniversalScene(Scene):
                     continue
                 attributes=dict(original.attrib,id=self.ident(),name=f'{vehicle} {role}',
                                 assetId=image_ids[vehicle][role])
-                if vehicle=='model-y-juniper-stealth-grey' and role=='ego':
+                if vehicle in PROJECTED_JUNIPERS and role=='ego':
                     from myj_projection import EGO_CHASE_SCALE, EGO_CHASE_Y
                     attributes.update(scaleX=str(EGO_CHASE_SCALE),scaleY=str(EGO_CHASE_SCALE),
                                       y=str(EGO_CHASE_Y-(234+50/2.25)))

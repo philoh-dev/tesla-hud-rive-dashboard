@@ -29,8 +29,8 @@ def main():
         font.save(out / filename)
     image = Image.open(ROOT / 'assets/vehicle/model-y-juniper-stealth-grey/drive-chase.png')
     image.resize((640, 585), Image.Resampling.LANCZOS).save(out / 'drive-chase.png', optimize=True)
-    manifest = {p.name: {'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
-                for p in sorted(out.iterdir()) if p.suffix in ('.png', '.ttf')}
+    manifest = {p.relative_to(out).as_posix(): {'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
+                for p in sorted(out.rglob('*')) if p.suffix in ('.png', '.ttf')}
     (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
     print(manifest)
 

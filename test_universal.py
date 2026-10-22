@@ -39,7 +39,8 @@ class UniversalDashboardTest(unittest.TestCase):
             self.assertEqual(solo.get('activeComponentId'),children[0].get('id'))
             self.assertIsNotNone(solo.find('DataBindContext'))
             for image in children:
-                if role=='ego' and image.get('name')=='model-y-juniper-stealth-grey ego':
+                from juniper_variants import PROJECTED_JUNIPERS
+                if role=='ego' and image.get('name').removesuffix(' ego') in PROJECTED_JUNIPERS:
                     from myj_projection import EGO_CHASE_Y, EGO_CHASE_SCALE
                     self.assertEqual(image.get('x'),'0')
                     self.assertAlmostEqual(float(image.get('y')),EGO_CHASE_Y-(234+50/2.25))

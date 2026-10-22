@@ -11,9 +11,11 @@ def compact_document(doc):
         path = asset.get('file')
         if asset.tag == 'FontAsset':
             path = 'assets/optimized/' + Path(path).name
-        elif path.endswith('/model-y-juniper-stealth-grey/drive-chase.png'):
+        elif path.endswith('/drive-chase.png'):
             ego_ids.add(asset.get('id'))
-            path = 'assets/optimized/drive-chase.png'
+            vehicle=Path(path).parent.name
+            path = ('assets/optimized/drive-chase.png' if vehicle=='model-y-juniper-stealth-grey'
+                    else f'assets/optimized/{vehicle}/drive-chase.png')
         asset.set('file', (ROOT / path).as_posix())
     for image in doc.iter('Image'):
         if image.get('assetId') in ego_ids:

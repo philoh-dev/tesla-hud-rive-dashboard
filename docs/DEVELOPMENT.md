@@ -245,3 +245,16 @@ image from `assets/optimized`, while leaving editable source assets and canonica
 dimensions, position and contact baseline, including the universal dashboard.
 The MYJ SG output is 2,697,844 bytes, down 38.7% from 4,404,728 bytes. See
 `assets/optimized/README.md` for coverage, licenses and derivative regeneration.
+
+### Juniper paint variants
+
+`juniper_variants.py` lists colors promoted to the approved Stealth Grey
+projection/animation template. `python recolor_juniper.py PAINT` creates Park,
+rear chase and intermediate steering views directly from the immutable Stealth
+Grey PNG pixels. Only masked paint color changes; source alpha, image dimensions,
+protected glass/trim, tire baselines and all scene geometry remain unchanged.
+The shared masks are in the Stealth Grey `paint-masks/` folder. The script checks
+alpha equality and unchanged unmasked pixels before saving, creates a compact
+640x585 chase derivative, and refreshes checksum manifests. Regeneration needs
+Pillow; normal builds and regression tests remain stdlib-only. Other vehicle
+families and their compiled exports are not part of this rollout.
