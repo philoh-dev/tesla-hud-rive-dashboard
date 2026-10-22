@@ -203,7 +203,7 @@ checks and does not clear known runtime failures or certify phone performance.
 
 ### MYJ SG reviewed road projection
 
-`python build.py --vehicle model-y-juniper-stealth-grey` includes the reviewed low-angle road and adjacent vehicles through `myj_projection.py`. Adjacent vehicles stay at fixed projected depth, closer to the inner boundaries; detection changes only fade opacity over eight frames. The road keeps its speed and steering bindings. Other designs retain their existing geometry. Sprite contact metrics are baked from the approved alpha silhouette, keeping builds stdlib-only.
+`python build.py --vehicle model-y-juniper-stealth-grey` includes the reviewed low-angle road and adjacent vehicles through `myj_projection.py`. Adjacent vehicles stay at fixed projected depth, closer to the inner boundaries; detection changes only fade opacity over eight frames. The road keeps its speed and steering bindings. Other vehicle families retain their existing geometry. Sprite contact metrics are baked from the approved alpha silhouette, keeping builds stdlib-only.
 
 ### Curved road and angle-specific vehicle views
 
@@ -258,3 +258,5 @@ alpha equality and unchanged unmasked pixels before saving, creates a compact
 640x585 chase derivative, and refreshes checksum manifests. Regeneration needs
 Pillow; normal builds and regression tests remain stdlib-only. Other vehicle
 families and their compiled exports are not part of this rollout.
+
+All six Model Y Juniper colors now use the approved scene template. Each of the five additional paint exports was built, verified, regression-tested and pushed separately. The Stealth Grey export and non-Juniper compiled dashboards remain unchanged by this paint rollout.

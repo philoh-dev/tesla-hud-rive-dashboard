@@ -30,26 +30,18 @@ See [Drive camera and prompt specifications](DRIVE-ANGLE.md).
 - Vehicle images in `vehicle/model-y-legacy-midnight-silver-metallic/`: generated
   Midnight Silver Metallic paint edits of the Legacy Park/Drive sprites, guided
   by the user's reference and retaining the enlarged Legacy Drive scale.
-- Vehicle images in `vehicle/model-y-juniper-white-multi-coat/`: generated white
-  paint variants of the Juniper sprites, guided by user-supplied paint references.
-- Vehicle images in `vehicle/model-y-juniper-diamond-black/`: generated Diamond
-  Black paint variants of the Juniper sprites, guided by user-supplied references.
-- Vehicle images in `vehicle/model-y-juniper-marine-blue/`: generated Marine Blue
-  paint variants of the Juniper sprites, guided by the user's paint reference.
-- Vehicle images in `vehicle/model-y-juniper-quicksilver/` and
-  `vehicle/model-y-juniper-ultra-red/`: generated Quicksilver and Ultra Red paint
-  variants, guided by the user's paint references.
-- All five additional Juniper paints now use Park and Drive edits of the current
-  Stealth Grey templates, preserving their paint identities. Their transparent
-  canvases and occupied bounds follow Stealth Grey; see `DRIVE-ANGLE.md` and
-  each paint directory's prompt specifications. Stealth Grey PNGs are unchanged.
-- Blind-spot vehicles: shared directly under `assets/` except for the Model Y Juniper
-  dashboards. All Juniper paints share the Stealth Grey template assets; its `blind-spot-grey.png` and
-  `blind-spot-red.png` use the approved minimalist silver silhouette and matching
-  red warning variant, generated from the user-supplied reference. The warning
-  variant tints every surface red, including darker crimson glass, burgundy
-  tires and red bumper trim, while retaining tonal contrast. Both sides
-  share these sprites and mirror them in Rive. Original shared assets are retained.
+- All five additional Juniper paints use deterministic paint-only recolors of
+  the approved Stealth Grey Park, rear chase and intermediate steering assets.
+  `recolor_juniper.py` preserves every alpha pixel and canvas dimension; shared
+  paint masks protect glass, lamps, tires and trim. Stealth Grey PNGs are unchanged.
+  Full sources are in each paint directory and compact derivatives are in
+  `optimized/model-y-juniper-*/`. Older `drive.png` files remain reference artwork;
+  active dashboards use `drive-chase.png` plus the intermediate steering pose.
+- Juniper blind-spot vehicles share Stealth Grey's projected grey/red sprites
+  and the narrower/wider angle variants. Warning artwork tints every surface red,
+  including glass and tires, with darker/lighter red for contrast. Right-side
+  cars mirror the inner-flank view. Other vehicle families retain their original
+  shared blind-spot assets.
 - Autopilot badge: project-local geometric artwork, not an enlarged manual
   bitmap. The blue badge is `#0071ff` with a white steering-wheel symbol.
 - Fonts: Inter Regular/Medium/SemiBold; see `fonts/Inter-OFL.txt`.

@@ -30,5 +30,9 @@
   "model-y-juniper-quicksilver/drive-chase.png": {
     "bytes": 244971,
     "sha256": "d13a53589cfce158ef7eef734b26f1ec3daf997afd0a8e911940f8dd418cd8ac"
+  },
+  "model-y-juniper-ultra-red/drive-chase.png": {
+    "bytes": 249388,
+    "sha256": "df3acab553d14f6bb64012b9011c73ec15bd3c695abc23a4f4a05e240829bbba"
   }
 }
