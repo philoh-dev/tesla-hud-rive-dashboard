@@ -260,3 +260,41 @@ Pillow; normal builds and regression tests remain stdlib-only. Other vehicle
 families and their compiled exports are not part of this rollout.
 
 All six Model Y Juniper colors now use the approved scene template. Each of the five additional paint exports was built, verified, regression-tested and pushed separately. The Stealth Grey export and non-Juniper compiled dashboards remain unchanged by this paint rollout.
+
+### Shared road projection samples
+
+`road_projection_cache.py` computes depth, centerline position, slope and inverse
+normal once for each of the 32 dash endpoints. Corner bindings reuse those
+samples across left/right inner/outer boundaries and warning/assist/neutral
+layers. The number of projection/cache formula tokens falls from 216,576 to
+22,144 (about 90% less authored formula content). This reduces repeated work;
+it is not an on-device FPS measurement. Native comparisons at 73 km/h straight,
+103 km/h straight and 103 km/h curved produced pixel-identical full frames.
+Road speed, dash spacing, curvature, occupancy and vehicle artwork are unchanged.
+
+Cache fields use private `_laneSample*` names and the separate `9:*` ID namespace;
+existing telemetry IDs and universal `vehicleDesign` remain stable. Hosts must
+leave private animation fields to the Rive file. The 70-test regression suite
+includes cached-vs-direct projection checks at the reported speeds, steering
+extremes and loop boundaries. Rebuild each Juniper export with `build.py` as usual.
+Actual frame pacing still needs checking in DashPilot on the target phone.
+
+### Texture memory (separate from .riv download size)
+
+After downsampling compensation, `optimize_export.py` uses committed
+`assets/optimized/textures.json` to trim fully transparent PNG borders with one
+transparent texel retained for filtering. Pixel coordinates and image origins
+are compensated, including mirrored poses and bottom-aligned Park images.
+Duplicate left/right ImageAssets reference one shared texture. No resolution,
+opaque artwork or animation is removed. `prepare_texture_assets.py` regenerates
+these derivatives with Pillow after compact assets or paint recolors change.
+Normal builds remain stdlib-only; tests verify source/output hashes and retained
+texel registration.
+
+For a Juniper, embedded textures fall from 12 to 10 and the uncompressed RGBA
+payload estimate falls from 5.596 to 4.278 MiB (23.6%). This is **not total viewer
+RAM or GPU memory**: RiveViewer also has runtime allocations and rendering
+resources. Drive, steering and Park renderer comparisons had mean RGB error
+below 0.002 on a 0-255 scale, attributable to subpixel rasterization after origin
+compensation. Actual viewer memory must be measured on the target device; the
+reported 29 MB cannot be inferred from the .riv size or PNG sizes alone.

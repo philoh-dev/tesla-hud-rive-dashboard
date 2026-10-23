@@ -147,6 +147,9 @@ def apply_projection(scene, document):
     for node in list(road.findall('Node')):
         if 'lanes' in node.get('name','').lower():
             road.remove(node)
+    from road_projection_cache import (ROWS,add_projection_cache,
+                                       projected_corner_expressions,sample_name)
+    add_projection_cache(scene,road)
 
     # First siblings draw on top: warnings, assist blue, then neutral theme.
     styles=(('left warning','FFE02020',-1),('right warning','FFE02020',1),
@@ -170,7 +173,7 @@ def apply_projection(scene, document):
                 scene.opacity(lane_parent,side_name+'BlindSpot',
                               FORMULAS[side_name+' Occupied'],
                               side_name+' outer boundary occupancy')
-            for row in range(16):
+            for row in range(ROWS):
                 # Translate painted ground strips in metres, then project every
                 # corner. Clamp only at clip planes; no linear screen-space lerp.
                 base=NEAR_Z+row*CYCLE_LENGTH
@@ -181,17 +184,14 @@ def apply_projection(scene, document):
                     x_world=side*LANE_WIDTH/2*boundary+lateral*PAINT_WIDTH
                     z0=min(FAR_Z,max(NEAR_Z,base+endpoint*PAINT_LENGTH))
                     initial.append(project(x_world,z0))
-                    z=f'min({FAR_Z},max({NEAR_Z},{base}+{endpoint*PAINT_LENGTH}-{CYCLE_LENGTH}*input))'
-                    world_x,world_z=lane_frame_expressions(z,x_world)
-                    expressions.append((f'400+{FOCAL}*({world_x})/({world_z})',
-                                        f'{HORIZON}+{DEPTH_SCALE}/({world_z})'))
+                    expressions.append(projected_corner_expressions(row,endpoint,x_world))
                 light='FFB9C1C7' if label=='Outer corridor' else 'FFECF0F1' if label=='Neutral' else None
                 vertices=scene.polygon(lane_parent,f'Projected {label} {side} dash {row}',
                                        initial,color,light=light)
                 for i,(vertex,(x,y)) in enumerate(zip(vertices,expressions)):
                     vertex.set('radius','0')
                     for key,expression in ((24,x),(25,y)):
-                        scene.bind(vertex,'_roadPhase',key,scene.formula(
+                        scene.bind(vertex,sample_name(row,corners[i][1],'Depth'),key,scene.formula(
                             f'Projected boundary {boundary} {side} {row} corner {i} coordinate {key}',expression))
 
     native=document.find(".//Node[@name='Native 800 pixel scene']")

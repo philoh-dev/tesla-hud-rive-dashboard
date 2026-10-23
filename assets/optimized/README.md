@@ -21,3 +21,14 @@ the compact assets are committed alongside their full-resolution sources.
 
 The MYJ SG export shrank from 4,404,728 to 2,697,844 bytes (38.7%). No vehicle
 pose, animation, view-model contract or lane geometry was removed.
+
+## Runtime texture packaging
+
+`textures.json` and `textures/` contain losslessly cropped PNG derivatives,
+prepared by `python prepare_texture_assets.py`. Only fully transparent margins
+are removed, with a one-pixel filtering border retained. Export-only position
+compensation preserves visible geometry. The two duplicated left/right normal
+blind-spot textures are shared. Juniper texture data is approximately 4.28 MiB
+RGBA, versus 5.60 MiB before trimming/sharing; this is not a total RiveViewer
+memory measurement. Regenerate after changing compact PNGs or Juniper paint
+sources. No Pillow dependency is needed for normal builds.

@@ -1,11 +1,12 @@
 """Prepare compact export sources without changing editable dashboard artwork."""
 from pathlib import Path
+import json
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
 
 
-def compact_document(doc):
+def compact_document(doc,trim_textures=True):
     ego_ids = set()
     for asset in (*doc.iter('ImageAsset'), *doc.iter('FontAsset')):
         path = asset.get('file')
@@ -24,7 +25,38 @@ def compact_document(doc):
             for key, ratio in (('scaleX', 1312/640), ('scaleY', 1199/585)):
                 assert image.find(f"DataBindContext[@propertyKey='{16 if key == 'scaleX' else 17}']") is None
                 image.set(key, str(float(image.get(key, '1')) * ratio))
+    if trim_textures and any(s.get('name','').endswith(' exclusive poses') for s in doc.iter('Solo')):
+        trim_and_share_textures(doc)
     return doc
+
+
+def trim_and_share_textures(doc):
+    records=json.loads((ROOT/'assets/optimized/textures.json').read_text())
+    metadata={}
+    canonical={}
+    references={}
+    for asset in list(doc.findall('ImageAsset')):
+        source=Path(asset.get('file')).relative_to(ROOT).as_posix()
+        info=records[source]
+        identity=asset.get('id')
+        metadata[identity]=info
+        asset.set('file',(ROOT/info['file']).as_posix())
+        if info['file'] in canonical:
+            references[identity]=canonical[info['file']]
+            doc.remove(asset)
+        else:
+            canonical[info['file']]=identity
+    for image in doc.iter('Image'):
+        identity=image.get('assetId')
+        info=metadata[identity]
+        assert float(image.get('rotation','0'))==0
+        assert not any(b.get('propertyKey') in ('13','14','15','16','17') for b in image.findall('DataBindContext'))
+        for axis,index,scale,origin in (('x',0,'scaleX','originX'),('y',1,'scaleY','originY')):
+            size=info['size'][index]
+            original=info['source_size'][index]
+            offset=info['crop'][index]+(size-original)*float(image.get(origin,'.5'))
+            image.set(axis,str(float(image.get(axis,'0'))+offset*float(image.get(scale,'1'))))
+        image.set('assetId',references.get(identity,identity))
 
 
 def prepare_export():

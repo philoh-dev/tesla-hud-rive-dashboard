@@ -1,0 +1,477 @@
+{
+  "assets/autopilot-road-scene-wide.png": {
+    "file": "assets/optimized/textures/0f994d32b2e5-autopilot-road-scene-wide.png",
+    "source_size": [
+      77,
+      72
+    ],
+    "crop": [
+      4,
+      2,
+      73,
+      70
+    ],
+    "size": [
+      69,
+      68
+    ],
+    "source_sha256": "9207c5b75d47a252ec297a3c8a6d300ec3c428d247a1dcf71788dbf452273d0d",
+    "sha256": "f4bff7040f4c42e7dbae7451953288821217b48e195f339692428fa098617014"
+  },
+  "assets/optimized/drive-chase.png": {
+    "file": "assets/optimized/textures/cf9b57cba5f7-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "5b4296c342e8115551b7df49da6368a85b9fe26325071bb1e2f3b04e68b33020",
+    "sha256": "b2add6722cd14004bedd5442f5d03aa52d6b5e02b55b1eb9a0f4567c1177a5b3"
+  },
+  "assets/optimized/model-y-juniper-diamond-black/drive-chase.png": {
+    "file": "assets/optimized/textures/49e1e8b68ff4-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "1a9e30c7e417484397b7a99c81b30414b7e43e914f787c62ba593fe8d1b7b78f",
+    "sha256": "309c05c8d7e7f2eef9efe9c852f2e92fc2271edbd4ef547cb3832c9f886d91dd"
+  },
+  "assets/optimized/model-y-juniper-marine-blue/drive-chase.png": {
+    "file": "assets/optimized/textures/30794e7cde21-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "b06368d1451ed61035a085c2ed21f4d375e93fe5e0ee19d385f71c00706a6408",
+    "sha256": "75f20e59329110bf46669ffab1256360f54a5fb88169ba289892c10c57f53653"
+  },
+  "assets/optimized/model-y-juniper-quicksilver/drive-chase.png": {
+    "file": "assets/optimized/textures/fd0002c2863c-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "d13a53589cfce158ef7eef734b26f1ec3daf997afd0a8e911940f8dd418cd8ac",
+    "sha256": "9d1c6d3bec5b0faf6b25563b78dab07fd2a93647b44a58b13aba9bc332479a19"
+  },
+  "assets/optimized/model-y-juniper-ultra-red/drive-chase.png": {
+    "file": "assets/optimized/textures/c9980f453c07-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "df3acab553d14f6bb64012b9011c73ec15bd3c695abc23a4f4a05e240829bbba",
+    "sha256": "85cac7b5a20b94d4013c5e4c2644cd537aa0ec8cc0c267c88645f88e317a2449"
+  },
+  "assets/optimized/model-y-juniper-white-multi-coat/drive-chase.png": {
+    "file": "assets/optimized/textures/bd9932b5d220-drive-chase.png",
+    "source_size": [
+      640,
+      585
+    ],
+    "crop": [
+      77,
+      19,
+      564,
+      565
+    ],
+    "size": [
+      487,
+      546
+    ],
+    "source_sha256": "363bfe16666ae77699b920f2407f042325061f71be33d49793a160944dfede35",
+    "sha256": "35edddfd5f732d9c55f8af00cc100e9699a76f0ef0771f83c50878936d0c79c7"
+  },
+  "assets/vehicle/model-y-juniper-diamond-black/park.png": {
+    "file": "assets/optimized/textures/041db5b49af3-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "d62b19deb07604cd39eb7c6f98c0357acef7718f0862477bb4c137d9f0ebc650",
+    "sha256": "7ce63d74f8aa5fb502d952992d60c5a5ee8623fde0b3e848f88135a23173cc73"
+  },
+  "assets/vehicle/model-y-juniper-diamond-black/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/72c43c774ab9-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "1374d962a65bb362aa2a337f74ef70364082a683556d42fe759600fbfad5f80d",
+    "sha256": "a9c3387ecf27d521a73b1ea89c4604a90a7a97b4e54151d3fbba648f73ce7bb5"
+  },
+  "assets/vehicle/model-y-juniper-marine-blue/park.png": {
+    "file": "assets/optimized/textures/e61ecda4241f-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "793c93e5123f194307ca780a88b34a4ae6388198af6b5526372695c489cc65cc",
+    "sha256": "c9bd163c065116e7b9e0cce15f2ed84b322123bebe50615ce9f70589d42ddcc2"
+  },
+  "assets/vehicle/model-y-juniper-marine-blue/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/5a25bbc67fa9-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "3b4e17a4f9a0c2b1ce544e3f507c6289b1a455c5f446b9689d986c9460f310e4",
+    "sha256": "773e1e00165a425a5d80ae4fbd2fe52a4c670ad4be0b09c235dd311497bf7747"
+  },
+  "assets/vehicle/model-y-juniper-quicksilver/park.png": {
+    "file": "assets/optimized/textures/51104bf7871c-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "81b4d9f99157a8afdbd7a40a2434335a1441ce52662a47e9a5c1629d300ff193",
+    "sha256": "c9f8b0e9dbf98f844dcaa696e9226216a62af9f76270413dacd4a6db315c91ef"
+  },
+  "assets/vehicle/model-y-juniper-quicksilver/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/970a2ce1242a-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "3e34a7bcdab05bc9a0b1e2c9c776c38e95c161ab019ea107fa590592ebadb4c6",
+    "sha256": "cea609e6a4bd5a9b491a010f7bc87ea156ee2941248680b35e85b2c4c9d74ed7"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/blind-spot-projected-grey.png": {
+    "file": "assets/optimized/textures/7eb2b9b85f4d-blind-spot-projected-grey.png",
+    "source_size": [
+      234,
+      280
+    ],
+    "crop": [
+      16,
+      70,
+      218,
+      209
+    ],
+    "size": [
+      202,
+      139
+    ],
+    "source_sha256": "2e68a08aac47b1d35e340588a6d2fea67d4387245f014661ce673851ffdf4a28",
+    "sha256": "c736bd2d034ae15e9107c62061e117193c634c7451b55951ac2e0dac43ceffb1"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/blind-spot-projected-red.png": {
+    "file": "assets/optimized/textures/8d44b2203471-blind-spot-projected-red.png",
+    "source_size": [
+      234,
+      280
+    ],
+    "crop": [
+      16,
+      70,
+      218,
+      209
+    ],
+    "size": [
+      202,
+      139
+    ],
+    "source_sha256": "82cf5cac7463e4f5d7ac0879fbaa3f828bb353c5d2006dcc7cd19cc85222b344",
+    "sha256": "3a6823f2c0c09598ba69530ac89ba5f1fe38b25fc0174f7d677416d31fae54e2"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/park.png": {
+    "file": "assets/optimized/textures/7e29a897841b-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "f2b8ee06879f25f4dd5c89074302d6373b0fef66a80c6bd968b87bdf823346f5",
+    "sha256": "e31a8fa0b7f8c322b9d6f2c257fe4d41e2698c74c50ddf8ff01f1d23d7e53531"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/03dceba391f2-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "b154fb91eadae956c02b0bb27bf5cc86c40b6fa601c0955915c37dbffca8fe9a",
+    "sha256": "88416518181539bd6ef2dee53b07fce14df3b5b2c7b15c2a55088259b16c951c"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/view-angles/grey-narrow.png": {
+    "file": "assets/optimized/textures/dec114810267-grey-narrow.png",
+    "source_size": [
+      440,
+      319
+    ],
+    "crop": [
+      2,
+      1,
+      438,
+      319
+    ],
+    "size": [
+      436,
+      318
+    ],
+    "source_sha256": "8e3d73b3c581d3edd07da47bdf830782effe5cfaa5d389ed441ac932cba03590",
+    "sha256": "e3b4e98f34631bfad37e17640e41200190c63889d8adb1e08cdf22b3beeac924"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/view-angles/grey-wide.png": {
+    "file": "assets/optimized/textures/bf5a3d7e2b0c-grey-wide.png",
+    "source_size": [
+      440,
+      280
+    ],
+    "crop": [
+      1,
+      0,
+      437,
+      280
+    ],
+    "size": [
+      436,
+      280
+    ],
+    "source_sha256": "5db9643741b5f63b938062320b9f9d8b8d005ad8aa6d04cb0ebe1b6d5cd3fe30",
+    "sha256": "850c304af1b6fc5ae34801aa59dc6aff21b9479df95baf7f6b304ee8e8700b68"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/view-angles/red-narrow.png": {
+    "file": "assets/optimized/textures/bfe7f231885b-red-narrow.png",
+    "source_size": [
+      440,
+      320
+    ],
+    "crop": [
+      3,
+      3,
+      437,
+      317
+    ],
+    "size": [
+      434,
+      314
+    ],
+    "source_sha256": "7b3df8a6a6f512260453b85c73ae76ef6788dbb7284bdb16d05094654730d031",
+    "sha256": "e284272bbe1c0e2e609fccf6d9f82f0e0f4a612998fc86c556eb02e1a3424c62"
+  },
+  "assets/vehicle/model-y-juniper-stealth-grey/view-angles/red-wide.png": {
+    "file": "assets/optimized/textures/44d41064fd6c-red-wide.png",
+    "source_size": [
+      440,
+      281
+    ],
+    "crop": [
+      2,
+      2,
+      438,
+      281
+    ],
+    "size": [
+      436,
+      279
+    ],
+    "source_sha256": "dfda33ef64eeb313afd81760568f4f2667dfdc26307f33269dd37a63c3813838",
+    "sha256": "ad57e5b8dec0ff2932f4265ed558868cf946cc0db3882affba7821edb3bafdab"
+  },
+  "assets/vehicle/model-y-juniper-ultra-red/park.png": {
+    "file": "assets/optimized/textures/5decd1d80dbf-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "886e9df0c2a11fdb1af3eb082d0925ed9f2bd476b3e6de375b9e01651a327eb8",
+    "sha256": "82918f61129ae9d6d2aa35dac4a477b794369396e2e19456cea298170379ed63"
+  },
+  "assets/vehicle/model-y-juniper-ultra-red/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/4b7e49a31d2e-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "408b8e1a7102b2bb26478f38460125ec819b6fa3e43d6a09f082303fb43794a8",
+    "sha256": "8b0b9a39a869a2140fbfd080df1a663fd79308d74acafae11a1df9d9c99d6a5b"
+  },
+  "assets/vehicle/model-y-juniper-white-multi-coat/park.png": {
+    "file": "assets/optimized/textures/702d1b35fb5a-park.png",
+    "source_size": [
+      410,
+      307
+    ],
+    "crop": [
+      0,
+      49,
+      410,
+      307
+    ],
+    "size": [
+      410,
+      258
+    ],
+    "source_sha256": "875bfc2d9bb0a7d5817a7cf447283d89e75b1ddc43f1de18367fbc072fb0067b",
+    "sha256": "594ceb4c952eb6e31b1f919b7ed952260e82d9af7de6452dee6c62d980f79200"
+  },
+  "assets/vehicle/model-y-juniper-white-multi-coat/view-angles/ego-back-left-middle.png": {
+    "file": "assets/optimized/textures/1b548d25048b-ego-back-left-middle.png",
+    "source_size": [
+      440,
+      389
+    ],
+    "crop": [
+      1,
+      1,
+      440,
+      389
+    ],
+    "size": [
+      439,
+      388
+    ],
+    "source_sha256": "f0800a19672c1f8d5ac997a42080785b1a33f0c464ac81cd2eaf423bb8e50ea4",
+    "sha256": "8dc764659598f1a0bfd9672b14e6ed22fa9289e4c2d6a05d98e80fd8ae9d2ec6"
+  }
+}

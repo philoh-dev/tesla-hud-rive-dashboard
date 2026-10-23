@@ -84,6 +84,11 @@ PROPERTIES = {
     "_roadBend": ("Number", 0),
 }
 IDS = {key: f"1:{index + 10}" for index, key in enumerate(PROPERTIES)}
+from road_projection_cache import SAMPLE_DEFAULTS
+# Keep existing telemetry IDs stable, including universal vehicleDesign 1:100.
+for index,(name,value) in enumerate(SAMPLE_DEFAULTS.items()):
+    PROPERTIES[name]=('Number',value)
+    IDS[name]=f'9:{1000+index}'
 
 
 def equal(value, number):
